@@ -1,6 +1,6 @@
 # PROJECT 3
 <img src="images/bike_rm.png">
-SUSTAINABLE . ECONOMICAL . HEALTHY LIFESTYLE
+            SUSTAINABLE . ECONOMICAL . HEALTHY LIFESTYLE
 
 ## Bike Share Canada
 An application that serves as a library keeping track of the ridership, usage and popularity of the Bike Share program in select cities. Aiming to provide relatable and real time knowledge of the usership of a Bikie Share infrastructure. Allowing the federal governement to be transaparent to the public of their research into the feasibilty of implementing bike Share across Canada. 
