@@ -12,19 +12,19 @@ Link to app: x
 
 ## Web Page Services
 **NOTE:** Services provided for the following cities
-    * Toronto, Canada
-    * Vancouver, Canada
-    * Boston, USA
-    * NYC, USA
+    - Toronto, Canada
+    - Vancouver, Canada
+    - Boston, USA
+    - NYC, USA
 
 **Our Services:**
-    * Prcing Index
-    * Weather Details
-    * Annual Trip Data
-    * Popular Station Details
-    * Popular Time Interval
-    * Travel Routes
-    * City Station Maps
+    - Pricing Index
+    - Weather Details
+    - Annual Trip Data
+    - Popular Station Details
+    - Popular Time Interval
+    - Travel Routes
+    - City Station Maps
 
 ## Technologies Used
 
