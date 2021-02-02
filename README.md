@@ -27,7 +27,13 @@ Link to app: x
 - City Station Maps
 
 ## Technologies Used
-
+- Pandas
+- Python
+- Big Query
+- HTML
+- CSS
+- Javascript
+- Heroku
 
 ## Contributors
 1. Catherine Tratnik
