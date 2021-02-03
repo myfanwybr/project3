@@ -31,10 +31,14 @@ An application that serves as a library keeping track of the ridership, usage an
 ## Technologies Used
 - Pandas
 - Python
+- SQL Alchemy
 - Big Query
 - HTML
 - CSS
 - Javascript
+- Plot.ly
+- D3
+- Leaflet
 - Heroku
 
 ## Contributors
