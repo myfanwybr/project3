@@ -1,0 +1,24 @@
+
+  /* Box */
+  .box {
+    margin-top: 50px;
+    margin-bottom: 60px;
+    padding: 10px 30px 10px;
+  
+  }
+ 
+  
+  /* Footer */
+  footer {
+  border-top-style: solid;
+  border-top-width: 5px;
+  min-height: 60px;
+  font-size: 12px;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding-top: 15px;
+  }
+  
