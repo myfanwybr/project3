@@ -1,5 +1,5 @@
 # PROJECT 3
-<img src="images/bike_rm.png">
+<img src="assets/images/bike_rm.png">
 SUSTAINABLE . ECONOMICAL . HEALTHY LIFESTYLE
 
 ## Bike Share Canada
