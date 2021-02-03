@@ -1,3 +1,3 @@
-d3.json("/api/main").then(function(data) {
+d3.json("/main").then(function(data) {
     console.log(data)
 })
