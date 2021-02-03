@@ -10,7 +10,7 @@ An application that serves as a library keeping track of the ridership, usage an
 - Link to DB: x
 
 ## Web Home Page
-
+<img src="x">
 
 ## Web Page Services
 **NOTE:** Services provided for the following cities
