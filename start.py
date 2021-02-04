@@ -48,3 +48,6 @@ class BikeTrips(db.Model):
     bike_id = db.Column(db.Integer)
     member_type = db.Column(db.String)
     location_id = db.Column(db.Integer)
+
+    def __repr__(self):
+        return '<Trip %r' % (self.location_id)
