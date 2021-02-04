@@ -16,7 +16,7 @@ my_dict={
 app=Flask(__name__)
 
 ##front end routes
-@app.route("/main")
+@app.route("/")
 def home():
     return render_template("index.html")
 
