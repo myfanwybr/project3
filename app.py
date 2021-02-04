@@ -1,6 +1,7 @@
 #import dependencies
 from flask import Flask, jsonify, render_template, redirect
 from flask_pymongo import PyMongo
+#from flask_sqlalchemy import SQLAlchemy
 
 ##demo dictionary
 
@@ -14,6 +15,9 @@ my_dict={
 }
 
 app=Flask(__name__)
+
+#app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://u0983jf093:093840934if@something.elephantsql.com/jwirefu094"
+#db = SQLAlchemy(app)
 
 ##front end routes
 @app.route("/")
