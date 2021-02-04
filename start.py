@@ -11,7 +11,7 @@ class Weather(db.Model):
     avg_windspeed = db.Column(db.Float)
 
     def __repr__(self):
-        return '<Weather %r>' % (self.name)
+        return '<Weather %r>' % (self.location_id)
 
 
 class PricingIndex(db.Model):
@@ -22,11 +22,29 @@ class PricingIndex(db.Model):
     plan = db.Column(db.String)
     amount = db.Column(db.Float)
 
+    def __repr__(self):
+        return '<Member Type %r>' % (self.member_type)
+
 
 class Stations(db.Model):
     __tablename__ = 'bikeshare-303620.TripsDataset.Stations'
-    
+    station_id = db.Column(db.Integer)
+    station_name = db.Column(db.String)
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
+    location_id = db.Column(db.Integer)
+
+    def __repr__(self):
+        return '<Station %r' % (self.station_name)
 
 
 class BikeTrips(db.Model):
     __tablename__ = 'bikeshare-303620.TripsDataset.Ridership'
+    trip_duration = db.Column(db.Integer)
+    start_date = db.Column(db.DateTime)
+    end_date = db.Column(db.DateTime)
+    start_station_id = db.Column(db.Integer)
+    end_station_id = db.Column(db.Integer)
+    bike_id = db.Column(db.Integer)
+    member_type = db.Column(db.String)
+    location_id = db.Column(db.Integer)
