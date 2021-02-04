@@ -16,8 +16,8 @@ my_dict={
 
 app=Flask(__name__)
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://u0983jf093:093840934if@something.elephantsql.com/jwirefu094"
-#db = SQLAlchemy(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = "bigquery://bikeshare-303620/TripsDataset"
+db = SQLAlchemy(app)
 
 ##front end routes
 @app.route("/")
