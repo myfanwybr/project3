@@ -59,8 +59,28 @@
             </div>
             <div class="row">
                 <div class="col-xs-6 col-md-4">
-                    enter date text1
-                    enter date text2
+                    <aside class="filters">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Filter Search</div>
+                            <div class="panel-body">
+                                <form id="form">
+                                    <div class="form-group">
+                                        <ul class="list-group" id="filters">
+                                            <li class="filter list-group-item">
+                                                <label for="date">Enter Start Date</label>
+                                                <input class="form-control" id="start-date" type="text" placeholder="11/30/2019">
+                                            </li>
+                                            <li class="filter list-group-item">
+                                                <label for="date">Enter End Date</label>
+                                                <input class="form-control" id="end-date" type="text" placeholder="12/1/2019">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <button id="filter-button" type="submit" class="btn btn-default">Filter Plots</button>
+                                </form>
+                            </div>
+                        </div>
+                    </aside>
                 </div>
                 <div class="col-xs-6 col-md-4">
                     button where to people go
@@ -71,12 +91,12 @@
             </div>
             <div class="row">
                 <div class="col-xs-6 col-md-6">
-                    <div id="weather">
+                    <div id="bar-weather">
                         temperature/weather/dates
                     </div>
                 </div>
                 <div class="col-xs-6 col-md-6">
-                    <div id="bubble">
+                    <div id="bubble-time">
                         bubble chart
                     </div>
                 </div>

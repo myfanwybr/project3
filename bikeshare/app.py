@@ -24,8 +24,8 @@ credentials = service_account.Credentials.from_service_account_file('bikeshare-3
 ##front end routes
 @app.route("/")
 def main():
-    print(f'project is {gcp_project}')
-    print(f'project is {bigquery_uri}')
+    # print(f'project is {gcp_project}')
+    # print(f'project is {bigquery_uri}')
     return render_template("index.html")
 
 ##service routes
@@ -38,7 +38,7 @@ def api_prices():
 
     json_obj = pricing_df.to_json(orient = 'records')
 
-    return json_obj
+    return jsonify(json_obj)
 
 @app.route("/api/weather")
 def api_weather():
@@ -47,7 +47,7 @@ def api_weather():
     weather_df = pd.read_gbq(sql_weather, project_id=gcp_project, credentials=credentials, dialect='standard')
     weather = weather_df.to_json(orient='records')
 
-    return weather
+    return jsonify(weather)
 
 
 @app.route("/api/visualize")
@@ -56,10 +56,11 @@ def api_visualize():
     sql_trips = f'select * from `bikeshare-303620.TripsDataset.Ridership` where location_id = {locationID} limit 10'
     trips_df = pd.read_gbq(sql_trips, project_id=gcp_project, credentials=credentials, dialect='standard')
     trips = trips_df.to_json(orient='records')
-    parsed = json.loads(trips)
-    trips = json.dumps(parsed, indent=4)
+    # parsed = json.loads(trips)
+    # trips = json.dumps(parsed, indent=4)
 
-    # return trips
+
+    # return jsonify(trips)
     return render_template("visualize.html")
 
 #run app
