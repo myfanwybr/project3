@@ -34,22 +34,24 @@
         <div class="jumbotron jumbo" style="text-align: center;" navbar-dark bg-success >
             <h2> GET CURRENT WEATHER INFORMATION</h2>
         </div>
-        <div class="container">
+        <div class="container"style="text-align: center;" >
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="text-center text-primary">Enter City Name:</h3>
+                    <h3 class="text-center text-success">Enter City Name:</h3>
                     <div id="error"></div>
                 </div>
                 <div class="row form-group form-inline" id="city">
                     <input type="text" name="cityname" id="cityname" class="form-control" placeholder="Enter city name"></input>
-                    <button id="submitCity" class="btn btn-primary" onclick="getWeather(document.getElementById('cityname').value);">Search City</button>
+                    <button id="submitCity" class="btn btn-success" onclick="getWeather(document.getElementById('cityname').value);">Search City</button>
                 </div>
-                <div id="weather-data">
+                    <div id="weather-data">
                 
                 </div>
 
-                </div>
-            </div>           
+                
+            </div>
+        </div>   
+       
 
 
     </body>
