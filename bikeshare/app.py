@@ -33,11 +33,11 @@ def main():
 @app.route("/api/prices")
 def api_prices():
 
-    sql_prices = '''select * from `bikeshare-303620.TripsDataset.Pricing` '''
+    sql_prices = '''select location_id, member_type, plan, amount from `bikeshare-303620.TripsDataset.Pricing` '''
     pricing_df = pd.read_gbq(sql_prices, project_id=gcp_project, credentials=credentials, dialect='standard')
     print(pricing_df)
 
-    json_obj = pricing_df.to_json()
+    json_obj = pricing_df.to_json(orient = 'records')
 
     return json_obj
 
