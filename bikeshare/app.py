@@ -19,7 +19,8 @@ my_dict={
 
 app=Flask(__name__)
 
-credentials = service_account.Credentials.from_service_account_file('bikeshare-303620-f28d36859136.json')
+credentials = service_account.Credentials.from_service_account_file('bikeshare-303620-8579d23e955b.json')
+projectID = 'bikeshare-303620'
 
 ##front end routes
 @app.route("/")
@@ -32,12 +33,12 @@ def main():
 @app.route("/prices")
 def api_prices():
 
-    sql_prices = '''select location_id, member_type, plan, amount from `bikeshare-303620.TripsDataset.Pricing` '''
-    # pricing_df = pd.read_gbq(sql_prices, project_id=gcp_project, credentials=credentials, dialect='standard')
+    sql_prices= '''select location_id, member_type, plan, amount from 'bikeshare-303620.TripsDataset.Pricing' '''
+    pricing_df = pd.read_gbq(sql_prices, project_id=gcp_project, credentials=credentials, dialect='standard')
     # print(pricing_df)
 
-    # json_obj = pricing_df.to_json(orient = 'records')
-    json_obj = 'Prices for all'
+    json_obj = pricing_df.to_json(orient = 'records')
+    #json_obj = 'Prices for all'
 
     return jsonify(json_obj)
 
@@ -60,14 +61,14 @@ def api_citymap():
 def api_visualize():
     locationID = 2
     sql_trips = f'select * from `bikeshare-303620.TripsDataset.Ridership` where location_id = {locationID} limit 10'
-    # trips_df = pd.read_gbq(sql_trips, project_id=gcp_project, credentials=credentials, dialect='standard')
-    # trips = trips_df.to_json(orient='records')
-    # parsed = json.loads(trips)
-    # trips = json.dumps(parsed, indent=4)
+    trips_df = pd.read_gbq(sql_trips, project_id=gcp_project, credentials=credentials, dialect='standard')
+    trips = trips_df.to_json(orient='records')
+    parsed = json.loads(trips)
+    trip_parsed = json.dumps(parsed, indent=4)
 
 
-    # return jsonify(trips)
-    return render_template("visualize.html")
+    return jsonify(trip_parsed)
+    #return render_template("visualize.html")
 
 #run app
 if __name__=="__main__":
