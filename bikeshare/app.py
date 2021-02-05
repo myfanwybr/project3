@@ -1,10 +1,9 @@
 #import dependencies
-from flask import Flask, jsonify, render_template, redirect
+from flask import Flask, jsonify, render_template, redirect, json, url_for, request
 from config import gcp_project, bigquery_uri
 from google.oauth2 import service_account
 import pandas as pd
 import pandas_gbq
-import json
 
 
 ##demo dictionary
