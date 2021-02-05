@@ -41,10 +41,24 @@ def api_prices():
 
     return json_obj
 
+@app.route("/api/weather")
+def api_weather():
+    locationID = 2
+    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` where location_id = {locationID} limit 10'
+    weather_df = pd.read_gbq(sql_weather, project_id=gcp_project, credentials=credentials, dialect='standard')
+    weather = weather_df.to_json(orient='records')
+
+    return weather
+
+
 @app.route("/api/visualize")
 def api_visualize():
+    locationID = 2
+    sql_trips = f'select * from `bikeshare-303620.TripsDataset.Ridership` where location_id = {locationID} limit 10'
+    trips_df = pd.read_gbq(sql_trips, project_id=gcp_project, credentials=credentials, dialect='standard')
+    trips = trips_df.to_json(orient='records')
 
-    return render_template("visualize.html")
+    return trips
 
 #run app
 if __name__=="__main__":
