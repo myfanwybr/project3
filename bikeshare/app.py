@@ -58,7 +58,8 @@ def api_visualize():
     trips_df = pd.read_gbq(sql_trips, project_id=gcp_project, credentials=credentials, dialect='standard')
     trips = trips_df.to_json(orient='records')
 
-    return trips
+    # return trips
+    return render_template("visualize.html")
 
 #run app
 if __name__=="__main__":
