@@ -1,9 +1,10 @@
 #import dependencies
 from flask import Flask, jsonify, render_template, redirect
-from flask_pymongo import PyMongo
-from flask_sqlalchemy import SQLAlchemy
-from config import *
-from sqlalchemy.engine import create_engine
+from config import gcp_project, bigquery_uri
+from google.oauth2 import service_account
+import pandas as pd
+import pandas_gbq
+import json
 
 
 ##demo dictionary
@@ -19,9 +20,7 @@ my_dict={
 
 app=Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = bigquery_uri
-engine = create_engine(bigquery_uri, credentials_path='bikeshare-303620-f28d36859136.json')
-db = SQLAlchemy(app)
+credentials = service_account.Credentials.from_service_account_file('bikeshare-303620-f28d36859136.json')
 
 ##front end routes
 @app.route("/")
@@ -33,7 +32,14 @@ def main():
 ##service routes
 @app.route("/api/prices")
 def api_prices():
-    return jsonify(my_dict)
+
+    sql_prices = '''select * from `bikeshare-303620.TripsDataset.Pricing` '''
+    pricing_df = pd.read_gbq(sql_prices, project_id=gcp_project, credentials=credentials, dialect='standard')
+    print(pricing_df)
+
+    json_obj = pricing_df.to_json()
+
+    return json_obj
 
 #run app
 if __name__=="__main__":
