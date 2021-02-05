@@ -1,1 +1,1 @@
-web: gunicorn <folder_name>.<filename>:<appName [flask file name]>
+web: gunicorn bikeshare.app:app
