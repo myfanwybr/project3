@@ -57,6 +57,8 @@ def api_visualize():
     sql_trips = f'select * from `bikeshare-303620.TripsDataset.Ridership` where location_id = {locationID} limit 10'
     trips_df = pd.read_gbq(sql_trips, project_id=gcp_project, credentials=credentials, dialect='standard')
     trips = trips_df.to_json(orient='records')
+    parsed = json.loads(trips)
+    trips = json.dumps(parsed, indent=4)
 
     # return trips
     return render_template("visualize.html")
