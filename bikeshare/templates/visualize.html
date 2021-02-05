@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bike Share</title>
+
+        <!-- CDN -->
+        <!-- Boostrap Stylesheet -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        
+        <!-- Personal css -->
+        <link rel="stylesheet" href="../static/css/style.css" media="screen">
+
+    </head>
+    <body>
+
+        <!-- navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">Bike Share<span class="sr-only">(current)</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <!-- <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Latitude <span class="sr-only">(current)</span></a>
+                    </li> -->
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Cities
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="visualize.html">Toronto</a>
+                            <a class="dropdown-item" href="humidity.html">Vancouver</a>
+                            <a class="dropdown-item" href="cloudiness.html">Boston</a>
+                            <a class="dropdown-item" href="windspeed.html">New York</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="forecast.html">Historical Weather</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="data.html">Prices</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 jumbotron" style="text-align:center">
+                    <h1>Bike Share</h1>
+                    <p>TORONTO . VANCOUVER . BOSTON . NYC</p>
+                    <hr>
+                    <h3>Sustainable . Economical . Healthy Lifestyle</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-md-4">
+                    <aside class="filters">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Filter Search</div>
+                            <div class="panel-body">
+                                <form id="form">
+                                    <div class="form-group">
+                                        <ul class="list-group" id="filters">
+                                            <li class="filter list-group-item">
+                                                <label for="date">Enter Start Date</label>
+                                                <input class="form-control" id="start-date" type="text" placeholder="11/30/2019">
+                                            </li>
+                                            <li class="filter list-group-item">
+                                                <label for="date">Enter End Date</label>
+                                                <input class="form-control" id="end-date" type="text" placeholder="12/1/2019">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <button id="filter-button" type="submit" class="btn btn-default">Filter Plots</button>
+                                </form>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                    <div class="jumbotron text-center">
+                        <a href="/citymap" class="btn btn-primary btn-large active" role="button" aria-pressed="true">Where Do People Go?</a>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                    CityName Bike Trips
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-md-6">
+                    <div id="bar-weather">
+                        temperature/weather/dates
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-6">
+                    <div id="bubble-time">
+                        bubble chart
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-md-4">
+                    <div id="bar-station">
+                        popular station
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                    <div id="gauge-meters">
+                        gauge distance
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                    <div id="gauge-secs">
+                        gauge duration
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="container"></div>
+
+
+
+
+
+
+
+
+
+
+
+        <!-- bootstrap CDN -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" 
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" 
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
+        <script src="{{ url_for('static', filename='js/visualize.js') }}"></script>
+
+    </body>
+</html>
