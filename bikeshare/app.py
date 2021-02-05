@@ -41,6 +41,11 @@ def api_prices():
 
     return json_obj
 
+@app.route("/api/visualize")
+def api_visualize():
+
+    return render_template("visualize.html")
+
 #run app
 if __name__=="__main__":
     app.run(debug=True)
