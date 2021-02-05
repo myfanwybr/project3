@@ -29,18 +29,19 @@ def main():
     return render_template("index.html")
 
 ##service routes
-@app.route("/api/prices")
+@app.route("/prices")
 def api_prices():
 
     sql_prices = '''select location_id, member_type, plan, amount from `bikeshare-303620.TripsDataset.Pricing` '''
-    pricing_df = pd.read_gbq(sql_prices, project_id=gcp_project, credentials=credentials, dialect='standard')
-    print(pricing_df)
+    # pricing_df = pd.read_gbq(sql_prices, project_id=gcp_project, credentials=credentials, dialect='standard')
+    # print(pricing_df)
 
-    json_obj = pricing_df.to_json(orient = 'records')
+    # json_obj = pricing_df.to_json(orient = 'records')
+    json_obj = 'Prices for all'
 
     return jsonify(json_obj)
 
-@app.route("/api/weather")
+@app.route("/weather")
 def api_weather():
     locationID = 2
     sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` where location_id = {locationID} limit 10'
@@ -55,7 +56,7 @@ def api_citymap():
     myCity = "xxxxxxx"
     return myCity
 
-@app.route("/api/visualize")
+@app.route("/visualize")
 def api_visualize():
     locationID = 2
     sql_trips = f'select * from `bikeshare-303620.TripsDataset.Ridership` where location_id = {locationID} limit 10'
