@@ -47,3 +47,16 @@ select avg(trip_duration) as avg_trip_duration,
        location_id
 from `bikeshare-303620.TripsDataset.Ridership` as rides
 group by location_id;
+
+
+-- where do people go given starting station
+select end_station_id, station_name, count(end_station_id) as endCount 
+from `bikeshare-303620.TripsDataset.Ridership` rides,
+    `bikeshare-303620.TripsDataset.Stations` stations
+where 
+  stations.location_id = 2 and 
+  rides.location_id = 2 and
+  start_station_id = 77 and
+  rides.end_station_id = stations.station_id
+-- and  extract(month from start_date) = 8
+group by end_station_id, station_name
