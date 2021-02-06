@@ -35,5 +35,13 @@ function formatWeather(data){
 }
 
 function getForecast(city,days){
-
+    var xhr=new XMLHttpRequest();
+	xhr.onreadystatechange=function(){
+		if (this.status==200 && this.readyState==4) {
+			var formattedData=formatForecast(JSON.parse(xhr.responseText));
+			document.getElementById("forecast").innerHTML=formattedData;
+			document.getElementById('cityname').value="";
+			document.getElementById('days').value=""
+		}
+	};
 }
