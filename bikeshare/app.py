@@ -21,7 +21,7 @@ my_dict={
 
 app=Flask(__name__)
 
-credentials = service_account.Credentials.from_service_account_file('bikeshare-303620-8579d23e955b.json')
+credentials = service_account.Credentials.from_service_account_file('bikeshare-303620-10573aa06163.json')
 projectID = 'bikeshare-303620'
 
 ##front end routes
@@ -62,7 +62,7 @@ def api_weather():
 @app.route("/citymap")
 def api_citymap():
     myCity = "xxxxxxx"
-    return myCity
+    return render_template("citymap.html")
 
 @app.route("/visualize")
 def api_visualize():
