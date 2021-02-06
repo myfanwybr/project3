@@ -8,7 +8,7 @@ function getWeather(city){
 			document.getElementById('cityname').value="";
 		}
 	};
-	xhr.open("GET","http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&appid=d610395e85b50074b834a0234b0776db");
+	xhr.open("GET","/api/weather" + city );
 	xhr.send();
   }
   else{
@@ -21,6 +21,7 @@ function getWeather(city){
 }
 
 function formatWeather(data){
+	console.log(data);
 	return "<h3>Current Weather for " + data.name + ", " + data.sys.country + "</h3>" + 
 			"<p>Weather: " + data.weather[0].main+ "</p>" + 
 			"<p>Weather Description: " + data.weather[0].description +"<img src='http://openweathermap.org/img/w/" + data.weather[0].icon + ".png'/>" + "</p>" + 
@@ -43,7 +44,7 @@ function getForecast(city,days){
 			document.getElementById('days').value=""
 		}
 	};
-	xhr.open("GET","http://api.openweathermap.org/data/2.5/forecast/daily?q="+ city + "&cnt=" + days + "&units=metric&appid=d610395e85b50074b834a0234b0776db");
+	xhr.open("GET","/api/weather "+ city + "&cnt=" + days + "&units=metric&appid=d610395e85b50074b834a0234b0776db");
 	xhr.send();
 	return false;
 }
