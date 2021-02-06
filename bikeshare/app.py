@@ -31,18 +31,23 @@ def main():
     # print(f'project is {bigquery_uri}')
     return render_template("index.html")
 
-##service routes
 @app.route("/prices")
+def prices():
+    return render_template("pricing.html")
+
+##service routes
+@app.route("/api/prices")
 def api_prices():
 
-    sql_prices= '''select location_id, member_type, plan, amount from 'bikeshare-303620.TripsDataset.Pricing' '''
+    sql_prices= '''select * from `bikeshare-303620.TripsDataset.Pricing` '''
     pricing_df = pd.read_gbq(sql_prices, project_id=gcp_project, credentials=credentials, dialect='standard')
     # print(pricing_df)
 
     json_obj = pricing_df.to_json(orient = 'records')
-    #json_obj = 'Prices for all'
+    json_loads=json.loads(json_obj)
+    json_formatted_str = json.dumps(json_loads, indent=2)
 
-    return jsonify(json_obj)
+    return json_formatted_str
 
 @app.route("/weather")
 def api_weather():
