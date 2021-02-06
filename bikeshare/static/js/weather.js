@@ -12,6 +12,12 @@ function getWeather(city){
 	xhr.open("GET","http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&appid=d610395e85b50074b834a0234b0776db");
 	xhr.send();
 }
+else{
+	var error='<div class="alert alert-danger alert-dismissible text-center" role="alert">';
+	  error+='<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+	  error+='You must enter a city name!</div>';
+  document.getElementById('error').innerHTML=error;
+}
 
 function formatWeather(data){
 	return
