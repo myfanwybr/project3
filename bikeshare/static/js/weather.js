@@ -44,4 +44,8 @@ function getForecast(city,days){
 			document.getElementById('days').value=""
 		}
 	};
+	xhr.open("GET","http://api.openweathermap.org/data/2.5/forecast/daily?q="+ city + "&cnt=" + days + "&units=metric&appid=d610395e85b50074b834a0234b0776db");
+	xhr.send();
+	return false;
+
 }
