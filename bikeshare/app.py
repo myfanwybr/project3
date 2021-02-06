@@ -31,7 +31,7 @@ def main():
     # print(f'project is {bigquery_uri}')
     return render_template("index.html")
 
-@app.route("/prices")
+@app.route("/pricing")
 def prices():
     return render_template("pricing.html")
 
