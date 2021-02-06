@@ -47,9 +47,18 @@ def api_pricing():
 
     return json_formatted_str
 
-@app.route("/api/visualize")
-def api_visualize():
-    locationID = 2
+@app.route("/api/visualize/<cityname>")
+def api_visualize(cityname):
+    print(cityname)
+    if cityname == "TORONTO":
+        locationID = 1
+    elif cityname == "VANCOUVER":
+        locationID = 2
+    elif cityname == "BOSTON":
+        locationID = 3
+    else:
+        locationID = 4
+    
     sql_trips = f'select * from `bikeshare-303620.TripsDataset.Ridership` where location_id = {locationID} limit 10'
     trips_df = pd.read_gbq(sql_trips, project_id=gcp_project, credentials=credentials, dialect='standard')
     trips = trips_df.to_json(orient='records')
@@ -61,9 +70,9 @@ def api_visualize():
 
 @app.route("/api/weather")
 def api_weather():
-    locationID = 1
-    startDate = '01/01/2019'
-    endDate = '12/31/2019'
+    # locationID = 1
+    # startDate = '01/01/2019'
+    # endDate = '12/31/2019'
     sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather`'
     weather_df = pd.read_gbq(sql_weather, project_id=gcp_project, credentials=credentials, dialect='standard')
     weather = weather_df.to_json(orient='records')
@@ -75,9 +84,30 @@ def api_weather():
 
 @app.route("/api/citymap/<cityname>")
 def api_citymap(cityname):
-    # stations
-    # count()
-    return cityname
+    monthValue = 8
+    startStationIDvalue = 77
+    locationID = 2
+
+    sql_rides = f'select extract(month from start_date) as startDate, 
+                    end_station_id, station_name, 
+                    count(end_station_id) as endCount 
+                from `bikeshare-303620.TripsDataset.Ridership` rides,
+                     `bikeshare-303620.TripsDataset.Stations` stations
+                where stations.location_id = {locationID} and 
+                    rides.location_id = {locationID} and
+                    start_station_id = {startStationIDvalue} and
+                    rides.end_station_id = stations.station_id and
+                    extract(month from start_date) = {monthValue} 
+                group by startDate, end_station_id, station_name'
+
+    stations_df = pd.read_gbq(sql_rides, project_id=gcp_project, credentials=credentials, dialect='standard')
+    stations_data = stations_df.to_json(orient='records')
+
+    json_loads=json.loads(stations_data)
+    json_formatted_str = json.dumps(json_loads, indent=2)
+
+    return json_formatted_str
+
 
 @app.route("/api/stations")
 def api_stations():
@@ -90,6 +120,7 @@ def api_stations():
     json_formatted_str = json.dumps(json_loads, indent=2)
 
     return json_formatted_str
+
 
 
 #run app
