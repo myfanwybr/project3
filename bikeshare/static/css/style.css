@@ -60,5 +60,92 @@
   width: 100%;
   padding-top: 15px;
   }
-
+  body{
+    font-family: 'Raleway',serif;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+  }
   
+  #nav_bar{
+    margin-bottom: 0;
+    padding: 0;
+    background-color:#fff;
+    border: none;
+    z-index: 10000;
+    /*position: absolute;*/
+  }
+
+  .app-name:hover{
+    color: #fff!important;
+  }
+  
+  #nav_list li a:hover{
+    color:#fff;
+  }
+  
+  #logo{
+    max-height: 42px;
+    margin-right: 8px;
+    display: inline-block;
+    margin-top: -15px;
+  }
+  
+  
+  .jumbo h2{
+    font-size: 2.2em;
+    font-weight: lighter;
+    text-align: center;
+  }
+  
+  #city{
+    width: 60%;
+    margin: auto;
+    text-align: center;
+  }
+  .jumbo{
+    margin-bottom: 0px;
+    background-color: grey;
+    color: white;
+  }
+  input[type='text'],#submitCity{
+    height: 1.8em;
+    font-size: 1.6em;
+    margin-bottom: 8%;
+  }
+  
+  label{
+    font-size: 1.6em;
+    margin-top: 2%;
+  }
+  table{
+    font-size: 1.6em;
+  }
+  
+  #weather-data{
+    min-width:200px;
+    background-color: green;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 1.6em;
+  
+  }
+  
+  #weather-data h3{
+    padding-top: 3%;
+  }
+  #weather-data p:last-child{
+    padding-bottom: 3%;
+  }
+  
+  .blink{
+    color: rgb(104, 98, 98);
+    font-weight: lighter;
+    text-decoration: blink;
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 0.6s;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-timing-function:ease-in-out;
+    -webkit-animation-direction: alternate;
+  }
