@@ -2,7 +2,7 @@
 var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
   maxZoom: 18,
-  id: "light-v10",
+  id: "dark-v10",
   accessToken: API_KEY
 });
 
@@ -60,31 +60,31 @@ info.addTo(map);
 var icons = {
   COMING_SOON: L.ExtraMarkers.icon({
     icon: "ion-settings",
-    iconColor: "white",
+    iconColor: "yellow",
     markerColor: "yellow",
     shape: "star"
   }),
   EMPTY: L.ExtraMarkers.icon({
     icon: "ion-android-bicycle",
-    iconColor: "white",
+    iconColor: "red",
     markerColor: "red",
     shape: "circle"
   }),
   OUT_OF_ORDER: L.ExtraMarkers.icon({
     icon: "ion-minus-circled",
-    iconColor: "white",
+    iconColor: "blue-dark",
     markerColor: "blue-dark",
     shape: "penta"
   }),
   LOW: L.ExtraMarkers.icon({
     icon: "ion-android-bicycle",
-    iconColor: "white",
+    iconColor: "orange",
     markerColor: "orange",
     shape: "circle"
   }),
   NORMAL: L.ExtraMarkers.icon({
     icon: "ion-android-bicycle",
-    iconColor: "white",
+    iconColor: "green",
     markerColor: "green",
     shape: "circle"
   })
