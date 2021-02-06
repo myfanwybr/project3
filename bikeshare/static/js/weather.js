@@ -49,3 +49,7 @@ function getForecast(city,days){
 	return false;
 
 }
+
+function formatForecast(data){
+	var table="";
+	for 
