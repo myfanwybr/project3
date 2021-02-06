@@ -6,32 +6,36 @@ import pandas as pd
 import pandas_gbq
 from os import environ
 
-
-
-
 app=Flask(__name__)
 
-credentials = service_account.Credentials.from_service_account_file('bikeshare-303620-10573aa06163.json')
+credentials = service_account.Credentials.from_service_account_file('bikeshare-303620-f28d36859136.json')
 projectID = 'bikeshare-303620'
 
 ##front end routes
 @app.route("/")
 def main():
-    # print(f'project is {gcp_project}')
-    # print(f'project is {bigquery_uri}')
     return render_template("index.html")
 
 @app.route("/pricing")
 def prices():
     return render_template("pricing.html")
 
+@app.route("/visualize")
+def plot():
+    return render_template("visualize.html")
+
 @app.route("/weather")
-def weather():
+def historical():
     return render_template("weather.html")
 
+@app.route("/citymap")
+def stations():
+    return render_template("citymap.html")
+
+
 ##service routes
-@app.route("/api/prices")
-def api_prices():
+@app.route("/api/pricing")
+def api_pricing():
 
     sql_prices= '''select * from `bikeshare-303620.TripsDataset.Pricing` '''
     pricing_df = pd.read_gbq(sql_prices, project_id=gcp_project, credentials=credentials, dialect='standard')
@@ -39,6 +43,18 @@ def api_prices():
 
     json_obj = pricing_df.to_json(orient = 'records')
     json_loads=json.loads(json_obj)
+    json_formatted_str = json.dumps(json_loads, indent=2)
+
+    return json_formatted_str
+
+@app.route("/api/visualize")
+def api_visualize():
+    locationID = 2
+    sql_trips = f'select * from `bikeshare-303620.TripsDataset.Ridership` where location_id = {locationID} limit 10'
+    trips_df = pd.read_gbq(sql_trips, project_id=gcp_project, credentials=credentials, dialect='standard')
+    trips = trips_df.to_json(orient='records')
+
+    json_loads=json.loads(trips)
     json_formatted_str = json.dumps(json_loads, indent=2)
 
     return json_formatted_str
@@ -53,23 +69,10 @@ def api_weather():
     return jsonify(weather)
 
 
-@app.route("/citymap")
+@app.route("/api/citymap")
 def api_citymap():
     myCity = "xxxxxxx"
-    return render_template("citymap.html")
-
-@app.route("/visualize")
-def api_visualize():
-    locationID = 2
-    sql_trips = f'select * from `bikeshare-303620.TripsDataset.Ridership` where location_id = {locationID} limit 10'
-    trips_df = pd.read_gbq(sql_trips, project_id=gcp_project, credentials=credentials, dialect='standard')
-    trips = trips_df.to_json(orient='records')
-    parsed = json.loads(trips)
-    trip_parsed = json.dumps(parsed, indent=4)
-
-
-    return jsonify(trip_parsed)
-    #return render_template("visualize.html")
+    return myCity
 
 #run app
 if __name__=="__main__":
