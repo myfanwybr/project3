@@ -8,16 +8,6 @@ from os import environ
 
 
 
-##demo dictionary
-
-my_dict={
-    1: "catherine", 
-    2: "myfanwy", 
-    3: "rubal", 
-    4: "manisha", 
-    5: "sharanvika"
-
-}
 
 app=Flask(__name__)
 
@@ -35,6 +25,10 @@ def main():
 def prices():
     return render_template("pricing.html")
 
+@app.route("/weather")
+def weather():
+    return render_template("weather.html")
+
 ##service routes
 @app.route("/api/prices")
 def api_prices():
@@ -49,7 +43,7 @@ def api_prices():
 
     return json_formatted_str
 
-@app.route("/weather")
+@app.route("/api/weather")
 def api_weather():
     locationID = 2
     sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` where location_id = {locationID} limit 10'
