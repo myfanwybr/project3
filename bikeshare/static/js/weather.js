@@ -22,8 +22,7 @@ return false;
 }
 
 function formatWeather(data){
-	return
-	"<h3>Current Weather for " + data.name + ", " + data.sys.country + "</h3>" + 
+	return"<h3>Current Weather for " + data.name + ", " + data.sys.country + "</h3>" + 
 	"<p>Weather: " + data.weather[0].main+ "</p>" + 
 	"<p>Weather Description: " + data.weather[0].description +"<img src='http://openweathermap.org/img/w/" + data.weather[0].icon + ".png'/>" + "</p>" + 
 	"<p>Temperature: " + data.main.temp + "&deg;C</p>" + 
@@ -52,4 +51,21 @@ function getForecast(city,days){
 
 function formatForecast(data){
 	var table="";
-	for 
+	for (var i = 0; i < data.list.length; i++) {
+		table += "<tr>";
+		table += "<td><img src='http://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png'/></td>";
+		table += "<td>" + data.list[i].weather[0].main + "</td>";
+		table += "<td>" + data.list[i].weather[0].description + "</td>";
+		table += "<td>" + data.list[i].temp.morn + "&deg;C</td>";
+		table += "<td>" + data.list[i].temp.night + "&deg;C</td>";
+		table += "<td>" + data.list[i].temp.min + "&deg;C</td>";
+		table += "<td>" + data.list[i].temp.max + "&deg;C</td>";
+		table += "<td>" + data.list[i].pressure + "hPa</td>";
+		table += "<td>" + data.list[i].humidity + "%</td>";
+		table += "<td>" + data.list[i].speed + "m/s</td>";
+		table += "</tr>";
+
+	}
+	return table;
+}
+
