@@ -17,10 +17,21 @@ else{
 	  error+='<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 	  error+='You must enter a city name!</div>';
   document.getElementById('error').innerHTML=error;
+    }
+return false;
 }
 
 function formatWeather(data){
 	return
+	"<h3>Current Weather for " + data.name + ", " + data.sys.country + "</h3>" + 
+	"<p>Weather: " + data.weather[0].main+ "</p>" + 
+	"<p>Weather Description: " + data.weather[0].description +"<img src='http://openweathermap.org/img/w/" + data.weather[0].icon + ".png'/>" + "</p>" + 
+	"<p>Temperature: " + data.main.temp + "&deg;C</p>" + 
+	"<p>Pressure: " + data.main.pressure + "hPa</p>" + 
+	"<p>Humidity: " + data.main.humidity + "%</p>" + 
+	"<p>Min Temperature: " + data.main.temp_min + "&deg;C</p>" + 
+	"<p>Max Temperature: " + data.main.temp_max + "&deg;C</p>" + 
+	"<p>Wind Speed: " + data.wind.speed + "m/s</p>";
 }
 
 function getForecast(city,days){
