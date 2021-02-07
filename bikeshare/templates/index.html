@@ -14,8 +14,18 @@
     <!-- Our CSS -->
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
 
+    <!--D3-->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
 </head>
 <body>
+    <!--form-->
+    <form method="POST">
+        Asset Tag:<br>
+        <input type="text" name="tag"><br>
+        <input type="submit" value="Submit">
+    </form>
+
     <!--Nav Bar: Menu icon and drop down list creation in header-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">Bike Share Details<span class="sr-only">(current)</span></a>
@@ -60,15 +70,16 @@
             </ul>
         </div>
     </nav>
+
     <div class="container">
         <div class="row" style="background-color: rgb(105, 231, 105);">
             <div class="col-md-12 jumbotron" style="text-align:center">
                 <h1>Bike Share</h1>
                 <p> 
-                    <a href="/citymap" class="btn btn-default" role="button" aria-pressed="true">TORONTO</a> .
-                    <a href="/citymap" class="btn btn-default" role="button" aria-pressed="true">VANCOUVER</a> .
-                    <a href="/citymap" class="btn btn-default" role="button" aria-pressed="true">BOSTON</a> .
-                    <a href="/citymap" class="btn btn-default" role="button" aria-pressed="true">NYC</a>
+                    <a href="/visualize" class="btn btn-default" role="button" aria-pressed="true">TORONTO</a> .
+                    <a href="/visualize" class="btn btn-default" role="button" aria-pressed="true">VANCOUVER</a> .
+                    <a href="/visualize" class="btn btn-default" role="button" aria-pressed="true">BOSTON</a> .
+                    <a href="/visualize" class="btn btn-default" role="button" aria-pressed="true">NYC</a>
                 </p>
                 <hr>
                 <h5>Looking into Implementing A Sustainable, Economical and Healthy Lifestyle Practice</h5>
@@ -84,6 +95,7 @@
             <div class="col-lg-7 col-md-12">
                 <!-- Left Content Box -->
                 <div class="box" style="padding-bottom: 20px;">
+
                     <main role="main" class="ml-sm-auto col-lg" style="text-align: left;">
                     <h6 class="title">ABOUT</h6>
                     <img src="../assets/images/logo.jpg"  alt="fun fact" class="embed-responsive">
