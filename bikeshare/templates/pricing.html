@@ -1,116 +1,80 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>pricing</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <!-- bootstap css -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bike Share</title>
+        
+        <!-- Boostrap Stylesheet -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-</head>
-<body>
-       <!--Nav Bar: Menu icon and drop down list creation in header-->
-               <!-- navbar -->
-               <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="/">Bike Share<span class="sr-only">(current)</span></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <!-- <li class="nav-item active">
-                            <a class="nav-link" href="index.html">Latitude <span class="sr-only">(current)</span></a>
-                        </li> -->
-                    </ul>
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Cities
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="/citymap">Toronto</a>
-                                <a class="dropdown-item" href="/citymap">Vancouver</a>
-                                <a class="dropdown-item" href="/citymap">Boston</a>
-                                <a class="dropdown-item" href="/citymap">New York</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/weather">Weather Details</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/prices">Pricing</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/citymap">Station Route Maps</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav> <!-- end of navbar-->
-    <div class="jumbotron jumbo"style="text-align: center;">
-        <h2> PRICING</h2>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="city-name">
-                        City Name:
-                    </label>
-                    <input type="text" class="form-control" id="cityname" placeholder="Eg:Toronto">
+        <!-- Personal css -->
+        <link rel="stylesheet" href="../static/css/style.css" media="screen">
 
-                </div>
-                <div class="form-group">
-                    <label for="number-of-days">
-                        Number of days:
-                    </label>
-                    <input type="text" class="form-control" id="days" placeholder="min:1 max:16">
-                </div>
-                <div class="form-group">
-                    <button id="submitCity" class="btn btn-success" onclick="getForecast(document.getElementById('cityname').value,document.getElementById('days').value);">Get Forecast
+    </head>
 
-                    </button>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-condensed">
-                        <thead>
-                            <tr>
-                                <th>Weather</td>
-                                    <th>Description</td>
-                                    <th>Morning</td>
-                                    <th>Night</td>
-                                    <th>Min</td>
-                                    <th>Max</td>
-                                    <th>Pressure</td>
-                                    <th>Humidity</td>
-                                    <th>Wind Speed</td>
-                            </tr>
-                        </thead>
-                        <tbody id="forecast">
-
-                        </tbody>
-                    </table>
-                </div>
-
+    <body>
+        <!-- navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">Bike Share<span class="sr-only">(current)</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <!-- <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Latitude <span class="sr-only">(current)</span></a>
+                    </li> -->
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Cities
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/citymap">Toronto</a>
+                            <a class="dropdown-item" href="/citymap">Vancouver</a>
+                            <a class="dropdown-item" href="/citymap">Boston</a>
+                            <a class="dropdown-item" href="/citymap">New York</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/weather">Weather Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/prices">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/citymap">Station Route Maps</a>
+                    </li>
+                </ul>
             </div>
+        </nav> <!-- end of navbar-->
+
+        <div class="container">
+            <p>Pricing Index</p>
+
         </div>
-    </div>
-    <!--Footer-->
-    <div id = "footer">
-        <p>&copy; BIKE SHARE 2021</p>
-    </div>
-    
-    <!--Plugins-->
-    <!--Bootstrap Javascript: jQuery, Popper.js, Bootstrap JS, plotly, and d3-->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    
-    <script type="text/javascript" src="../static/js/index.js"></script>
+        <!--Footer-->
+        <div id = "footer">
+            <p>&copy; BIKE SHARE 2021</p>
+        </div>
 
-</body>
+        <!--Plugins-->
+        <!--Bootstrap Javascript: jQuery, Popper.js, Bootstrap JS, plotly, and d3-->
+    
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+        <script type="text/javascript" src="../static/js/pricing.js"></script>
+
+    </body>
+
 </html>
