@@ -47,34 +47,61 @@ def api_pricing():
 
     return json_formatted_str
 
-@app.route("/api/visualize/<cityname>")
-def api_visualize(cityname):
+@app.route("/api/visualize")
+def api_visualize():
+    
     cityname = "VANCOUVER"
+    sDate = '2019-01-01'
+    eDate = '2019-12-31'
+
     print(cityname)
     if cityname == "TORONTO":
-        locationID = 1
+        locID = 1
     elif cityname == "VANCOUVER":
-        locationID = 2
+        locID = 2
     elif cityname == "BOSTON":
-        locationID = 3
+        locID = 3
     else:
-        locationID = 4
+        locID = 4
     
-    sql_trips = f'select * from `bikeshare-303620.TripsDataset.Ridership` where location_id = {locationID} limit 10'
-    trips_df = pd.read_gbq(sql_trips, project_id=gcp_project, credentials=credentials, dialect='standard')
-    trips = trips_df.to_json(orient='records')
+    print(locID)
 
-    json_loads=json.loads(trips)
+    # popular time of day
+    sql_daytime = """select extract(hour from start_date) as start_hour, 
+                        count(extract(hour from start_date)) as hourly_trip_count 
+                    from `bikeshare-303620.TripsDataset.Ridership` 
+                    where location_id = 2 and extract(month from start_date) = 2
+                    group by start_hour, location_id limit 100"""
+
+    xsql_daytime = """ select start_date, extract(hour from start_date) as start_hour, 
+    location_id, count(extract(hour from start_date)) as hourly_trip_count 
+    from `bikeshare-303620.TripsDataset.Ridership` where location_id = {locID}
+    group by start_date, start_hour"""
+    
+    print(sql_daytime)
+    
+    daytime_df = pd.read_gbq(sql_daytime, project_id=gcp_project, credentials=credentials, dialect='standard')
+    daytime = daytime_df.to_json(orient='records', date_format='iso')
+
+    json_loads=json.loads(daytime)
     json_formatted_str = json.dumps(json_loads, indent=2)
+
+    # sql_trips = f'select * from `bikeshare-303620.TripsDataset.Ridership` where location_id = {locationID} limit 10'
+    # trips_df = pd.read_gbq(sql_trips, project_id=gcp_project, credentials=credentials, dialect='standard')
+    # trips = trips_df.to_json(orient='records')
+
+    # json_loads=json.loads(trips)
+    # json_formatted_str = json.dumps(json_loads, indent=2)
 
     return json_formatted_str
 
+
 @app.route("/api/weather")
 def api_weather():
-    # locationID = 1
+    locationID = 1
     # startDate = '01/01/2019'
     # endDate = '12/31/2019'
-    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather`'
+    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` where location_id = {locationID}'
     weather_df = pd.read_gbq(sql_weather, project_id=gcp_project, credentials=credentials, dialect='standard')
     weather = weather_df.to_json(orient='records')
 
@@ -83,23 +110,23 @@ def api_weather():
 
     return json_formatted_str
 
-@app.route("/api/citymap/<cityname>")
-def api_citymap(cityname):
+@app.route("/api/citymap")
+def api_citymap():
     monthValue = 8
     startStationIDvalue = 77
     locationID = 2
 
-    sql_rides = f'select extract(month from start_date) as startDate, ' \
-                    'end_station_id, station_name, ' \
-                    'count(end_station_id) as endCount ' \
-                'from `bikeshare-303620.TripsDataset.Ridership` rides, ' \
-                     '`bikeshare-303620.TripsDataset.Stations` stations ' \
-                'where stations.location_id = {locationID} and ' \
-                   ' rides.location_id = {locationID} and ' \
-                   ' start_station_id = {startStationIDvalue} and ' \
-                   ' rides.end_station_id = stations.station_id and ' \
-                   ' extract(month from start_date) = {monthValue} ' \
-                'group by startDate, end_station_id, station_name'
+    sql_rides = """select extract(month from start_date) as startDate, 
+                    end_station_id, station_name, 
+                    count(end_station_id) as endCount 
+                from `bikeshare-303620.TripsDataset.Ridership` rides, 
+                     `bikeshare-303620.TripsDataset.Stations` stations 
+                where stations.location_id = {locationID} and 
+                    rides.location_id = {locationID} and 
+                    start_station_id = {startStationIDvalue} and 
+                    rides.end_station_id = stations.station_id and 
+                    extract(month from start_date) = {monthValue} 
+                group by startDate, end_station_id, station_name"""
 
     stations_df = pd.read_gbq(sql_rides, project_id=gcp_project, credentials=credentials, dialect='standard')
     stations_data = stations_df.to_json(orient='records')
