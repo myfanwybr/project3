@@ -2,7 +2,7 @@
 //app.use("/static", express.static('./static/'));
 
 
-d3.json("/api/prices").then(function(data) {
+d3.json("/api/pricing").then(function(data) {
     
     var data=data
     console.log(data)
