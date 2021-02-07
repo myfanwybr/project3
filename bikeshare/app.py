@@ -49,6 +49,7 @@ def api_pricing():
 
 @app.route("/api/visualize/<cityname>")
 def api_visualize(cityname):
+    cityname = "VANCOUVER"
     print(cityname)
     if cityname == "TORONTO":
         locationID = 1
@@ -88,17 +89,17 @@ def api_citymap(cityname):
     startStationIDvalue = 77
     locationID = 2
 
-    sql_rides = f'select extract(month from start_date) as startDate, 
-                    end_station_id, station_name, 
-                    count(end_station_id) as endCount 
-                from `bikeshare-303620.TripsDataset.Ridership` rides,
-                     `bikeshare-303620.TripsDataset.Stations` stations
-                where stations.location_id = {locationID} and 
-                    rides.location_id = {locationID} and
-                    start_station_id = {startStationIDvalue} and
-                    rides.end_station_id = stations.station_id and
-                    extract(month from start_date) = {monthValue} 
-                group by startDate, end_station_id, station_name'
+    sql_rides = f'select extract(month from start_date) as startDate, ' \
+                    'end_station_id, station_name, ' \
+                    'count(end_station_id) as endCount ' \
+                'from `bikeshare-303620.TripsDataset.Ridership` rides, ' \
+                     '`bikeshare-303620.TripsDataset.Stations` stations ' \
+                'where stations.location_id = {locationID} and ' \
+                   ' rides.location_id = {locationID} and ' \
+                   ' start_station_id = {startStationIDvalue} and ' \
+                   ' rides.end_station_id = stations.station_id and ' \
+                   ' extract(month from start_date) = {monthValue} ' \
+                'group by startDate, end_station_id, station_name'
 
     stations_df = pd.read_gbq(sql_rides, project_id=gcp_project, credentials=credentials, dialect='standard')
     stations_data = stations_df.to_json(orient='records')
@@ -107,7 +108,6 @@ def api_citymap(cityname):
     json_formatted_str = json.dumps(json_loads, indent=2)
 
     return json_formatted_str
-
 
 @app.route("/api/stations")
 def api_stations():
@@ -120,8 +120,6 @@ def api_stations():
     json_formatted_str = json.dumps(json_loads, indent=2)
 
     return json_formatted_str
-
-
 
 #run app
 if __name__=="__main__":
