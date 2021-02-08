@@ -64,6 +64,7 @@ def api_visualize():
     cityname = "VANCOUVER"
     sDate = '2019-01-01'
     eDate = '2019-12-31'
+    byQTR = 3
 
     print(cityname)
     if cityname == "TORONTO":
@@ -78,16 +79,13 @@ def api_visualize():
     print(locID)
 
     # popular time of day
-    sql_daytime = """select extract(hour from start_date) as start_hour, 
-                        count(extract(hour from start_date)) as hourly_trip_count 
-                    from `bikeshare-303620.TripsDataset.Ridership` 
-                    where location_id = 2 and extract(month from start_date) = 2
-                    group by start_hour, location_id limit 100"""
-
-    xsql_daytime = """ select start_date, extract(hour from start_date) as start_hour, 
-    location_id, count(extract(hour from start_date)) as hourly_trip_count 
-    from `bikeshare-303620.TripsDataset.Ridership` where location_id = {locID}
-    group by start_date, start_hour"""
+    sql_daytime = f'select extract(hour from start_date) as start_hour, ' \
+                  f'      count(extract(hour from start_date)) as hourly_trip_count ' \
+                  f' from `bikeshare-303620.TripsDataset.Ridership` ' \
+                  f' where location_id = {locID} and ' \
+                  f' extract(date from start_date) ' \
+                  f'  between extract(date from {sDate}) and extract(date from {eDate}) ' \
+                  f'  group by start_hour, location_id )'
     
     print(sql_daytime)
     
@@ -98,13 +96,6 @@ def api_visualize():
     json_loads=json.loads(daytime)
     json_formatted_str = json.dumps(json_loads, indent=2)
 
-    # sql_trips = f'select * from `bikeshare-303620.TripsDataset.Ridership` where location_id = {locationID} limit 10'
-    # trips_df = pd.read_gbq(sql_trips, project_id=gcp_project, credentials=credentials, dialect='standard')
-    # trips = trips_df.to_json(orient='records')
-
-    # json_loads=json.loads(trips)
-    # json_formatted_str = json.dumps(json_loads, indent=2)
-
     return json_formatted_str
 
 @app.route("/api/visualize/weather")
@@ -112,18 +103,18 @@ def api_vizualize_weather():
     hwLocID = 2
     byQTR = 1
 
-    sql_hw = """select 
+    sql_hw = f'(select 
         extract(date from start_date) as startDate, 
         weather.maxTempC, 
         count(*) as trips 
         from 
         `bikeshare-303620.TripsDataset.Ridership` as rides, 
         `bikeshare-303620.TripsDataset.HistoricalWeather` as weather 
-        where rides.location_id = 2 and weather.location_id = 2 and
-        extract(quarter from start_date) = 3 and 
+        where rides.location_id = {hwLocID} and weather.location_id = {hwLocID} and
+        extract(quarter from start_date) = {byQTR} and 
         extract(date from rides.start_date) = extract(date from weather.forecast_date) 
         group by startDate, maxTempC 
-        order by startDate """
+        order by startDate )'
 
     print(sql_hw)
 
