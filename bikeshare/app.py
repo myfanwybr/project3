@@ -150,17 +150,17 @@ def api_citymap():
     startStationIDvalue = 77
     locationID = 2
 
-    sql_rides = """select extract(month from start_date) as startDate, 
-                    end_station_id, station_name, 
-                    count(end_station_id) as endCount 
-                from `bikeshare-303620.TripsDataset.Ridership` rides, 
-                     `bikeshare-303620.TripsDataset.Stations` stations 
-                where stations.location_id = {locationID} and 
-                    rides.location_id = {locationID} and 
-                    start_station_id = {startStationIDvalue} and 
-                    rides.end_station_id = stations.station_id and 
-                    extract(month from start_date) = {monthValue} 
-                group by startDate, end_station_id, station_name"""
+    sql_rides = f'select extract(month from start_date) as startDate, ' \
+                    f'end_station_id, station_name, ' \
+                    f'count(end_station_id) as endCount ' \
+                f'from `bikeshare-303620.TripsDataset.Ridership` rides, ' \
+                     f'`bikeshare-303620.TripsDataset.Stations` stations ' \
+                f'where stations.location_id = {locationID} and ' \
+                    f'rides.location_id = {locationID} and ' \
+                    f'start_station_id = {startStationIDvalue} and ' \
+                    f'rides.end_station_id = stations.station_id and ' \
+                    f'extract(month from start_date) = {monthValue} ' \
+                f'group by startDate, end_station_id, station_name'
 
     stations_df = pd.read_gbq(sql_rides, project_id=gcp_project, credentials=credentials, dialect='standard')
     stations_data = stations_df.to_json(orient='records')
