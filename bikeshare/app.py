@@ -47,6 +47,17 @@ def api_pricing():
 
     return json_formatted_str
 
+
+@app.route("/api/visualize/destination")
+def api_visualize_stops():
+    sql_stops = ""
+    stops_df = pd.read_gbq(sql_stops, project_id=gcp_project, credentials=credentials, dialect='standard')
+    json_obj = stops_df.to_json(orient = 'records')
+    json_loads=json.loads(json_obj)
+    json_formatted_str = json.dumps(json_loads, indent=2)
+
+    return json_formatted_str
+
 @app.route("/api/visualize/time")
 def api_visualize():
     
