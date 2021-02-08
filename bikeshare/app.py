@@ -48,20 +48,33 @@ def api_pricing():
     return json_formatted_str
 
 
-@app.route("/api/visualize/destination")
+@app.route("/api/visualize/destinations")
 def api_visualize_stops():
-    sql_stops = """
-select start_station_id, 
-       end_station_id,
-       extract(date from rides.start_date),
-       count(*) as trips
-from 
-  `bikeshare-303620.TripsDataset.Ridership` as rides,
-  `bikeshare-303620.TripsDataset.Stations` as station
-where rides.start_station_id = station.station_id and
-  rides.location_id = station.location_id 
-group by start_station_id, end_station_id, date(start_date), location_id; """
+    
+    cityID = 2
+    startDate = '2019-01-01'
+    endDate = '2019-01-31'
 
+    sql_stops = f' with activeStations as ' \
+        f'(select station_id, station_name, count(end_station_id) as trip_count, stations.location_id as location_id ' \
+        f'from `bikeshare-303620.TripsDataset.Ridership` as rides, ' \
+        f'`bikeshare-303620.TripsDataset.Stations` as stations ' \
+        f'where rides.location_id = {cityID} and stations.location_id = {cityID} ' \
+        f'and rides.end_station_id = stations.station_id ' \
+        f'group by station_id, station_name, location_id ' \
+        f'order by trip_count desc ' \
+        f'limit 5) ' \
+        f'select extract(dayofweek from start_date) as weekday, ' \
+            f'station_name, station_id, count(*) as trip_count ' \
+        f'from `bikeshare-303620.TripsDataset.Ridership` as rides, ' \
+            f'activeStations stns ' \
+        f'where rides.location_id = 2 and stns.location_id = 2 ' \
+        f'and rides.end_station_id = stns.station_id ' \
+        f'and extract(date from start_date) between "{startDate}" and "{endDate}" '  \
+        f'group by weekday, station_name, station_id ' \
+        f'order by weekday, station_name'
+
+    print(sql_stops)
 
     stops_df = pd.read_gbq(sql_stops, project_id=gcp_project, credentials=credentials, dialect='standard')
     json_obj = stops_df.to_json(orient = 'records')
@@ -95,8 +108,8 @@ def api_visualize():
                   f' from `bikeshare-303620.TripsDataset.Ridership` ' \
                   f' where location_id = {locID} and ' \
                   f' extract(date from start_date) ' \
-                  f'  between extract(date from {sDate}) and extract(date from {eDate}) ' \
-                  f'  group by start_hour, location_id )'
+                  f'  between "{sDate}" and "{eDate}" ' \
+                  f'  group by start_hour, location_id '
     
     print(sql_daytime)
     
@@ -123,7 +136,7 @@ def api_vizualize_weather():
             f'`bikeshare-303620.TripsDataset.HistoricalWeather` as weather ' \
             f'where rides.location_id = {hwLocID} and weather.location_id = {hwLocID} and' \
             f' extract(date from start_date) ' \
-            f'   between extract(date from {sDate}) and extract(date from {eDate}) ' \
+            f'   between "{sDate}" and "{eDate}" and' \
             f' extract(date from rides.start_date) = extract(date from weather.forecast_date) ' \
             f'group by startDate, maxTempC ' \
             f'order by startDate '
