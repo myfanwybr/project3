@@ -24,18 +24,24 @@ where rides.location_id = 2 and
   start_date between '2019-01-01' and '2019-12-31'
 group by start_date, start_hour, location_id;
 
--- popular destination
-select start_station_id, 
-       end_station_id,
-       date(rides.start_date),
-       station.location_id,
-       count(*) as trips
-from 
-  `bikeshare-303620.TripsDataset.Ridership` as rides,
-  `bikeshare-303620.TripsDataset.Stations` as station
-where rides.start_station_id = station.station_id and
-  rides.location_id = station.location_id 
-group by start_station_id, end_station_id, date(start_date), location_id;
+-- top 5 destination stations
+with activeStations as 
+  (select station_id, station_name, count(end_station_id) as trip_count, stations.location_id as location_id
+    from `bikeshare-303620.TripsDataset.Ridership` as rides,
+    `bikeshare-303620.TripsDataset.Stations` as stations
+    where rides.location_id = 2 and stations.location_id = 2
+    and rides.end_station_id = stations.station_id
+    group by station_id, station_name, location_id
+    order by trip_count desc
+    limit 5) 
+select extract(dayofweek from start_date) as weekday, station_name, station_id, count(*) as trip_count
+from `bikeshare-303620.TripsDataset.Ridership` as rides,
+     activeStations stns
+where rides.location_id = 2 and stns.location_id = 2
+and rides.end_station_id = stns.station_id
+and extract(date from start_date) between '2019-01-01' and '2019-01-31'
+group by weekday, station_name, station_id
+order by weekday, station_name
   
 -- average trip duration
 select avg(trip_duration) as avg_trip_duration,
