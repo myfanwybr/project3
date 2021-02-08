@@ -1,4 +1,8 @@
-d3.json("/api/visualize").then(function(data) {
+
+// busiest time of day
+var url_time = "/api/visualize/time";
+var url_hw = "/api/visualize/weather";
+d3.json(url_time).then(function(data) {
     
     var data = data;
     start_hour = [];
@@ -29,7 +33,7 @@ d3.json("/api/visualize").then(function(data) {
 
     var layout1 = {
         title: {
-            text: 'Popular Time of Day'
+            text: 'Busiest Time of Day'
         },
         xaxis: {title: "Time of Day",
             tickmode: 'array',
@@ -45,4 +49,47 @@ d3.json("/api/visualize").then(function(data) {
 
 });
 
+// weather and trip count
+d3.json(url_hw).then(function(weather) {
+    console.log(weather);
+    var startDates = [];
+    var trip_count = [];
+    var sizes = [];
 
+    Object.entries(weather).forEach(([key, value]) => {
+        console.log(value.maxTempC);
+        sizes.push(value.maxTempC);
+        var d = new Date(value.startDate).toLocaleDateString();
+        startDates.push(d);
+        trip_count.push(value.trips);
+        console.log(value.trips);
+    });
+
+    console.log(startDates);
+    console.log(sizes);
+    console.log(trip_count);
+    
+    var trace1 = {
+        x: startDates,
+        y: trip_count,
+        mode: 'markers',
+        marker: {
+            size: sizes,
+            colorscale: "Jet"
+        },
+        type: 'scatter'
+    };
+
+    var data_hw = [trace1];
+
+    var layout_hw = {
+        title: 'Temperature and Trips',
+        xaxis: {
+            autotick: false,
+            ticks: 'outside',
+            nticks: 10
+        },
+        showlegend: false
+    };     
+    Plotly.newPlot("bar-weather", data_hw, layout_hw, {responsive: true});    
+});

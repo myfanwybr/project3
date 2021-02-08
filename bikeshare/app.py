@@ -47,7 +47,7 @@ def api_pricing():
 
     return json_formatted_str
 
-@app.route("/api/visualize")
+@app.route("/api/visualize/time")
 def api_visualize():
     
     cityname = "VANCOUVER"
@@ -81,7 +81,8 @@ def api_visualize():
     print(sql_daytime)
     
     daytime_df = pd.read_gbq(sql_daytime, project_id=gcp_project, credentials=credentials, dialect='standard')
-    daytime = daytime_df.to_json(orient='records', date_format='iso')
+    # daytime = daytime_df.to_json(orient='records', date_format='iso')
+    daytime = daytime_df.to_json(orient='records')
 
     json_loads=json.loads(daytime)
     json_formatted_str = json.dumps(json_loads, indent=2)
@@ -92,6 +93,35 @@ def api_visualize():
 
     # json_loads=json.loads(trips)
     # json_formatted_str = json.dumps(json_loads, indent=2)
+
+    return json_formatted_str
+
+@app.route("/api/visualize/weather")
+def api_vizualize_weather():
+    hwLocID = 2
+    byQTR = 1
+
+    sql_hw = """select 
+        extract(date from start_date) as startDate, 
+        weather.maxTempC, 
+        count(*) as trips 
+        from 
+        `bikeshare-303620.TripsDataset.Ridership` as rides, 
+        `bikeshare-303620.TripsDataset.HistoricalWeather` as weather 
+        where rides.location_id = 2 and weather.location_id = 2 and
+        extract(quarter from start_date) = 1 and 
+        extract(date from rides.start_date) = extract(date from weather.forecast_date) 
+        group by start_date, maxTempC 
+        order by start_date 
+        limit 100"""
+
+    print(sql_hw)
+
+    hw_df = pd.read_gbq(sql_hw, project_id=gcp_project, credentials=credentials, dialect='standard')
+    hweather = hw_df.to_json(orient='records')
+
+    json_loads=json.loads(hweather)
+    json_formatted_str = json.dumps(json_loads, indent=2)
 
     return json_formatted_str
 
