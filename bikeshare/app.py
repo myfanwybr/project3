@@ -101,20 +101,21 @@ def api_visualize():
 @app.route("/api/visualize/weather")
 def api_vizualize_weather():
     hwLocID = 2
-    byQTR = 1
+    sDate = '2019-01-01'
+    eDate = '2019-12-31'
 
-    sql_hw = f'(select 
-        extract(date from start_date) as startDate, 
-        weather.maxTempC, 
-        count(*) as trips 
-        from 
-        `bikeshare-303620.TripsDataset.Ridership` as rides, 
-        `bikeshare-303620.TripsDataset.HistoricalWeather` as weather 
-        where rides.location_id = {hwLocID} and weather.location_id = {hwLocID} and
-        extract(quarter from start_date) = {byQTR} and 
-        extract(date from rides.start_date) = extract(date from weather.forecast_date) 
-        group by startDate, maxTempC 
-        order by startDate )'
+    sql_hw = f'select extract(date from start_date) as startDate, ' \
+            f' weather.maxTempC, ' \
+            f'count(*) as trips ' \
+            f'from ' \
+            f'`bikeshare-303620.TripsDataset.Ridership` as rides, ' \
+            f'`bikeshare-303620.TripsDataset.HistoricalWeather` as weather ' \
+            f'where rides.location_id = {hwLocID} and weather.location_id = {hwLocID} and' \
+            f' extract(date from start_date) ' \
+            f'   between extract(date from {sDate}) and extract(date from {eDate}) ' \
+            f' extract(date from rides.start_date) = extract(date from weather.forecast_date) ' \
+            f'group by startDate, maxTempC ' \
+            f'order by startDate '
 
     print(sql_hw)
 
