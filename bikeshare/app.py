@@ -37,7 +37,7 @@ def stations():
 @app.route("/api/pricing")
 def api_pricing():
 
-    sql_prices= '''select * from `bikeshare-303620.TripsDataset.Pricing` '''
+    sql_prices= '''select location_id, member_type, plan, amount from `bikeshare-303620.TripsDataset.Pricing` '''
     pricing_df = pd.read_gbq(sql_prices, project_id=gcp_project, credentials=credentials, dialect='standard')
     # print(pricing_df)
 
@@ -50,7 +50,19 @@ def api_pricing():
 
 @app.route("/api/visualize/destination")
 def api_visualize_stops():
-    sql_stops = ""
+    sql_stops = """
+select start_station_id, 
+       end_station_id,
+       extract(date from rides.start_date),
+       count(*) as trips
+from 
+  `bikeshare-303620.TripsDataset.Ridership` as rides,
+  `bikeshare-303620.TripsDataset.Stations` as station
+where rides.start_station_id = station.station_id and
+  rides.location_id = station.location_id 
+group by start_station_id, end_station_id, date(start_date), location_id; """
+
+
     stops_df = pd.read_gbq(sql_stops, project_id=gcp_project, credentials=credentials, dialect='standard')
     json_obj = stops_df.to_json(orient = 'records')
     json_loads=json.loads(json_obj)
@@ -64,7 +76,6 @@ def api_visualize():
     cityname = "VANCOUVER"
     sDate = '2019-01-01'
     eDate = '2019-12-31'
-    byQTR = 3
 
     print(cityname)
     if cityname == "TORONTO":
