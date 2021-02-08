@@ -56,10 +56,13 @@ d3.json(url_hw).then(function(weather) {
     var trip_count = [];
     var sizes = [];
     var texts = [];
+    var maxtemp = [];
 
     Object.entries(weather).forEach(([key, value]) => {
         console.log(value.maxTempC);
-        sizes.push(value.maxTempC);
+        maxtemp.push(value.maxTempC);
+        // sizes.push(value.trips * 0.1);
+        sizes.push(value.maxTempC + 10);
         texts.push("High: " + value.maxTempC.toString() + " C");
         var d = new Date(value.startDate).toLocaleDateString();
         startDates.push(d);
@@ -74,7 +77,7 @@ d3.json(url_hw).then(function(weather) {
     
     var trace1 = {
         x: startDates,
-        y: trip_count,
+        y: maxtemp,
         mode: 'markers',
         type: 'scatter',
         text: texts,

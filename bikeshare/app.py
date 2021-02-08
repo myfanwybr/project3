@@ -109,11 +109,10 @@ def api_vizualize_weather():
         `bikeshare-303620.TripsDataset.Ridership` as rides, 
         `bikeshare-303620.TripsDataset.HistoricalWeather` as weather 
         where rides.location_id = 2 and weather.location_id = 2 and
-        extract(quarter from start_date) = 1 and 
+        extract(quarter from start_date) = 3 and 
         extract(date from rides.start_date) = extract(date from weather.forecast_date) 
         group by startDate, maxTempC 
-        order by startDate 
-        limit 100"""
+        order by startDate """
 
     print(sql_hw)
 

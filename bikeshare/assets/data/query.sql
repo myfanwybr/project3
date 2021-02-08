@@ -1,19 +1,16 @@
 -- weather and usage
-select 
-  start_date,
-  rides.location_id,
-  weather.maxTempC, 
-  weather.forecast_date,
-  count(*) as trips
-from 
-  `bikeshare-303620.TripsDataset.Ridership` as rides,
-  `bikeshare-303620.TripsDataset.HistoricalWeather` as weather
-where rides.location_id = 2 and
-  start_date between '2019-01-01' and '2019-12-31' and
-  date(extract(year from start_date), extract(month from start_date), extract(day from start_date)) =
-  date(extract(year from forecast_date), extract(month from forecast_date), extract(day from forecast_date))
-group by start_date, location_id, maxTempC, forecast_date
-limit 100;
+sql_hw = select 
+    extract(date from start_date) as startDate, 
+    weather.maxTempC, 
+    count(*) as trips 
+    from 
+    `bikeshare-303620.TripsDataset.Ridership` as rides, 
+    `bikeshare-303620.TripsDataset.HistoricalWeather` as weather 
+    where rides.location_id = 2 and weather.location_id = 2 and
+    extract(quarter from start_date) = 3 and 
+    extract(date from rides.start_date) = extract(date from weather.forecast_date) 
+    group by startDate, maxTempC 
+    order by startDate
 
 
 -- popular time of day
@@ -27,7 +24,7 @@ where rides.location_id = 2 and
   start_date between '2019-01-01' and '2019-12-31'
 group by start_date, start_hour, location_id;
 
--- popular station
+-- popular destination
 select start_station_id, 
        end_station_id,
        date(rides.start_date),
