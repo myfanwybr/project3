@@ -104,3 +104,5 @@ d3.json(url_hw).then(function(weather) {
     };     
     Plotly.newPlot("bar-weather", data_hw, layout_hw, {responsive: true});    
 });
+
+// popular destination
