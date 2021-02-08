@@ -2,6 +2,8 @@
 // busiest time of day
 var url_time = "/api/visualize/time";
 var url_hw = "/api/visualize/weather";
+var url_stops = "/api/visualize/destinations";
+
 d3.json(url_time).then(function(data) {
     
     var data = data;
@@ -105,4 +107,27 @@ d3.json(url_hw).then(function(weather) {
     Plotly.newPlot("bar-weather", data_hw, layout_hw, {responsive: true});    
 });
 
-// popular destination
+// top 5 destination
+d3.json(url_stops).then((stops) => {
+    console.log(stops);
+
+    var trip_count = [];
+    var dayofweek = [];
+    var station_name = [];
+
+    Object.entries(stops).forEach(([key, value]) => {
+        console.log(value.trip_count);
+        console.log(value.station_name);
+
+        trip_count.push(value.trip_count);
+        station_name.push(value.station_name);
+        dayofweek.push(value.weekday);
+        
+    });
+
+
+
+
+
+
+})
