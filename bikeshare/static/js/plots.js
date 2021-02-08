@@ -55,14 +55,17 @@ d3.json(url_hw).then(function(weather) {
     var startDates = [];
     var trip_count = [];
     var sizes = [];
+    var texts = [];
 
     Object.entries(weather).forEach(([key, value]) => {
         console.log(value.maxTempC);
         sizes.push(value.maxTempC);
+        texts.push("High: " + value.maxTempC.toString() + " C");
         var d = new Date(value.startDate).toLocaleDateString();
         startDates.push(d);
         trip_count.push(value.trips);
         console.log(value.trips);
+
     });
 
     console.log(startDates);
@@ -73,8 +76,11 @@ d3.json(url_hw).then(function(weather) {
         x: startDates,
         y: trip_count,
         mode: 'markers',
+        type: 'scatter',
+        text: texts,
         marker: {
             size: sizes,
+            color: sizes,
             colorscale: "Jet"
         },
         type: 'scatter'
@@ -87,7 +93,9 @@ d3.json(url_hw).then(function(weather) {
         xaxis: {
             autotick: false,
             ticks: 'outside',
-            nticks: 10
+            tickmode: "auto",
+            nticks: 10,
+            rangemode: "normal"
         },
         showlegend: false
     };     

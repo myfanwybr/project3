@@ -111,8 +111,8 @@ def api_vizualize_weather():
         where rides.location_id = 2 and weather.location_id = 2 and
         extract(quarter from start_date) = 1 and 
         extract(date from rides.start_date) = extract(date from weather.forecast_date) 
-        group by start_date, maxTempC 
-        order by start_date 
+        group by startDate, maxTempC 
+        order by startDate 
         limit 100"""
 
     print(sql_hw)
@@ -122,6 +122,8 @@ def api_vizualize_weather():
 
     json_loads=json.loads(hweather)
     json_formatted_str = json.dumps(json_loads, indent=2)
+
+    print(json_formatted_str)
 
     return json_formatted_str
 
