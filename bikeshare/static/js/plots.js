@@ -1,10 +1,15 @@
 
-// busiest time of day
+
+initPage();
+function initPage() {
+    var startDate = '20190101'
+    var endDate = '20191231'
+    buildPlots(startDate, endDate);
+};
 
 function handleSubmit() {
     d3.event.preventDefault();
 
-    console.log("WERWHFSJDFNSDFSDLJFGHSJGJHFSDK");
     var startDate = d3.select("#start-date").node().value;
     var endDate = d3.select("#end-date").property("value");
 
@@ -21,7 +26,7 @@ function buildPlots(startDate, endDate) {
     var url_hw = "/api/visualize/weather/" + startDate + "/" + endDate;
     var url_stops = "/api/visualize/destinations/" + startDate + "/" + endDate;
     // console.log(url_stops);
-
+    // busiest time of day
     d3.json(url_time).then(function(data) {
 
         console.log(data);
