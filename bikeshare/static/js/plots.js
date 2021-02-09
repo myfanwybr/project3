@@ -35,7 +35,11 @@ d3.json(url_time).then(function(data) {
 
     var layout1 = {
         title: {
-            text: 'Busiest Time of Day'
+            text: 'Busiest Time of Day',
+            font: {
+                size: 16,
+                color: 'blue'
+            }
         },
         xaxis: {title: "Time of Day",
             tickmode: 'array',
@@ -73,13 +77,13 @@ d3.json(url_hw).then(function(weather) {
 
     });
 
-    console.log(startDates);
-    console.log(sizes);
-    console.log(trip_count);
+    // console.log(startDates);
+    // console.log(sizes);
+    // console.log(trip_count);
     
     var trace1 = {
         x: startDates,
-        y: maxtemp,
+        y: trip_count,
         mode: 'markers',
         type: 'scatter',
         text: texts,
@@ -94,12 +98,18 @@ d3.json(url_hw).then(function(weather) {
     var data_hw = [trace1];
 
     var layout_hw = {
-        title: 'Temperature and Trips',
+        title: { 
+            text: 'Temperature and Trips',
+            font: {
+                size: 16,
+                color : 'blue'
+            }
+        },
         xaxis: {
             autotick: false,
             ticks: 'outside',
             tickmode: "auto",
-            nticks: 10,
+            nticks: 12,
             rangemode: "normal"
         },
         showlegend: false
@@ -111,23 +121,107 @@ d3.json(url_hw).then(function(weather) {
 d3.json(url_stops).then((stops) => {
     console.log(stops);
 
-    var trip_count = [];
+    var daysofweek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
     var dayofweek = [];
+
+    var station1 = [];
+    var station2 = [];
+    var station3 = [];
+    var station4 = [];
+    var station5 = [];
+
+
     var station_name = [];
+
+    var current_stn = 0;
+    var current_wk = 1
 
     Object.entries(stops).forEach(([key, value]) => {
         console.log(value.trip_count);
         console.log(value.station_name);
+        console.log(value.weekday);
 
-        trip_count.push(value.trip_count);
-        station_name.push(value.station_name);
-        dayofweek.push(value.weekday);
+        current_stn += 1;
+        if (value.weekday != current_wk) {
+            current_stn = 1;
+            current_wk = value.weekday;
+        };
+
+        if ( current_stn == 1 ) {
+            station1.push(value.trip_count);
+        } else if ( current_stn == 2 ) {
+            station2.push(value.trip_count);
+        } else if ( current_stn == 3 ) {
+            station3.push(value.trip_count);
+        } else if ( current_stn == 4 ) {
+            station4.push(value.trip_count);
+        } else if ( current_stn == 5 ) {
+            station5.push(value.trip_count);
+        };
+
+        if (value.weekday == 1) {
+            station_name.push(value.station_name);
+        }
         
     });
 
 
+    var trace1 = {
+        x: daysofweek,
+        y: station1,
+        text: daysofweek,
+        name: station_name[0],
+        type: "bar"
+    };
+
+    
+    var trace2 = {
+        x: daysofweek,
+        y: station2,
+        text: daysofweek,
+        name: station_name[1],
+        type: "bar"
+    };
+
+    var trace3 = {
+        x: daysofweek,
+        y: station3,
+        text: dayofweek,
+        name: station_name[2],
+        type: "bar"
+    };
+
+    var trace4 = {
+        x: daysofweek,
+        y: station4,
+        text: dayofweek,
+        name: station_name[3],
+        type: "bar"
+    };
+
+    var trace5 = {
+        x: daysofweek,
+        y: station5,
+        text: daysofweek,
+        name: station_name[4],
+        type: "bar"
+    };
 
 
+    var traceData = [trace1, trace2, trace3, trace4, trace5];
 
+    var layoutXY = {
+        title: {
+            text: "Top 5 Destinations",
+            font: {
+                size: 16,
+                color: 'blue'
+            }
+        },
+        barmode: "group"
+    };
 
-})
+    Plotly.newPlot("bar-station", traceData, layoutXY, {responsive: true});
+
+});
