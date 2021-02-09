@@ -2,8 +2,19 @@
 
 initPage();
 function initPage() {
-    var startDate = '20190101'
-    var endDate = '20191231'
+    var sDate = '01/01/2019'
+    var eDate = '12/31/2019'
+
+    var yr1 = sDate.split("/")[2];
+    var yr2 = eDate.split("/")[2];
+
+    var startDate = yr1.concat(sDate.split("/")[0], sDate.split("/")[1])
+    var endDate = yr2.concat(eDate.split("/")[0], eDate.split("/")[1])
+
+
+    console.log(startDate);
+    console.log(endDate);
+
     buildPlots(startDate, endDate);
 };
 
@@ -12,6 +23,12 @@ function handleSubmit() {
 
     var startDate = d3.select("#start-date").node().value;
     var endDate = d3.select("#end-date").property("value");
+
+    var yr1 = startDate.split("/")[2];
+    var yr2 = endDate.split("/")[2];
+
+    startDate = yr1.concat(startDate.split("/")[0], startDate.split("/")[1])
+    endDate = yr2.concat(endDate.split("/")[0], endDate.split("/")[1])
 
     console.log(startDate);
     console.log(endDate);
