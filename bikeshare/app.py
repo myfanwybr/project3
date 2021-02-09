@@ -52,7 +52,7 @@ def api_pricing():
 @app.route("/api/visualize/destinations/<startDate>/<endDate>")
 def api_visualize_stops(startDate, endDate):
     
-    cityID = 2
+    cityID = 3
     startDate = datetime.strptime(startDate, "%Y%m%d")
     startDate = startDate.strftime("%Y-%m-%d")
 
@@ -72,7 +72,7 @@ def api_visualize_stops(startDate, endDate):
             f'station_name, station_id, count(*) as trip_count ' \
         f'from `bikeshare-303620.TripsDataset.Ridership` as rides, ' \
             f'activeStations stns ' \
-        f'where rides.location_id = 2 and stns.location_id = 2 ' \
+        f'where rides.location_id = {cityID} and stns.location_id = {cityID} ' \
         f'and rides.end_station_id = stns.station_id ' \
         f'and extract(date from start_date) between "{startDate}" and "{endDate}" '  \
         f'group by weekday, station_name, station_id ' \
@@ -90,7 +90,7 @@ def api_visualize_stops(startDate, endDate):
 @app.route("/api/visualize/time/<startDate>/<endDate>")
 def api_visualize(startDate, endDate):
     
-    cityname = "VANCOUVER"
+    cityname = "BOSTON"
     startDate = datetime.strptime(startDate, "%Y%m%d")
     startDate = startDate.strftime("%Y-%m-%d")
 
@@ -135,7 +135,7 @@ def api_visualize(startDate, endDate):
 
 @app.route("/api/visualize/weather/<startDate>/<endDate>")
 def api_vizualize_weather(startDate, endDate):
-    hwLocID = 2
+    hwLocID = 3
 
     startDate = datetime.strptime(startDate, "%Y%m%d")
     startDate = startDate.strftime("%Y-%m-%d")
