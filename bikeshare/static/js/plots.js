@@ -2,6 +2,7 @@
 
 initPage();
 function initPage() {
+    var cityname = "TORONTO"
     var sDate = '01/01/2019'
     var eDate = '12/31/2019'
 
@@ -16,6 +17,7 @@ function initPage() {
     console.log(endDate);
 
     buildPlots(startDate, endDate);
+    cityBlurb(cityname);
 };
 
 function handleSubmit() {
@@ -34,6 +36,7 @@ function handleSubmit() {
     console.log(endDate);
         
     buildPlots(startDate, endDate);
+    cityBlurb();
 
 };
 
@@ -277,6 +280,37 @@ function buildPlots(startDate, endDate) {
     createTimePlot(startDate, endDate);
     createWeatherPlot(startDate, endDate);
     createTopFive(startDate, endDate);
+}
+
+function cityBlurb(cityname) {
+    // text for city blurb
+    var txt = " Bike Activities";
+    if (cityname == "TORONTO") {
+        var blurbText = "Generally, the most popular station in Toronto is at station number 7076 located at York St/Queensway W. It is interesting to note that, for annual members, this location is the popular destination for bike users starting from the Sherbourne / Wellesley station while for casual users, the union station and this York St/Queensway W station is the most popular starting point and end point."
+    } else if (cityname == "VANCOUVER") {
+        var blurbText = "say something about vancouver"
+    } else if (cityname == "BOSTON") {
+        var blurbText = "Send me lobsters please. I'll send you my address."
+    } else if (cityname == "NYC") {
+        var blurbText = "Say Hi to the Statue of Liberty from the Chrysler Tower"
+    }
+
+    var activities = d3.select("city-activities");
+    activities.html("");
+    var title = activities.append("b");
+    var b = document.querySelector("b")
+    b.innerText=cityname.concat(txt);
+
+    
+    var blurb = d3.select("#city-trips");
+    // clear the p tag
+    blurb.html("");
+
+    var paragraph = blurb.append("p");
+    var p = document.querySelector("p");
+    p.innerText=blurbText
+
+
 }
 
 d3.select("#filter-button").on("click", handleSubmit);
