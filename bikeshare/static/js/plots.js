@@ -37,12 +37,8 @@ function handleSubmit() {
 
 };
 
-function buildPlots(startDate, endDate) {
-
+function createTimePlot(startDate, endDate) {
     var url_time = "/api/visualize/time/" + startDate + "/" + endDate;
-    var url_hw = "/api/visualize/weather/" + startDate + "/" + endDate;
-    var url_stops = "/api/visualize/destinations/" + startDate + "/" + endDate;
-    // console.log(url_stops);
     // busiest time of day
     d3.json(url_time).then(function(data) {
 
@@ -96,7 +92,10 @@ function buildPlots(startDate, endDate) {
         Plotly.newPlot("bubble-time", dataX, layout1, {responsive: true});
     
     });
-    
+}
+
+function createWeatherPlot(startDate, endDate) {
+    var url_hw = "/api/visualize/weather/" + startDate + "/" + endDate;
     // weather and trip count
     d3.json(url_hw).then(function(weather) {
         // console.log(weather);
@@ -158,8 +157,13 @@ function buildPlots(startDate, endDate) {
         };     
         Plotly.newPlot("bar-weather", data_hw, layout_hw, {responsive: true});    
     });
-    
+
+}
+function createTopFive(startDate, endDate) {
     // top 5 destination
+    var url_stops = "/api/visualize/destinations/" + startDate + "/" + endDate;
+    // console.log(url_stops);    
+    
     d3.json(url_stops).then((stops) => {
         // console.log(stops);
     
@@ -269,6 +273,10 @@ function buildPlots(startDate, endDate) {
     });
     
 }
-
+function buildPlots(startDate, endDate) {
+    createTimePlot(startDate, endDate);
+    createWeatherPlot(startDate, endDate);
+    createTopFive(startDate, endDate);
+}
 
 d3.select("#filter-button").on("click", handleSubmit);
