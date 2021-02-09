@@ -48,12 +48,12 @@ def api_pricing():
     return json_formatted_str
 
 
-@app.route("/api/visualize/destinations")
-def api_visualize_stops():
+@app.route("/api/visualize/destinations/<startDate>/<endDate>")
+def api_visualize_stops(startDate, endDate):
     
     cityID = 2
-    startDate = '2019-01-01'
-    endDate = '2019-01-31'
+    print(startDate)
+    print(endDate)
 
     sql_stops = f' with activeStations as ' \
         f'(select station_id, station_name, count(end_station_id) as trip_count, stations.location_id as location_id ' \
@@ -148,8 +148,6 @@ def api_vizualize_weather():
 
     json_loads=json.loads(hweather)
     json_formatted_str = json.dumps(json_loads, indent=2)
-
-    print(json_formatted_str)
 
     return json_formatted_str
 

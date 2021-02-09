@@ -6,7 +6,7 @@ function handleSubmit() {
 
     console.log("WERWHFSJDFNSDFSDLJFGHSJGJHFSDK");
     var startDate = d3.select("#start-date").node().value;
-    var endDate = d3.select("#end-date").node().value;
+    var endDate = d3.select("#end-date").property("value");
 
     console.log(startDate);
     console.log(endDate);
@@ -84,7 +84,7 @@ function buildPlots(startDate, endDate) {
         var maxtemp = [];
     
         Object.entries(weather).forEach(([key, value]) => {
-            console.log(value.maxTempC);
+            // console.log(value.maxTempC);
             maxtemp.push(value.maxTempC);
             // sizes.push(value.trips * 0.1);
             sizes.push(value.maxTempC + 10);
