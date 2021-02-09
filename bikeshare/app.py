@@ -4,6 +4,7 @@ from config import gcp_project, bigquery_uri
 from google.oauth2 import service_account
 import pandas as pd
 import pandas_gbq
+from datetime import datetime
 from os import environ
 
 app=Flask(__name__)
@@ -52,8 +53,11 @@ def api_pricing():
 def api_visualize_stops(startDate, endDate):
     
     cityID = 2
-    print(startDate)
-    print(endDate)
+    startDate = datetime.strptime(startDate, "%Y%m%d")
+    startDate = startDate.strftime("%Y-%m-%d")
+
+    endDate = datetime.strptime(endDate, "%Y%m%d")
+    endDate = endDate.strftime("%Y-%m-%d")
 
     sql_stops = f' with activeStations as ' \
         f'(select station_id, station_name, count(end_station_id) as trip_count, stations.location_id as location_id ' \
@@ -87,8 +91,15 @@ def api_visualize_stops(startDate, endDate):
 def api_visualize(startDate, endDate):
     
     cityname = "VANCOUVER"
-    # sDate = '2019-01-01'
-    # eDate = '2019-12-31'
+    startDate = datetime.strptime(startDate, "%Y%m%d")
+    startDate = startDate.strftime("%Y-%m-%d")
+
+    endDate = datetime.strptime(endDate, "%Y%m%d")
+    endDate = endDate.strftime("%Y-%m-%d")
+
+    print(startDate)
+    print(endDate)
+
 
     print(cityname)
     if cityname == "TORONTO":
@@ -125,8 +136,15 @@ def api_visualize(startDate, endDate):
 @app.route("/api/visualize/weather/<startDate>/<endDate>")
 def api_vizualize_weather(startDate, endDate):
     hwLocID = 2
-    # sDate = '2019-01-01'
-    # eDate = '2019-12-31'
+
+    startDate = datetime.strptime(startDate, "%Y%m%d")
+    startDate = startDate.strftime("%Y-%m-%d")
+
+    endDate = datetime.strptime(endDate, "%Y%m%d")
+    endDate = endDate.strftime("%Y-%m-%d")
+
+    print(startDate)
+    print(endDate)
 
     sql_hw = f'select extract(date from start_date) as startDate, ' \
             f' weather.maxTempC, ' \
