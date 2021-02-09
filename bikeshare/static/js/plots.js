@@ -2,7 +2,7 @@
 
 initPage();
 function initPage() {
-    var cityname = "TORONTO"
+    var cityname = "BOSTON"
     var sDate = '01/01/2019'
     var eDate = '12/31/2019'
 
@@ -290,7 +290,7 @@ function cityBlurb(cityname) {
     } else if (cityname == "VANCOUVER") {
         var blurbText = "say something about vancouver"
     } else if (cityname == "BOSTON") {
-        var blurbText = "Send me lobsters please. I'll send you my address."
+        var blurbText = "GENERALLY,  the most bike share usage in Boston occurs during the work week. Ridership drops significantly on the weekends. Destinations Central Station and MIT remain constant throughout the week."
     } else if (cityname == "NYC") {
         var blurbText = "Say Hi to the Statue of Liberty from the Chrysler Tower"
     }
