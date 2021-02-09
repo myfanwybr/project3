@@ -17,9 +17,10 @@ function handleSubmit() {
 
 function buildPlots(startDate, endDate) {
 
-    var url_time = "/api/visualize/time";
-    var url_hw = "/api/visualize/weather";
-    var url_stops = "/api/visualize/destinations";
+    var url_time = "/api/visualize/time/" + startDate + "/" + endDate;
+    var url_hw = "/api/visualize/weather/" + startDate + "/" + endDate;
+    var url_stops = "/api/visualize/destinations/" + startDate + "/" + endDate;
+    // console.log(url_stops);
 
     d3.json(url_time).then(function(data) {
 
@@ -76,7 +77,7 @@ function buildPlots(startDate, endDate) {
     
     // weather and trip count
     d3.json(url_hw).then(function(weather) {
-        console.log(weather);
+        // console.log(weather);
         var startDates = [];
         var trip_count = [];
         var sizes = [];

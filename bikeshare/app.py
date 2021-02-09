@@ -83,12 +83,12 @@ def api_visualize_stops(startDate, endDate):
 
     return json_formatted_str
 
-@app.route("/api/visualize/time")
-def api_visualize():
+@app.route("/api/visualize/time/<startDate>/<endDate>")
+def api_visualize(startDate, endDate):
     
     cityname = "VANCOUVER"
-    sDate = '2019-01-01'
-    eDate = '2019-12-31'
+    # sDate = '2019-01-01'
+    # eDate = '2019-12-31'
 
     print(cityname)
     if cityname == "TORONTO":
@@ -108,7 +108,7 @@ def api_visualize():
                   f' from `bikeshare-303620.TripsDataset.Ridership` ' \
                   f' where location_id = {locID} and ' \
                   f' extract(date from start_date) ' \
-                  f'  between "{sDate}" and "{eDate}" ' \
+                  f'  between "{startDate}" and "{endDate}" ' \
                   f'  group by start_hour, location_id '
     
     print(sql_daytime)
@@ -122,11 +122,11 @@ def api_visualize():
 
     return json_formatted_str
 
-@app.route("/api/visualize/weather")
-def api_vizualize_weather():
+@app.route("/api/visualize/weather/<startDate>/<endDate>")
+def api_vizualize_weather(startDate, endDate):
     hwLocID = 2
-    sDate = '2019-01-01'
-    eDate = '2019-12-31'
+    # sDate = '2019-01-01'
+    # eDate = '2019-12-31'
 
     sql_hw = f'select extract(date from start_date) as startDate, ' \
             f' weather.maxTempC, ' \
@@ -136,7 +136,7 @@ def api_vizualize_weather():
             f'`bikeshare-303620.TripsDataset.HistoricalWeather` as weather ' \
             f'where rides.location_id = {hwLocID} and weather.location_id = {hwLocID} and' \
             f' extract(date from start_date) ' \
-            f'   between "{sDate}" and "{eDate}" and' \
+            f'   between "{startDate}" and "{endDate}" and' \
             f' extract(date from rides.start_date) = extract(date from weather.forecast_date) ' \
             f'group by startDate, maxTempC ' \
             f'order by startDate '
