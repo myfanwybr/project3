@@ -1,15 +1,20 @@
 #import dependencies
 from flask import Flask, jsonify, render_template, redirect, json, url_for, request
-from config import gcp_project, bigquery_uri
 from google.oauth2 import service_account
 import pandas as pd
 import pandas_gbq
 from datetime import datetime
 from os import environ
 
+
+gcp_project = "bikeshare-303620"
+bigquery_dataset = "TripsDataset"
+bigquery_uri = f'bigquery://{gcp_project}/{bigquery_dataset}'
+
+
 app=Flask(__name__)
 
-credentials = service_account.Credentials.from_service_account_file('bikeshare-303620-f28d36859136.json')
+credentials = service_account.Credentials.from_service_account_file('bikeshare-303620-8579d23e955b.json')
 projectID = 'bikeshare-303620'
 
 ##front end routes
