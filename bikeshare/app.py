@@ -14,7 +14,7 @@ bigquery_uri = f'bigquery://{gcp_project}/{bigquery_dataset}'
 
 app=Flask(__name__)
 
-credentials = service_account.Credentials.from_service_account_file('bikeshare-303620-4e43243ce552.json')
+credentials = service_account.Credentials.from_service_account_file('bikeshare-303620-8579d23e955b.json')
 projectID = 'bikeshare-303620'
 
 ##front end routes
