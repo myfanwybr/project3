@@ -32,7 +32,7 @@ def plot():
 
 @app.route("/weather")
 def historical():
-    return render_template("weather.html")
+    return render_template("h_weather.html")
 
 @app.route("/citymap")
 def stations():
@@ -177,10 +177,10 @@ def api_vizualize_weather(startDate, endDate):
 
 @app.route("/api/weather")
 def api_weather():
-    locationID = 1
+    # locationID = 1
     # startDate = '01/01/2019'
     # endDate = '12/31/2019'
-    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` where location_id = {locationID}'
+    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather`'
     weather_df = pd.read_gbq(sql_weather, project_id=gcp_project, credentials=credentials, dialect='standard')
     weather = weather_df.to_json(orient='records')
 
