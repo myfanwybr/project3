@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "/Users/karenTratnik/opt/anaconda3/bin/python",
+    "python.pythonPath": "/usr/local/anaconda3/bin/python",
     "liveServer.settings.port": 5502
 }
