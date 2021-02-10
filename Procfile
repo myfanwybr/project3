@@ -1,1 +1,1 @@
-web: gunicorn bikeshare.app:bike-share-bootcamp
+web: gunicorn bikeshare.app:app
