@@ -149,3 +149,10 @@
     -webkit-animation-timing-function:ease-in-out;
     -webkit-animation-direction: alternate;
   }
+  select {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    color: #0f0f0f;
+    outline: none;
+  }
