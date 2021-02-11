@@ -174,7 +174,7 @@ def api_weather(locationID):
     # locationID = 1
     # startDate = '01/01/2019'
     # endDate = '12/31/2019'
-    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` where location_id = {locationID}'
+    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` '
     weather_df = pd.read_gbq(sql_weather, project_id=gcp_project, credentials=credentials, dialect='standard')
     weather = weather_df.to_json(orient='records')
 
