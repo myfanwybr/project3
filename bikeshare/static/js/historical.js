@@ -5,13 +5,17 @@ console.log(location.href);
 console.log(locationID);
 
 if (typeof locationID !== 'undefined') {
-    var url_weather = '/api/weather' + "/" + locationID
+    var url_weather = '/api/weather' + "/" + locationID;
 }
 else {
-    var url_weather = '/api/weather'
+    var url_weather = '/api/weather';
 }
 
 console.log(url_weather);
+
+// d3.json(url_weather).then((data) => {
+//     console.log(data);
+// });
 
 d3.json(url_weather).then(function(data)
 {
