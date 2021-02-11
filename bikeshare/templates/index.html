@@ -54,12 +54,12 @@
                 <div class="row" style="background-color: rgb(105, 231, 105);">
                 <div class="col-md-12 jumbotron" style="text-align:center">
                     <h1>Bike Share</h1>
-                    <p>
-                        <a href="/visualize" class="btn btn-default" role="button" aria-pressed="true">TORONTO</a> .
-                        <a href="/visualize" class="btn btn-default" role="button" aria-pressed="true">VANCOUVER</a> .
-                        <a href="/visualize" class="btn btn-default" role="button" aria-pressed="true">BOSTON</a> .
-                        <a href="/visualize" class="btn btn-default" role="button" aria-pressed="true">NYC</a>
-                    </p>
+                    <form method="POST" action="/plots" >
+                        <input type="submit" value="TORONTO" name="submit-button" class="btn btn-default" aria-pressed="true"> .
+                        <input type="submit" value="VANCOUVER" name="submit-button" class="btn btn-default" aria-pressed="true"> .
+                        <input type="submit" value="BOSTON" name="submit-button" class="btn btn-default" aria-pressed="true"> .
+                        <input type="submit" value="NYC" name="submit-button" class="btn btn-default" aria-pressed="true"> .
+                    </form>
                     <hr>
                     <h5>Looking into Implementing A Sustainable, Economical and Healthy Lifestyle Practice</h5>
                 </div>
