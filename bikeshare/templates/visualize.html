@@ -13,7 +13,6 @@
 
     </head>
     <body>
-
         <!-- navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="/">Bike Share<span class="sr-only">(current)</span></a>
@@ -51,21 +50,6 @@
             </div>
         </nav> <!-- end of navbar-->
         <!-- jumbotron area -->
-        <!-- <div class="container">
-            <div class="row">
-                <div class="col-md-12 jumbotron" style="text-align:center">
-                    <h1>Bike Share</h1>
-                    <p>
-                        <a href="/citymap" class="btn btn-default" role="button" aria-pressed="true">TORONTO</a> .
-                        <a href="/citymap" class="btn btn-default" role="button" aria-pressed="true">VANCOUVER</a> .
-                        <a href="/citymap" class="btn btn-default" role="button" aria-pressed="true">BOSTON</a> .
-                        <a href="/citymap" class="btn btn-default" role="button" aria-pressed="true">NYC</a>
-                    </p>
-                    <hr>
-                    <h5>Looking into Implementing A Sustainable, Economical and Healthy Lifestyle Practice</h5>
-                </div>
-            </div>
-        </div> -->
         <!-- end jumbotron -->
         
         <!-- container for filters, whereto button, profile -->
@@ -97,19 +81,14 @@
                 </div>
 
                 <div class="col-xs-6 col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-body" id="city-activities">
-                            <b>City Bike Activities</b>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" id="current-city">
+                            <b>{{ cityNameIS}}</b>
+                        </div>
+                        <div class="panel-body" id="city-blurb">
+                            <!-- Say something about the city and its bike usage here, based on the graphs. -->
                         </div>
                     </div>
-                    <span class="border border-info">
-
-                        <div class="city-profile">
-                            <div id="city-trips">
-                                <!-- Say something about the city and its bike usage here, based on the graphs. -->
-                            </div>
-                        </div>
-                    </span>
                 </div>
 
                 <div class="col-xs-6 col-md-4">
