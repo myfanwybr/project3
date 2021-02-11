@@ -46,7 +46,7 @@ function initPage() {
     console.log(startDate);
     console.log(endDate);
 
-    buildPlots(locationID, startDate, endDate);
+    // buildPlots(locationID, startDate, endDate);
     cityBlurb(blurbText);
 };
 
