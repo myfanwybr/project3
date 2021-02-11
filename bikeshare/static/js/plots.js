@@ -2,9 +2,40 @@
 
 initPage();
 function initPage() {
-    var cityname = "BOSTON"
-    var sDate = '01/01/2019'
-    var eDate = '12/31/2019'
+    var cityname = d3.select("#current-city").text();
+    cityname = cityname.trim();
+    console.log(cityname);
+
+    var locationID = 0;
+    var blurbText = "";
+    
+    if (cityname === "TORONTO") {
+        locationID = 1;
+        blurbText = "Generally, the most popular station in Toronto is at station number 7076 located at York St/Queensway W. It is interesting to note that, for annual members, this location is the popular destination for bike users starting from the Sherbourne / Wellesley station while for casual users, the union station and this York St/Queensway W station is the most popular starting point and end point.";
+    } else if (cityname === "VANCOUVER") {
+        locationID = 2;
+        blurbText = "say something about vancouver";
+    } else if (cityname === "BOSTON") {
+        locationID = 3;
+        blurbText = "GENERALLY,  the most bike share usage in Boston occurs during the work week. Ridership drops significantly on the weekends. Destinations Central Station and MIT remain constant throughout the week.";
+    } else if (cityname === "NYC") {
+        locationID = 4;
+        console.log(cityname);
+        blurbText = "Say Hi to the Statue of Liberty from the Chrysler Tower";
+    };
+
+    // var blurb = d3.select("#city-blurb");
+    // // clear the p tag
+    // blurb.html("");
+
+    // var paragraph = blurb.append("p");
+    // var p = document.querySelector("p");
+    // p.innerText=blurbText;
+
+
+    console.log(blurbText);
+    var sDate = '01/01/2019';
+    var eDate = '12/31/2019';
 
     var yr1 = sDate.split("/")[2];
     var yr2 = eDate.split("/")[2];
@@ -16,8 +47,8 @@ function initPage() {
     console.log(startDate);
     console.log(endDate);
 
-    buildPlots(startDate, endDate);
-    cityBlurb(cityname);
+    // buildPlots(startDate, endDate);
+    cityBlurb(blurbText);
 };
 
 function handleSubmit() {
@@ -36,7 +67,6 @@ function handleSubmit() {
     console.log(endDate);
         
     buildPlots(startDate, endDate);
-    cityBlurb();
 
 };
 
@@ -282,34 +312,16 @@ function buildPlots(startDate, endDate) {
     createTopFive(startDate, endDate);
 }
 
-function cityBlurb(cityname) {
+function cityBlurb(theBlurb) {
     // text for city blurb
-    var txt = " Bike Activities";
-    if (cityname == "TORONTO") {
-        var blurbText = "Generally, the most popular station in Toronto is at station number 7076 located at York St/Queensway W. It is interesting to note that, for annual members, this location is the popular destination for bike users starting from the Sherbourne / Wellesley station while for casual users, the union station and this York St/Queensway W station is the most popular starting point and end point."
-    } else if (cityname == "VANCOUVER") {
-        var blurbText = "say something about vancouver"
-    } else if (cityname == "BOSTON") {
-        var blurbText = "GENERALLY,  the most bike share usage in Boston occurs during the work week. Ridership drops significantly on the weekends. Destinations Central Station and MIT remain constant throughout the week."
-    } else if (cityname == "NYC") {
-        var blurbText = "Say Hi to the Statue of Liberty from the Chrysler Tower"
-    }
-
-    var activities = d3.select("city-activities");
-    activities.html("");
-    var title = activities.append("b");
-    var b = document.querySelector("b")
-    b.innerText=cityname.concat(txt);
-
-    
-    var blurb = d3.select("#city-trips");
+    console.log(theBlurb)
+    var blurb = d3.select("#city-blurb");
     // clear the p tag
     blurb.html("");
 
     var paragraph = blurb.append("p");
     var p = document.querySelector("p");
-    p.innerText=blurbText
-
+    p.innerText=theBlurb;
 
 }
 
