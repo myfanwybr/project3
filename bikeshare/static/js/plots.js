@@ -3,7 +3,7 @@
 initPage();
 function initPage() {
     var cityname = d3.select("#current-city").text();
-    cityname = cityname.trim();
+    cityname = cityname.trim().toUpperCase();
     console.log(cityname);
 
     var locationID = 0;
