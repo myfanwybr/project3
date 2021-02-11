@@ -14,7 +14,7 @@ bigquery_uri = f'bigquery://{gcp_project}/{bigquery_dataset}'
 
 app=Flask(__name__)
 
-credentials = service_account.Credentials.from_service_account_file('bikeshare-303620-8579d23e955b.json')
+credentials = service_account.Credentials.from_service_account_file('bikeshare-303620-f28d36859136.json')
 projectID = 'bikeshare-303620'
 
 ##front end routes
@@ -26,9 +26,17 @@ def main():
 def prices():
     return render_template("pricing.html")
 
-@app.route("/visualize")
-def plot():
-    return render_template("visualize.html")
+@app.route("/plots", methods=['GET','POST'])
+def plots():
+    cityNameIS = ""
+    if request.method == "POST":
+        cityNameIS = request.form["submit-button"]
+        print(cityNameIS)
+    else:
+        return redirect("/")
+        
+    return render_template("visualize.html", cityNameIS = cityNameIS)
+
 
 @app.route("/weather")
 def historical():
@@ -54,10 +62,11 @@ def api_pricing():
     return json_formatted_str
 
 
-@app.route("/api/visualize/destinations/<startDate>/<endDate>")
-def api_visualize_stops(startDate, endDate):
+@app.route("/api/visualize/destinations/<cityID>/<startDate>/<endDate>")
+def api_visualize_stops(cityID, startDate, endDate):
     
-    cityID = 3
+    print(cityID)
+    
     startDate = datetime.strptime(startDate, "%Y%m%d")
     startDate = startDate.strftime("%Y-%m-%d")
 
@@ -92,10 +101,9 @@ def api_visualize_stops(startDate, endDate):
 
     return json_formatted_str
 
-@app.route("/api/visualize/time/<startDate>/<endDate>")
-def api_visualize(startDate, endDate):
-    
-    cityname = "BOSTON"
+@app.route("/api/visualize/time/<locID>/<startDate>/<endDate>")
+def api_visualize(locID, startDate, endDate):
+        
     startDate = datetime.strptime(startDate, "%Y%m%d")
     startDate = startDate.strftime("%Y-%m-%d")
 
@@ -104,18 +112,6 @@ def api_visualize(startDate, endDate):
 
     print(startDate)
     print(endDate)
-
-
-    print(cityname)
-    if cityname == "TORONTO":
-        locID = 1
-    elif cityname == "VANCOUVER":
-        locID = 2
-    elif cityname == "BOSTON":
-        locID = 3
-    else:
-        locID = 4
-    
     print(locID)
 
     # popular time of day
@@ -138,9 +134,8 @@ def api_visualize(startDate, endDate):
 
     return json_formatted_str
 
-@app.route("/api/visualize/weather/<startDate>/<endDate>")
-def api_vizualize_weather(startDate, endDate):
-    hwLocID = 3
+@app.route("/api/visualize/weather/<hwLocID>/<startDate>/<endDate>")
+def api_vizualize_weather(hwLocID, startDate, endDate):
 
     startDate = datetime.strptime(startDate, "%Y%m%d")
     startDate = startDate.strftime("%Y-%m-%d")
@@ -148,6 +143,7 @@ def api_vizualize_weather(startDate, endDate):
     endDate = datetime.strptime(endDate, "%Y%m%d")
     endDate = endDate.strftime("%Y-%m-%d")
 
+    print(hwLocID)
     print(startDate)
     print(endDate)
 
