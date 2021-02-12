@@ -15,10 +15,14 @@ bigquery_uri = f'bigquery://{gcp_project}/{bigquery_dataset}'
 app=Flask(__name__)
 
 #credentials = service_account.Credentials.from_service_account_file('bikeshare-303620-9376d042fdc2.json')
+<<<<<<< Updated upstream
 credentials= os.environ.get("private_key_id")
 
 print(credentials)
 
+=======
+# credentials= os.environ.get("private_key_id")
+>>>>>>> Stashed changes
 projectID = 'bikeshare-303620'
 
 ##front end routes
@@ -174,7 +178,7 @@ def api_vizualize_weather(hwLocID, startDate, endDate):
 
 
 @app.route("/api/weather/<locationID>")
-def api_weather(locationID):
+def api_weather_loc(locationID):
     # locationID = 1
     # startDate = '01/01/2019'
     # endDate = '12/31/2019'
@@ -186,6 +190,21 @@ def api_weather(locationID):
     json_formatted_str = json.dumps(json_loads, indent=2)
 
     return json_formatted_str
+
+@app.route("/api/weather")
+def api_weather():
+    # locationID = 1
+    # startDate = '01/01/2019'
+    # endDate = '12/31/2019'
+    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` '
+    weather_df = pd.read_gbq(sql_weather, project_id=gcp_project, credentials=credentials, dialect='standard')
+    weather = weather_df.to_json(orient='records')
+
+    json_loads=json.loads(weather)
+    json_formatted_str = json.dumps(json_loads, indent=2)
+
+    return json_formatted_str
+
 
 @app.route("/api/citymap/<locationID>")
 def api_citymap(locationID):
@@ -214,10 +233,23 @@ def api_citymap(locationID):
     return json_formatted_str
 
 @app.route("/api/stations/<locationID>")
-def api_stations(locationID):
+def api_stations_loc(locationID):
 
     sql_stations = f'select * from `bikeshare-303620.TripsDataset.Stations` ' \
                     f'where location_id = coalesce({locationID}, location_id)'
+    print(sql_stations)
+    stations_df = pd.read_gbq(sql_stations, project_id=gcp_project, credentials=credentials, dialect='standard')
+    stations_data = stations_df.to_json(orient='records')
+
+    json_loads=json.loads(stations_data)
+    json_formatted_str = json.dumps(json_loads, indent=2)
+
+    return json_formatted_str
+
+@app.route("/api/stations")
+def api_stations():
+
+    sql_stations = f'select * from `bikeshare-303620.TripsDataset.Stations` ' 
     print(sql_stations)
     stations_df = pd.read_gbq(sql_stations, project_id=gcp_project, credentials=credentials, dialect='standard')
     stations_data = stations_df.to_json(orient='records')
