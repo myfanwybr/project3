@@ -4,7 +4,7 @@ from google.oauth2 import service_account
 import pandas as pd
 import pandas_gbq
 from datetime import datetime
-from os import environ
+import os
 
 
 gcp_project = "bikeshare-303620"
@@ -16,6 +16,9 @@ app=Flask(__name__)
 
 #credentials = service_account.Credentials.from_service_account_file('bikeshare-303620-9376d042fdc2.json')
 credentials= os.environ.get("private_key_id")
+
+print(credentials)
+
 projectID = 'bikeshare-303620'
 
 ##front end routes
