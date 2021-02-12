@@ -156,3 +156,8 @@
     color: #0f0f0f;
     outline: none;
   }
+  
+  label {
+    font: small-caption;
+    color: black;
+}

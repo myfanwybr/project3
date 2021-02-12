@@ -45,71 +45,52 @@
 <!-- end of navbar-->
   <div class="wrapper">
     
-    <div class="hero text-center">
-      <h3>Get The Historical Weather Information</h1>
+    <div class="hero text-center" >
+      <h3 class="text-center text-success">Get The Historical Weather Information</h3>
     </div>
     <div class="container"style="text-align: center;">
-      <!-- <div class="row margin-top-50"> -->
-        <!-- <div class="col-md-2"> -->
-          <aside class="filters">
-            <div class="panel panel-default">
-              <div class="panel-heading">Filter Search</div>
-              <div class="panel-body">
-                <form>
-                    <div class="container"style="text-align: center;" >
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3 class="text-center text-success">Enter Start Date:</h3>
-                                <div id="error"></div>
-                            </div>
-                            <div class="row form-group form-inline" id="city" >
-                                <input type="text" name="cityname" id="cityname" class="form-control" placeholder="1/11/2019"></input>
-                                
-                            </div>
-                                <div id="weather-data">
+
+          <div class="container-fluid pt-3 my-3 bg-success text-white">
+                <div class="row">
+                  <div class="col-xs-6 col-md-2"></div>
+                    <aside class="filters">
+                        <div class="panel panel-default">
                             
+                            <div class="panel-body">
+                                <form id="form">
+                                    <div class="form-group">
+                                        <ul class="list-group" id="filters">
+                                            <li class="filter list-group-item">
+                                                <label for="date">Enter Start Date</label> 
+                                                <input class="form-control" style="text-align: center;" id="start-date" type="text" placeholder="1/1/2019">
+                                            </li>
+                                            <li class="filter list-group-item">
+                                                <label for="date">Enter End Date</label>
+                                                <input class="form-control" style="text-align: center;" id="end-date" type="text" placeholder="12/31/2019">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <button id="filter-button" type="submit" class="btn btn-default">Filter Table</button>
+                                  </form>
                             </div>
-            
-                            
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3 class="text-center text-success">Enter End Date:</h3>
-                                <div id="error"></div>
-                            </div>
-                            <div class="row form-group form-inline" id="city" >
-                                <input type="text" name="cityname" id="cityname" class="form-control" placeholder="9/10/2019"></input>
-                                
-                            </div>
-                                <div id="weather-data">
-                            
-                            </div>
-            
-                            
-                        </div>
-                        
-                    </div> 
-                  
-                  <button id="filter-btn" type="button" class="btn btn-default">Filter Table</button>
-                    
-                </form>
-              </div>
-            </div>
-          </aside>
-        </div>
+                          </div>
+                    </aside>
+                </div>
+          </div>
         
+        <br>
         <div class="col-md-10">
           <div id="table-area" class="">
             <table id="ufo-table" class="table table-striped">
               <thead>
                 <tr>
-                  <th class="table-head">avg_cloudcover</th>
-                  <th class="table-head">avg_windspeed</th>
-                  <th class="table-head">forecast_date</th>
-                  <th class="table-head">humidity</th>
-                  <th class="table-head">location_id</th>
-                  <th class="table-head">maxTempC</th>
-                  <th class="table-head">total_precip</th>
+                  <th class="table-head">Avg_cloudcover</th>
+                  <th class="table-head">Avg_windspeed</th>
+                  <th class="table-head">Forecast_date</th>
+                  <th class="table-head">Humidity</th>
+                  <th class="table-head">Location_id</th>
+                  <th class="table-head">MaxTempC</th>
+                  <th class="table-head">Total_precip</th>
               </thead>
               <tbody></tbody>
             </table>
