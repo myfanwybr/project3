@@ -1,12 +1,11 @@
 
-
+var locationID = 0;
 initPage();
 function initPage() {
     var cityname = d3.select("#current-city").text();
     cityname = cityname.trim().toUpperCase();
     console.log(cityname);
 
-    var locationID = 0;
     var blurbText = "";
     
     if (cityname === "TORONTO") {
@@ -32,7 +31,7 @@ function initPage() {
     // var p = document.querySelector("p");
     // p.innerText=blurbText;
 
-
+    console.log(locationID);
     console.log(blurbText);
     var sDate = '01/01/2019';
     var eDate = '12/31/2019';
@@ -47,7 +46,7 @@ function initPage() {
     console.log(startDate);
     console.log(endDate);
 
-    // buildPlots(startDate, endDate);
+    // buildPlots(locationID, startDate, endDate);
     cityBlurb(blurbText);
 };
 
@@ -65,13 +64,15 @@ function handleSubmit() {
 
     console.log(startDate);
     console.log(endDate);
-        
-    buildPlots(startDate, endDate);
+    console.log(locationID);
+    buildPlots(locationID, startDate, endDate);
 
 };
 
-function createTimePlot(startDate, endDate) {
-    var url_time = "/api/visualize/time/" + startDate + "/" + endDate;
+function createTimePlot(locationID, startDate, endDate) {
+    var url_time = "/api/visualize/time/" + locationID + "/" + startDate + "/" + endDate;
+    console.log(url_time);
+    console.log(url_time);
     // busiest time of day
     d3.json(url_time).then(function(data) {
 
@@ -127,8 +128,9 @@ function createTimePlot(startDate, endDate) {
     });
 }
 
-function createWeatherPlot(startDate, endDate) {
-    var url_hw = "/api/visualize/weather/" + startDate + "/" + endDate;
+function createWeatherPlot(locationID, startDate, endDate) {
+    var url_hw = "/api/visualize/weather/" + locationID + "/" + startDate + "/" + endDate;
+    console.log(url_hw);
     // weather and trip count
     d3.json(url_hw).then(function(weather) {
         // console.log(weather);
@@ -192,9 +194,10 @@ function createWeatherPlot(startDate, endDate) {
     });
 
 }
-function createTopFive(startDate, endDate) {
+function createTopFive(locationID, startDate, endDate) {
     // top 5 destination
-    var url_stops = "/api/visualize/destinations/" + startDate + "/" + endDate;
+    var url_stops = "/api/visualize/destinations/" + locationID + "/" + startDate + "/" + endDate;
+    console.log(url_stops);
     // console.log(url_stops);    
     
     d3.json(url_stops).then((stops) => {
@@ -217,9 +220,9 @@ function createTopFive(startDate, endDate) {
         var current_wk = 1
     
         Object.entries(stops).forEach(([key, value]) => {
-            console.log(value.trip_count);
-            console.log(value.station_name);
-            console.log(value.weekday);
+            // console.log(value.trip_count);
+            // console.log(value.station_name);
+            // console.log(value.weekday);
     
             current_stn += 1;
             if (value.weekday != current_wk) {
@@ -249,7 +252,7 @@ function createTopFive(startDate, endDate) {
         var trace1 = {
             x: daysofweek,
             y: station1,
-            text: daysofweek,
+            // text: daysofweek,
             name: station_name[0],
             type: "bar"
         };
@@ -258,7 +261,7 @@ function createTopFive(startDate, endDate) {
         var trace2 = {
             x: daysofweek,
             y: station2,
-            text: daysofweek,
+            // text: daysofweek,
             name: station_name[1],
             type: "bar"
         };
@@ -266,7 +269,7 @@ function createTopFive(startDate, endDate) {
         var trace3 = {
             x: daysofweek,
             y: station3,
-            text: dayofweek,
+            // text: dayofweek,
             name: station_name[2],
             type: "bar"
         };
@@ -274,7 +277,7 @@ function createTopFive(startDate, endDate) {
         var trace4 = {
             x: daysofweek,
             y: station4,
-            text: dayofweek,
+            // text: daysofweek,
             name: station_name[3],
             type: "bar"
         };
@@ -282,7 +285,7 @@ function createTopFive(startDate, endDate) {
         var trace5 = {
             x: daysofweek,
             y: station5,
-            text: daysofweek,
+            // text: daysofweek,
             name: station_name[4],
             type: "bar"
         };
@@ -306,10 +309,10 @@ function createTopFive(startDate, endDate) {
     });
     
 }
-function buildPlots(startDate, endDate) {
-    createTimePlot(startDate, endDate);
-    createWeatherPlot(startDate, endDate);
-    createTopFive(startDate, endDate);
+function buildPlots(locationID, startDate, endDate) {
+    createTimePlot(locationID, startDate, endDate);
+    createWeatherPlot(locationID, startDate, endDate);
+    createTopFive(locationID, startDate, endDate);
 }
 
 function cityBlurb(theBlurb) {

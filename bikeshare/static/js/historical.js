@@ -1,4 +1,23 @@
-d3.json("/api/weather").then(function(data)
+// get value for current city
+var current_url = location.href;
+var locationID = current_url.split('=')[1];
+console.log(location.href);
+console.log(locationID);
+
+if (typeof locationID !== 'undefined') {
+    var url_weather = '/api/weather' + "/" + locationID;
+}
+else {
+    var url_weather = '/api/weather';
+}
+
+console.log(url_weather);
+
+// d3.json(url_weather).then((data) => {
+//     console.log(data);
+// });
+
+d3.json(url_weather).then(function(data)
 {
     
     var data=data
