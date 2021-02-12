@@ -4,6 +4,29 @@ var locationID = current_url.split('=')[1];
 console.log(location.href);
 console.log(locationID);
 
+var center_toronto = [43.645609, -79.380386];
+var center_boston = [42.361145, -71.057083];
+var center_vancouver = [49.24966 -123.11934];
+var center_newyork = [40.730610, -73.935242];
+var center_center = [41.4925, -99.9018];
+
+if (locationID === 1) {
+  center = center_toronto;
+  var zoomx = 12;
+} else if (locationID === 2) {
+  center = center_vancouver;
+  var zoomx = 12;
+} else if (locationID === 3) {
+  center = center_boston;
+  var zoomx = 12;
+} else if (locationID === 4) {
+    center = center_newyork;
+    var zoomx = 12;
+} else {
+  center = center_center;
+  var zoomx = 4;
+}
+
 if (typeof locationID !== 'undefined') {
     var url_stations = '/api/stations' + "/" + locationID
     var url_map = '/api/citymap' + "/" + locationID
@@ -12,6 +35,7 @@ else {
     var url_stations = '/api/stations'
     var url_map = '/api/citymap'
 }
+
 
 d3.json(url_stations).then((data) => {
     
@@ -56,8 +80,8 @@ d3.json(url_stations).then((data) => {
   
     // Create the map object with options
     var map = L.map("map-id", {
-      center: [40.73, -74.0059],
-      zoom: 12,
+      center: center,
+      zoom: zoomx,
       layers: [lightmap, bikeStations]
     });
   

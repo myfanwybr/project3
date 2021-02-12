@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Citi Bike</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bike Share</title>
 
 
   <!-- Leaflet CSS -->
@@ -10,14 +11,60 @@
   integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
   crossorigin=""/>
 
+  <!-- Boostrap Stylesheet -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
   <!-- Our CSS -->
   <link rel="stylesheet" type="text/css" href="../static/css/style.css">
 </head>
 
 <body>
 
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Bike Share<span class="sr-only">(current)</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <!-- <li class="nav-item active">
+                <a class="nav-link" href="index.html">Latitude <span class="sr-only">(current)</span></a>
+            </li> -->
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Plot Analyses
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <form method="POST" action="/plots" >
+                        <input type="submit" value="TORONTO" name="submit-button" class="btn btn-link btn-block">
+                        <input type="submit" value="VANCOUVER" name="submit-button" class="btn btn-link btn-block">
+                        <input type="submit" value="BOSTON" name="submit-button" class="btn btn-link btn-block">
+                        <input type="submit" value="NYC" name="submit-button" class="btn btn-link btn-block">
+                    </form>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/weather">Historical Weather</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pricing">Pricing</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/citymap">Interactive Map</a>
+            </li>
+        </ul>
+    </div>
+</nav> 
+<!-- end of navbar-->
+
   <!-- The div that holds our map -->
-  <div id="map-id"></div>
+  <div class="container-fluid">
+    <div id="map-id"></div>
+  </div>
+  
 
   <!-- D3 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
