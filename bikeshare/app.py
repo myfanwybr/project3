@@ -176,6 +176,7 @@ def api_vizualize_weather(hwLocID, startDate, endDate):
 
     return json_formatted_str
 
+#  ============ WEATHER =================
 # get weather for specific city and date range
 @app.route("/api/weather/<locationID>/<startDate>/<endDate>")
 def api_weather_loc_date(locationID, startDate, endDate):
@@ -186,7 +187,8 @@ def api_weather_loc_date(locationID, startDate, endDate):
     endDate = datetime.strptime(endDate, "%Y%m%d")
     endDate = endDate.strftime("%Y-%m-%d")
 
-    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` ' \
+    sql_weather = f'select forecast_date, maxTempC, humidity, total_precip, avg_cloudcover, avg_windspeed, location_id ' \
+                    f'from `bikeshare-303620.TripsDataset.HistoricalWeather` ' \
                     f'where location_id = {locationID} ' \
                     f'and extract(date from forecast_date) between "{startDate}" and "{endDate}" ' \
                     f'order by forecast_date'
@@ -202,7 +204,8 @@ def api_weather_loc_date(locationID, startDate, endDate):
 @app.route("/api/weather/<locationID>")
 def api_weather_loc(locationID):
 
-    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` as weather ' \
+    sql_weather = f'select forecast_date, maxTempC, humidity, total_precip, avg_cloudcover, avg_windspeed, location_id ' \
+                    f'from `bikeshare-303620.TripsDataset.HistoricalWeather` as weather ' \
                     f'where weather.location_id = coalesce({locationID}, weather.location_id) ' \
                     f'order by forecast_date'
 
@@ -220,7 +223,8 @@ def api_weather():
     # locationID = 1
     # startDate = '01/01/2019'
     # endDate = '12/31/2019'
-    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` order by location_id, forecast_date'
+    sql_weather = f'select forecast_date, maxTempC, humidity, total_precip, avg_cloudcover, avg_windspeed, location_id ' \
+                    f'from `bikeshare-303620.TripsDataset.HistoricalWeather` order by location_id, forecast_date'
     weather_df = pd.read_gbq(sql_weather, project_id=gcp_project, credentials=credentials, dialect='standard')
     weather = weather_df.to_json(orient='records')
 
@@ -239,7 +243,8 @@ def api_weather_dates(startDate, endDate):
     endDate = datetime.strptime(endDate, "%Y%m%d")
     endDate = endDate.strftime("%Y-%m-%d")
 
-    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` ' \
+    sql_weather = f'select forecast_date, maxTempC, humidity, total_precip, avg_cloudcover, avg_windspeed, location_id ' \
+                    f'from `bikeshare-303620.TripsDataset.HistoricalWeather` ' \
                     f'where extract(date from forecast_date) between "{startDate}" and "{endDate}" ' \
                     f'order by location_id, forecast_date'
     weather_df = pd.read_gbq(sql_weather, project_id=gcp_project, credentials=credentials, dialect='standard')
