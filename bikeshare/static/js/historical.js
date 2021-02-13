@@ -82,11 +82,12 @@ function showData(url_weather) {
     d3.json(url_weather).then(function(data)
     {
         console.log(data)
-        data.forEach(function(aliens){
-            var row=tbody.append("tr")
         
+        data.forEach(function(forecast){
+            var row=tbody.append("tr");
+            
             //select objects using . Entries
-            Object.entries(aliens).forEach(function([key, value]){
+            Object.entries(forecast).forEach(function([key, value]){
                 if (key == "forecast_date") {
                     value = new Intl.DateTimeFormat('en-US', {
                         timeZone: 'Australia/Sydney'
