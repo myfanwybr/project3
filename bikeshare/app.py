@@ -254,8 +254,8 @@ def api_weather_dates(startDate, endDate):
 def api_citymap_loc(locationID, startStationID):
 
     sql_rides = f'select extract(month from start_date) as startDate, ' \
-                    f'end_station_id, station_name, ' \
-                    f'count(end_station_id) as endCount ' \
+                    f'end_station_id, station_name, latitude, longitude,' \
+                    f'count(end_station_id) as trips_count ' \
                 f'from `bikeshare-303620.TripsDataset.Ridership` rides, ' \
                      f'`bikeshare-303620.TripsDataset.Stations` stations ' \
                 f'where ' \
@@ -263,7 +263,7 @@ def api_citymap_loc(locationID, startStationID):
                     f'rides.location_id = {locationID}  and ' \
                     f'start_station_id = {startStationID} and ' \
                     f'rides.end_station_id = stations.station_id ' \
-                f'group by startDate, end_station_id, station_name'
+                f'group by startDate, end_station_id, station_name, latitude, longitude'
 
     stations_df = pd.read_gbq(sql_rides, project_id=gcp_project, credentials=credentials, dialect='standard')
     stations_data = stations_df.to_json(orient='records')
