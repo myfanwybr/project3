@@ -166,7 +166,7 @@ def api_vizualize_weather(hwLocID, startDate, endDate):
 
     return json_formatted_str
 
-
+# get weather for specific city and date range
 @app.route("/api/weather/<locationID>/<startDate>/<endDate>")
 def api_weather_loc_date(locationID, startDate, endDate):
 
@@ -188,6 +188,7 @@ def api_weather_loc_date(locationID, startDate, endDate):
 
     return json_formatted_str
 
+# get weather for specific location
 @app.route("/api/weather/<locationID>")
 def api_weather_loc(locationID):
 
@@ -203,7 +204,7 @@ def api_weather_loc(locationID):
 
     return json_formatted_str
 
-
+# get all weather information for all cities
 @app.route("/api/weather")
 def api_weather():
     # locationID = 1
@@ -218,6 +219,7 @@ def api_weather():
 
     return json_formatted_str
 
+# get weather for all cities within specific date range
 @app.route("/api/weather/<startDate>/<endDate>")
 def api_weather_dates(startDate, endDate):
 
