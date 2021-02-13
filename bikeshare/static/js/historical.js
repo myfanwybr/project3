@@ -15,8 +15,8 @@ function get_url() {
 
     return url_weather;
 }
-
-showData();
+var url_weather = get_url();
+showData(url_weather);
 
 // select filter button using ID
 var filterbutton = d3.select("#filter-btn");
@@ -54,11 +54,16 @@ function runSubmit() {
 
     console.log(url_weather);
 
+    showData(url_weather);
+
 }
 
-function showData() {
+function showData(url_weather) {
     console.log("show Data");
-    url_weather = get_url();
+
+    var tbody = d3.select("tbody");
+    tbody.html("");
+    
     d3.json(url_weather).then(function(data)
     {
         console.log(data)

@@ -168,7 +168,7 @@ def api_vizualize_weather(hwLocID, startDate, endDate):
 
 
 @app.route("/api/weather/<locationID>/<startDate>/<endDate>")
-def api_weather_date(locationID, startDate, endDate):
+def api_weather_loc_date(locationID, startDate, endDate):
 
     startDate = datetime.strptime(startDate, "%Y%m%d")
     startDate = startDate.strftime("%Y-%m-%d")
@@ -176,9 +176,9 @@ def api_weather_date(locationID, startDate, endDate):
     endDate = datetime.strptime(endDate, "%Y%m%d")
     endDate = endDate.strftime("%Y-%m-%d")
 
-    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` as weather ' \
-                    f'where weather.location_id = coalesce({locationID}, weather.location_id) ' \
-                    f'and extract(date from forecast_date between "{startDate}" and "{endDate}" )' \
+    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` ' \
+                    f'where location_id = {locationID} ' \
+                    f'and extract(date from forecast_date) between "{startDate}" and "{endDate}" ' \
                     f'order by forecast_date'
     weather_df = pd.read_gbq(sql_weather, project_id=gcp_project, credentials=credentials, dialect='standard')
     weather = weather_df.to_json(orient='records')
@@ -218,6 +218,25 @@ def api_weather():
 
     return json_formatted_str
 
+@app.route("/api/weather/<startDate>/<endDate>")
+def api_weather_dates(startDate, endDate):
+
+    startDate = datetime.strptime(startDate, "%Y%m%d")
+    startDate = startDate.strftime("%Y-%m-%d")
+
+    endDate = datetime.strptime(endDate, "%Y%m%d")
+    endDate = endDate.strftime("%Y-%m-%d")
+
+    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` ' \
+                    f'where extract(date from forecast_date) between "{startDate}" and "{endDate}" ' \
+                    f'order by location_id, forecast_date'
+    weather_df = pd.read_gbq(sql_weather, project_id=gcp_project, credentials=credentials, dialect='standard')
+    weather = weather_df.to_json(orient='records')
+
+    json_loads=json.loads(weather)
+    json_formatted_str = json.dumps(json_loads, indent=2)
+
+    return json_formatted_str
 
 @app.route("/api/citymap/<locationID>/<startStationID>")
 def api_citymap_loc(locationID, startStationID):
