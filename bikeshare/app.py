@@ -256,7 +256,7 @@ def api_weather_dates(startDate, endDate):
     return json_formatted_str
 
 @app.route("/api/citymap/<locationID>/<startStationID>")
-def api_citymap_loc(locationID, startStationID):
+def api_citymap_stn(locationID, startStationID):
 
     sql_rides = f'select extract(month from start_date) as startDate, ' \
                     f'end_station_id, station_name, latitude, longitude,' \
@@ -278,7 +278,30 @@ def api_citymap_loc(locationID, startStationID):
 
     return json_formatted_str
 
-# get all stations for all cities
+@app.route("/api/citymap/<locationID>")
+def api_citymap_loc(locationID):
+
+    sql_rides = f'select extract(month from start_date) as startDate, ' \
+                    f'end_station_id, station_name, latitude, longitude,' \
+                    f'count(end_station_id) as trips_count ' \
+                f'from `bikeshare-303620.TripsDataset.Ridership` rides, ' \
+                     f'`bikeshare-303620.TripsDataset.Stations` stations ' \
+                f'where ' \
+                    f'stations.location_id = {locationID}  and ' \
+                    f'rides.location_id = {locationID}  and ' \
+                    f'rides.end_station_id = stations.station_id ' \
+                f'group by startDate, end_station_id, station_name, latitude, longitude'
+
+    stations_df = pd.read_gbq(sql_rides, project_id=gcp_project, credentials=credentials, dialect='standard')
+    stations_data = stations_df.to_json(orient='records')
+
+    json_loads=json.loads(stations_data)
+    json_formatted_str = json.dumps(json_loads, indent=2)
+
+    return json_formatted_str
+
+
+# get all end stations for all cities
 @app.route("/api/citymap")
 def api_citymap():
 
