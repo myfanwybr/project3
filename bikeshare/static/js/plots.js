@@ -20,7 +20,7 @@ function initPage() {
     } else if (cityname === "NYC") {
         locationID = 4;
         console.log(cityname);
-        blurbText = "Say Hi to the Statue of Liberty from the Chrysler Tower";
+        blurbText = "In New York City, the most popular destination is Pershing Square North, but drops significantly on the weekends. Ridership is higher during the work week. The busiest times of the day are in the morning between 8am-9am and in the evening from 5pm to 7pm.";
     };
 
     // var blurb = d3.select("#city-blurb");
@@ -53,8 +53,25 @@ function initPage() {
 function handleSubmit() {
     d3.event.preventDefault();
 
+    var defaultStartDate = '1/1/2019';
+    var defaultEndDate = '12/31/2019';
+
     var startDate = d3.select("#start-date").node().value;
     var endDate = d3.select("#end-date").property("value");
+
+    if (startDate) {
+        console.log("not empty date");
+    } else {
+        console.log("empty empty");
+        startDate = defaultStartDate;
+    }
+
+    if (endDate) {
+        console.log("not empty date");
+    } else {
+        console.log("empty empty");
+        endDate = defaultEndDate;
+    }
 
     var yr1 = startDate.split("/")[2];
     var yr2 = endDate.split("/")[2];
@@ -146,7 +163,9 @@ function createWeatherPlot(locationID, startDate, endDate) {
             // sizes.push(value.trips * 0.1);
             sizes.push(value.maxTempC + 10);
             texts.push("High: " + value.maxTempC.toString() + " C");
-            var d = new Date(value.startDate).toLocaleDateString();
+            var d = new Intl.DateTimeFormat('en-US', {
+                timeZone: 'Australia/Sydney'
+              }).format(value.startDate);
             startDates.push(d);
             trip_count.push(value.trips);
             // console.log(value.trips);
@@ -252,7 +271,7 @@ function createTopFive(locationID, startDate, endDate) {
         var trace1 = {
             x: daysofweek,
             y: station1,
-            // text: daysofweek,
+            // text: station1,
             name: station_name[0],
             type: "bar"
         };
@@ -261,7 +280,7 @@ function createTopFive(locationID, startDate, endDate) {
         var trace2 = {
             x: daysofweek,
             y: station2,
-            // text: daysofweek,
+            // text: station2,
             name: station_name[1],
             type: "bar"
         };
@@ -269,7 +288,7 @@ function createTopFive(locationID, startDate, endDate) {
         var trace3 = {
             x: daysofweek,
             y: station3,
-            // text: dayofweek,
+            // text: station3,
             name: station_name[2],
             type: "bar"
         };
@@ -277,7 +296,7 @@ function createTopFive(locationID, startDate, endDate) {
         var trace4 = {
             x: daysofweek,
             y: station4,
-            // text: daysofweek,
+            // text: station4,
             name: station_name[3],
             type: "bar"
         };
@@ -285,7 +304,7 @@ function createTopFive(locationID, startDate, endDate) {
         var trace5 = {
             x: daysofweek,
             y: station5,
-            // text: daysofweek,
+            // text: station5,
             name: station_name[4],
             type: "bar"
         };
