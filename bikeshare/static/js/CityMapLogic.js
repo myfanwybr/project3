@@ -20,36 +20,47 @@ function init() {
   d3.json(url_stations).then((data) => {
     for(var i =0; i<data.length; i++){
       name=data[i].station_name;
-      dropdown.append("option").text(name).property("value", name);
+      ID = data[i].station_id;
+      //dropdown.append("option").text(name).property("value", name);
+      dropdown.append("option").text(ID).property("value", ID);
+      //console.log(ID);
   }
 });
 }
 
-init();
 
-d3.json(url_map + "/" + "7000").then((data) => {
-    
-    // Initialize an array to hold bike markers
-    var bikeMarkers = [];
+// function to display data with the selected dropdown menu item
+function optionChanged(ID) {
+  console.log(ID);
+  createMap(ID);
+}
 
-    // For each station, create a marker and bind a popup with the station's name
-    for(var i =0; i<data.length; i++){
+function CreateMarkers(ID){
+  d3.json(url_map + "/" + ID).then((data) => {
+    console.log(data);
+     
+     // Initialize an array to hold bike markers
+     var bikeMarkers = [];
+ 
+     // For each station, create a marker and bind a popup with the station's name
+     for(var i =0; i<data.length; i++){
+ 
+         station_name=data[i].station_name
+         lat=data[i].latitude
+         long=data[i].longitude
+         trips=data[i].trips_count
+ 
+         var bikeMarker = L.marker([lat, long])
+         .bindPopup("<h6> Station name: " + station_name + "</h6><hr><h6>Trips in a year: " + trips+ "</h6>");
+ 
+         // Add the marker to the bikeMarkers array
+         bikeMarkers.push(bikeMarker);
+     }
+     createMap(L.layerGroup(bikeMarkers));
+ });
+}
 
-        station_name=data[i].station_name
-        lat=data[i].latitude
-        long=data[i].longitude
-        trips=data[i].trips_count
-
-        var bikeMarker = L.marker([lat, long])
-        .bindPopup("<h3>" + station_name + "<h3><h3>Capacity: " + trips+ "</h3>");
-
-        // Add the marker to the bikeMarkers array
-        bikeMarkers.push(bikeMarker);
-    }
-    createMap(L.layerGroup(bikeMarkers));
-});
-
-function createMap(bikeStations) {
+function createMap(bikeStationsID) {
 
     // Define streetmap and darkmap layers
   var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -76,7 +87,7 @@ function createMap(bikeStations) {
 
   // Create overlay object to hold our overlay layer
   var overlayMaps = {
-    "Bike Stations": bikeStations
+    "Bike Stations": bikeStationsID
   };
 
   var center_toronto = [43.645609, -79.380386];
@@ -108,7 +119,7 @@ function createMap(bikeStations) {
   var myMap = L.map("map-id", {
     center: center1,
     zoom: zoomx,
-    layers: [streetmap, bikeStations]
+    layers: [streetmap, bikeStationsID]
   });
 
   // Create a layer control
@@ -118,3 +129,4 @@ function createMap(bikeStations) {
     collapsed: false
   }).addTo(myMap);
 }
+init();
