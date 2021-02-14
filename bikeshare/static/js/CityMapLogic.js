@@ -1,20 +1,33 @@
 // Get value for current city
 var current_url = location.href;
 var locationID = current_url.split('=')[1];
-console.log(location.href);
-console.log(locationID);
 
 if (typeof locationID !== 'undefined') {
     var url_stations = '/api/stations' + "/" + locationID
     var url_map = '/api/citymap' + "/" + locationID
+    console.log(url_stations);
+    console.log(url_map);
+
 }
 else {
     var url_stations = '/api/stations'
     var url_map = '/api/citymap'
 }
 
+//function to populate dropdown with the start station names
+function init() {
+  var dropdown = d3.select("#selDataset");
+  d3.json(url_stations).then((data) => {
+    for(var i =0; i<data.length; i++){
+      name=data[i].station_name;
+      dropdown.append("option").text(name).property("value", name);
+  }
+});
+}
 
-d3.json(url_stations).then((data) => {
+init();
+
+d3.json(url_map + "/" + "7000").then((data) => {
     
     // Initialize an array to hold bike markers
     var bikeMarkers = [];
@@ -25,9 +38,10 @@ d3.json(url_stations).then((data) => {
         station_name=data[i].station_name
         lat=data[i].latitude
         long=data[i].longitude
+        trips=data[i].trips_count
 
         var bikeMarker = L.marker([lat, long])
-        .bindPopup("<h3>" + station_name+ "<h3>");
+        .bindPopup("<h3>" + station_name + "<h3><h3>Capacity: " + trips+ "</h3>");
 
         // Add the marker to the bikeMarkers array
         bikeMarkers.push(bikeMarker);
