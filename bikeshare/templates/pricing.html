@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bike Share</title>
+        
+        <!-- Boostrap Stylesheet -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+        <!-- Personal css -->
+        <link rel="stylesheet" href="../static/css/pricetable.css" media="screen">
+        <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" media="screen"> -->
+
+    </head>
+    <body>
+
+        <!-- navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">Bike Share<span class="sr-only">(current)</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <!-- <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Latitude <span class="sr-only">(current)</span></a>
+                    </li> -->
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Plot Analyses
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <form method="POST" action="/plots" >
+                                <input type="submit" value="TORONTO" name="submit-button" class="btn btn-link btn-block">
+                                <input type="submit" value="VANCOUVER" name="submit-button" class="btn btn-link btn-block">
+                                <input type="submit" value="BOSTON" name="submit-button" class="btn btn-link btn-block">
+                                <input type="submit" value="NYC" name="submit-button" class="btn btn-link btn-block">
+                            </form>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/weather">Historical Weather</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/citymap">Interactive Map</a>
+                    </li>
+                </ul>
+            </div>
+        </nav> 
+        <!-- end of navbar-->
+
+        <!--Price content-->
+        <div class="top-banner">
+            <p class="current-plan">Price Index</p>
+            <p class="plan-type">Subscription Based or Pass Access Available</p>
+        </div>
+        <div class="container">
+            <h1 class="title">Pricing</h1>
+            <div class="toggle-switch">
+                <span>Annual Membership </span>
+                <input type="checkbox" class="toggle">
+                <span>Casual Membership</span>
+            </div>
+
+            <!--Toronto Prices-->
+            <div class="cards">
+                <h2>Toronto Prices</h2>
+                <!--plan toronto 1-->
+                <div class="card" id="card-1">
+                    <h3 class="card-title">Annual Membership</h3>
+                    <h4 class="card-price" id="Annual-Membership"> $99 <span> / Year</span></h4>
+                        <ul class="card-plan">
+                            <li class="disable"> Yearly subscription</li>
+                        </ul>
+                </div>
+                <!--plan toronto 2-->
+                <div class="card" id="card-2">
+                    <h3 class="card-title">Casual Membership</h3>
+                    <h4 class="card-price" id="Casual-Membership"> $15 <span> / 72HRS</span></h4>
+                        <ul class="card-plan">
+                            <li class="disable"> Access Pass</li>
+                        </ul>
+                </div>
+                <!--plan toronto 3-->
+                <div class="card" id="card-3">
+                    <h3 class="card-title">Casual Membership</h3>
+                    <h4 class="card-price" id="Casual-Membership"> $7 <span> / 24HRS</span></h4>
+                        <ul class="card-plan">
+                            <li class="disable"> Access Pass</li>
+                        </ul>
+                </div>
+                <!--plan toronto 4-->
+                <div class="card" id="card-4">
+                    <h3 class="card-title">Casual Membership</h3>
+                    <h4 class="card-price" id="Casual-Membership"> $3.25 <span> / 30MIN</span></h4>
+                        <ul class="card-plan">
+                            <li class="disable"> Access Pass</li>
+                        </ul>
+                </div>
+            </div>
+
+            <!--Vancouver Prices-->
+            <div class="cards">
+                <h2>Vancouver Prices</h2>
+                <!--plan vancouver 1-->
+                <div class="card" id="card-1">
+                    <h3 class="card-title">Annual Membership</h3>
+                    <h4 class="card-price" id="Annual-Membership"> $159 <span> / Year</span></h4>
+                        <ul class="card-plan">
+                            <li class="disable"> Yearly subscription</li>
+                            <li class="disable"> Plus</li>
+                        </ul>
+                </div>
+                <!--plan vancouver 2-->
+                <div class="card" id="card-2">
+                    <h3 class="card-title">Annual Membership</h3>
+                    <h4 class="card-price" id="Annual-Membership"> $129 <span> / Year</span></h4>
+                        <ul class="card-plan">
+                            <li class="disable"> Yearly subscription</li>
+                            <li class="disable"> Standard</li>
+                        </ul>
+                </div>
+                <!--plan vancouver 3-->
+                <div class="card" id="card-3">
+                    <h3 class="card-title">Casual Membership</h3>
+                    <h4 class="card-price" id="Casual Membership"> $25 <span> / Month</span></h4>
+                        <ul class="card-plan">
+                            <li class="disable"> Access Pass</li>
+                        </ul>
+                </div>
+                <!--plan vancouver 4-->
+                <div class="card" id="card-4">
+                    <h3 class="card-title">Casual Membership</h3>
+                    <h4 class="card-price" id="Casual Membership"> $12 <span> / 24HRS</span></h4>
+                        <ul class="card-plan">
+                            <li class="disable"> Access Pass</li>
+                        </ul>
+                </div>
+            </div>
+
+            <!--Boston Prices-->
+            <div class="cards">
+                <!--plan boston 1-->
+                <div class="card" id="card-1">
+                    <h2 class="card-title">Boston Prices</h2>
+                    <h3 class="card-price" id="Annual-Membership"> $99 <span> / Year</span></h3>
+                        <ul class="card-plan">
+                            <li class="disable"> Yearly subscription</li>
+                            <li class="disable"> Plus</li>
+                        </ul>
+                </div>
+                <!--plan boston 2-->
+                <div class="card" id="card-2">
+                    <h2 class="card-title">Boston Prices</h2>
+                    <h3 class="card-price" id="Annual-Membership"> $10 <span> / 3 Months</span></h3>
+                        <ul class="card-plan">
+                            <li class="disable"> Yearly subscription</li>
+                            <li class="disable"> Standard</li>
+                        </ul>
+                </div>
+                <!--plan boston 3-->
+                <div class="card" id="card-3">
+                    <h2 class="card-title">Boston Prices</h2>
+                    <h3 class="card-price" id="Casual-Membership"> $20 <span> / Month</span></h3>
+                        <ul class="card-plan">
+                            <li class="disable"> Access Pass</li>
+                        </ul>
+                </div>
+
+            <!--NYC Prices-->
+            <div class="cards">
+                <!--plan nyc 1-->
+                <div class="card" id="card-1">
+                    <h2 class="card-title">NYC Prices</h2>
+                    <h3 class="card-price" id="Annual-Membership"> $180 <span> / Year</span></h3>
+                        <ul class="card-plan">
+                            <li class="disable"> Yearly subscription</li>
+                            <li class="disable"> Plus</li>
+                        </ul>
+                </div>
+                <!--plan nyc 2-->
+                <div class="card" id="card-2">
+                    <h2 class="card-title">NYC Prices</h2>
+                    <h3 class="card-price" id="Casual-Membership"> $15 <span> / 24HRS</span></h3>
+                        <ul class="card-plan">
+                            <li class="disable"> Access Pass</li>
+                        </ul>
+                </div>
+                <!--plan nyc 3-->
+                <div class="card" id="card-3">
+                    <h2 class="card-title">NYC Prices</h2>
+                    <h3 class="card-price" id="Casual-Membership"> $3 <span> / 30MIN</span></h3>
+                        <ul class="card-plan">
+                            <li class="disable"> Access Pass</li>
+                        </ul>
+                </div>
+        </div>
+
+     <!--end of content-->
+        <!--Footer-->
+        <div id = "footer">
+            <p>&copy; BIKE SHARE 2021</p>
+        </div>
+
+        <!--Plugins-->
+        <!--Bootstrap Javascript: jQuery, Popper.js, Bootstrap JS, plotly, and d3-->
+    
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+        <script type="text/javascript" src="../static/js/pricing.js"></script>
+
+    </body>
+
+</html>
