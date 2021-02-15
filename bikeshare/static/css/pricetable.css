@@ -1,178 +1,140 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing: border-box;
-}
-
-*:focus{
-    outline: none;
-}
-
-ul{
-    list-style: none;
-}
-
-body{
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: whitesmoke;
-    color: black;
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.top-banner{
-    background-color: whitesmoke;
-    position: absolute;
-    padding: 1.5rem 4rem;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+.pricingTable{
+    color: #fff;
+    background-color: #294046;
+    font-family: 'Roboto Condensed', sans-serif;
     text-align: center;
-    border-radius: 0 0 10px 10;
-}
-
-p.current-plan{
-    font-size: 0.75rem;
-    margin-bottom: 0.5rem;
-}
-
-p.plan-type{
-    font-size: 1rem;
-    font-weight: 900;
-}
-
-.container{
-    text-align: center;
-    width: 1100px;
-}
-
-h1.title{
-    letter-spacing: 2px;
-    margin-bottom: 1.5rem;
-}
-
-.toggle-switch{
-    display: flex;
-    height: 30px;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.toggler{
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    width: 50px;
-    height: 25px;
-    background-color:  rgb(105, 231, 105);
-    border-radius: 25px;
-    margin: 0 1rem;
+    margin: 0 15px 80px;
     position: relative;
 }
-
-.toggler::before{
+.pricingTable:before,
+.pricingTable:after{
     content: "";
-    width: 16px;
-    height: 16px;
-    background-color: whitesmoke;
-    position: absolute;
-    border-radius: 50%;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 4px;
-}
-
-.toggler:checked::before{
-    right: 55%;
-}
-
-.cards{
-    display: flex;
-    justify-items: space-between;
-    align-items: center;
+    background: #294046;
     width: 100%;
-    flex-wrap: wrap;
-    height: 100%;
+    height: 65px;
+    position: absolute;
+    bottom: -65px;
+    left: 0;
+    z-index: 1;
+    clip-path: polygon(0 0, 100% 0, 100% 0%, 50% 100%, 0% 0%);
 }
-
-.card{
-    height: 500px;
-    width: 32%;
-    background-color: whitesmoke;
-    border-color: rgb(105, 231, 105);
-    border-width: 0.10rem;
-    border-radius: 25px;
-    padding: 2rem;
-    text-align: center;
+.pricingTable:after{
+    background: #ee184e;
+    width: 90%;
+    height: 80px;
+    transform: translateX(-50%);
+    bottom: -80px;
+    left: 50%;
+    z-index: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 25%, 50% 100%, 0% 25%);
 }
-
-.card-title{
-    font-size: 1.5rem;
-    font-weight: lighter;
-    margin-bottom: 1rem;
+.pricingTable .pricingTable-header{ padding: 15px 0 12px; }
+.pricingTable .title{
+    font-size: 35px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0 23px;
+    margin: 0;
+    display: inline-block;
+    position: relative;
 }
-
-.card.price{
-    font-size: 3rem;
-    text-align: center;
+.pricingTable .title:before,
+.pricingTable .title:after{
+    content: "";
+    background: #fff;
+    width: 10px;
+    height: 10px;
+    border-radius: 50px;
+    transform: translateY(-50%);
+    position: absolute;
+    top: 50%;
+    left: 0;
 }
-
-h4>span{
-    font-size: 1rem;
+.pricingTable .title:after{
+    left: auto;
+    right: 0;
 }
-
-.card ul{
-    text-align: left;
-    font-size: 0.9rem;
-    font-weight: lighter;
+.pricingTable .price-value{
+    background: #ee184e;
+    padding: 15px 0 13px;
+    margin: 0 -15px;
+    position: relative;
 }
-
-.card ul li::before{
-    content:"•";
-    margin-right: 0.5rem;
-    color: rgb(105, 231, 105);
-    font-size: 1.5rem;
+.pricingTable .price-value:before,
+.pricingTable .price-value:after{
+    content: "";
+    background: linear-gradient(to right top, transparent 49%, #a31330 50%);
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    bottom: -15px;
+    left: 0;
 }
-
-.card ul li{
-    margin-bottom: 0.5rem;
+.pricingTable .price-value:after{
+    transform: rotateY(180deg);
+    left: auto;
+    right: 0;
 }
-
-@media (max-width:1112px){
-    .cards{
-        justify-content: center;
-    }
-    .card{
-        width: 40%;
-    margin: 2rem;
-    }
+.pricingTable .price-value .amount{
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 40px;
+    display: inline-block;
 }
-
-@media (max-width:848px){
-    .card{
-        width: 50%;
-    }
+.pricingTable .price-value .amount-sm{
+    font-size: 25px;
+    font-weight: 700;
+    vertical-align: top;
+    margin: -5px 0 0;
+    display: inline-block;
 }
-
-@media (max-width:674px){
-    .top-banner{
-        width: 70%;
-    }
-    .card{
-        width:70%;
-    }
+.pricingTable .pricing-content{
+    padding: 20px 0;
+    margin: 0;
+    list-style: none;
 }
-
-@media (max-width:500px){
-    .top-banner{
-        width: 90%
-    }
-    .card{
-        width: 90%;
-    }
+.pricingTable .pricing-content li{
+    background: #1f3135;
+    font-size: 17px;
+    line-height: 33px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
 }
+.pricingTable .pricing-content li:last-child{ margin: 0; }
+.pricingTable .pricing-content li.disable{ color: #526164; }
+.pricingTable .pricingTable-signup a{
+    color: #fff;
+    background: #ee184e;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 45px;
+    text-transform: uppercase;
+    padding: 6px 25px;
+    transition: all 0.3s;
+}
+.pricingTable .pricingTable-signup a:hover{
+    text-shadow: -2px 2px 1px #000;
+    box-shadow: 0 0 15px #000;
+}
+.pricingTable.blue:after,
+.pricingTable.blue .price-value,
+.pricingTable.blue .pricingTable-signup a{
+    background: #01B4C8;
+}
+.pricingTable.blue .price-value:before,
+.pricingTable.blue .price-value:after{
+    background: linear-gradient(to right top,transparent 49%, #005AC1 50%);
+}
+.pricingTable.green:after,
+.pricingTable.green .price-value,
+.pricingTable.green .pricingTable-signup a{
+    background: #05c46b;
+}
+.pricingTable.green .price-value:before,
+.pricingTable.green .price-value:after{
+    background: linear-gradient(to right top,transparent 49%, #058c4d 50%);
+}
+@media only screen and (max-width: 990px){
+    .pricingTable{ margin: 0 15px 100px; }
+} 

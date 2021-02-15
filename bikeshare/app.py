@@ -24,7 +24,7 @@ app=Flask(__name__)
 
 # # use service_account to generate credentials object
 # credentials = service_account.Credentials.from_service_account_info(json_data)
-credentials = service_account.Credentials.from_service_account_file('bikeshare-303620-09b8e6c22e54.json')
+credentials = service_account.Credentials.from_service_account_file('bikeshare.json')
 
 ##front end routes
 @app.route("/")
