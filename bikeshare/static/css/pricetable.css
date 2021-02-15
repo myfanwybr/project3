@@ -103,8 +103,10 @@ h1.title{
 .card{
     height: 500px;
     width: 32%;
-    background-color: rgb(105, 231, 105);
-    border-radius: 15px;
+    background-color: whitesmoke;
+    border-color: rgb(105, 231, 105);
+    border-width: 0.10rem;
+    border-radius: 25px;
     padding: 2rem;
     text-align: center;
 }
@@ -117,5 +119,60 @@ h1.title{
 
 .card.price{
     font-size: 3rem;
-    text-align: center:
+    text-align: center;
+}
+
+h4>span{
+    font-size: 1rem;
+}
+
+.card ul{
+    text-align: left;
+    font-size: 0.9rem;
+    font-weight: lighter;
+}
+
+.card ul li::before{
+    content:"•";
+    margin-right: 0.5rem;
+    color: rgb(105, 231, 105);
+    font-size: 1.5rem;
+}
+
+.card ul li{
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width:1112px){
+    .cards{
+        justify-content: center;
+    }
+    .card{
+        width: 40%;
+    margin: 2rem;
+    }
+}
+
+@media (max-width:848px){
+    .card{
+        width: 50%;
+    }
+}
+
+@media (max-width:674px){
+    .top-banner{
+        width: 70%;
+    }
+    .card{
+        width:70%;
+    }
+}
+
+@media (max-width:500px){
+    .top-banner{
+        width: 90%
+    }
+    .card{
+        width: 90%;
+    }
 }
