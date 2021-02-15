@@ -29,7 +29,8 @@ filterbutton.on("click", runSubmit);
 filterdata.on("submit", runSubmit);
 
 function runSubmit() {
-
+    var defaultStartDate = '1/1/2019';
+    var defaultEndDate = '12/31/2019';
     d3.event.preventDefault();
     // get the value of the input dates
     var startDate = d3.select("#start-date");
@@ -37,6 +38,20 @@ function runSubmit() {
 
     var endDate = d3.select("#end-date");
     var inputEndDate = endDate.property("value");
+
+    if (inputStartDate) {
+        console.log("not empty date");
+    } else {
+        console.log("empty empty");
+        inputStartDate = defaultStartDate;
+    }
+
+    if (inputEndDate) {
+        console.log("not empty date");
+    } else {
+        console.log("empty empty");
+        inputEndDate = defaultEndDate;
+    }
 
     console.log(inputStartDate);
     console.log(inputEndDate);
@@ -67,11 +82,12 @@ function showData(url_weather) {
     d3.json(url_weather).then(function(data)
     {
         console.log(data)
-        data.forEach(function(aliens){
-            var row=tbody.append("tr")
         
+        data.forEach(function(forecast){
+            var row=tbody.append("tr");
+            
             //select objects using . Entries
-            Object.entries(aliens).forEach(function([key, value]){
+            Object.entries(forecast).forEach(function([key, value]){
                 if (key == "forecast_date") {
                     value = new Intl.DateTimeFormat('en-US', {
                         timeZone: 'Australia/Sydney'

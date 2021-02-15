@@ -14,17 +14,17 @@ bigquery_uri = f'bigquery://{gcp_project}/{bigquery_dataset}'
 
 app=Flask(__name__)
 
-# the json credentials stored as env variable
-json_str = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
+# # the json credentials stored as env variable
+# json_str = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
 
-# generate json - if there are errors here remove newlines in .env
-json_data = json.loads(json_str)
-# the private_key needs to replace \n parsed as string literal with escaped newlines
-json_data['private_key'] = json_data['private_key'].replace('\\n', '\n')
+# # generate json - if there are errors here remove newlines in .env
+# json_data = json.loads(json_str)
+# # the private_key needs to replace \n parsed as string literal with escaped newlines
+# json_data['private_key'] = json_data['private_key'].replace('\\n', '\n')
 
-# use service_account to generate credentials object
-credentials = service_account.Credentials.from_service_account_info(json_data)
-#credentials = service_account.Credentials.from_service_account_file('bikeshare-303620-09b8e6c22e54.json')
+# # use service_account to generate credentials object
+# credentials = service_account.Credentials.from_service_account_info(json_data)
+credentials = service_account.Credentials.from_service_account_file('bikeshare.json')
 
 ##front end routes
 @app.route("/")
@@ -176,6 +176,7 @@ def api_vizualize_weather(hwLocID, startDate, endDate):
 
     return json_formatted_str
 
+#  ============ WEATHER =================
 # get weather for specific city and date range
 @app.route("/api/weather/<locationID>/<startDate>/<endDate>")
 def api_weather_loc_date(locationID, startDate, endDate):
@@ -186,7 +187,8 @@ def api_weather_loc_date(locationID, startDate, endDate):
     endDate = datetime.strptime(endDate, "%Y%m%d")
     endDate = endDate.strftime("%Y-%m-%d")
 
-    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` ' \
+    sql_weather = f'select forecast_date, maxTempC, humidity, total_precip, avg_cloudcover, avg_windspeed, location_id ' \
+                    f'from `bikeshare-303620.TripsDataset.HistoricalWeather` ' \
                     f'where location_id = {locationID} ' \
                     f'and extract(date from forecast_date) between "{startDate}" and "{endDate}" ' \
                     f'order by forecast_date'
@@ -202,7 +204,8 @@ def api_weather_loc_date(locationID, startDate, endDate):
 @app.route("/api/weather/<locationID>")
 def api_weather_loc(locationID):
 
-    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` as weather ' \
+    sql_weather = f'select forecast_date, maxTempC, humidity, total_precip, avg_cloudcover, avg_windspeed, location_id ' \
+                    f'from `bikeshare-303620.TripsDataset.HistoricalWeather` as weather ' \
                     f'where weather.location_id = coalesce({locationID}, weather.location_id) ' \
                     f'order by forecast_date'
 
@@ -220,7 +223,8 @@ def api_weather():
     # locationID = 1
     # startDate = '01/01/2019'
     # endDate = '12/31/2019'
-    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` order by location_id, forecast_date'
+    sql_weather = f'select forecast_date, maxTempC, humidity, total_precip, avg_cloudcover, avg_windspeed, location_id ' \
+                    f'from `bikeshare-303620.TripsDataset.HistoricalWeather` order by location_id, forecast_date'
     weather_df = pd.read_gbq(sql_weather, project_id=gcp_project, credentials=credentials, dialect='standard')
     weather = weather_df.to_json(orient='records')
 
@@ -239,7 +243,8 @@ def api_weather_dates(startDate, endDate):
     endDate = datetime.strptime(endDate, "%Y%m%d")
     endDate = endDate.strftime("%Y-%m-%d")
 
-    sql_weather = f'select * from `bikeshare-303620.TripsDataset.HistoricalWeather` ' \
+    sql_weather = f'select forecast_date, maxTempC, humidity, total_precip, avg_cloudcover, avg_windspeed, location_id ' \
+                    f'from `bikeshare-303620.TripsDataset.HistoricalWeather` ' \
                     f'where extract(date from forecast_date) between "{startDate}" and "{endDate}" ' \
                     f'order by location_id, forecast_date'
     weather_df = pd.read_gbq(sql_weather, project_id=gcp_project, credentials=credentials, dialect='standard')
@@ -251,19 +256,19 @@ def api_weather_dates(startDate, endDate):
     return json_formatted_str
 
 @app.route("/api/citymap/<locationID>/<startStationID>")
-def api_citymap_loc(locationID, startStationID):
+def api_citymap_stn(locationID, startStationID):
 
     sql_rides = f'select extract(month from start_date) as startDate, ' \
-                    f'end_station_id, station_name, ' \
-                    f'count(end_station_id) as endCount ' \
+                    f'end_station_id, station_name, latitude, longitude,' \
+                    f'count(end_station_id) as trips_count ' \
                 f'from `bikeshare-303620.TripsDataset.Ridership` rides, ' \
                      f'`bikeshare-303620.TripsDataset.Stations` stations ' \
                 f'where ' \
                     f'stations.location_id = {locationID}  and ' \
                     f'rides.location_id = {locationID}  and ' \
                     f'start_station_id = {startStationID} and ' \
-                    f'rides.end_station_id = stations.station_id and ' \
-                f'group by startDate, end_station_id, station_name'
+                    f'rides.end_station_id = stations.station_id ' \
+                f'group by startDate, end_station_id, station_name, latitude, longitude'
 
     stations_df = pd.read_gbq(sql_rides, project_id=gcp_project, credentials=credentials, dialect='standard')
     stations_data = stations_df.to_json(orient='records')
@@ -273,7 +278,30 @@ def api_citymap_loc(locationID, startStationID):
 
     return json_formatted_str
 
-# get all stations for all cities
+@app.route("/api/citymap/<locationID>")
+def api_citymap_loc(locationID):
+
+    sql_rides = f'select extract(month from start_date) as startDate, ' \
+                    f'end_station_id, station_name, latitude, longitude,' \
+                    f'count(end_station_id) as trips_count ' \
+                f'from `bikeshare-303620.TripsDataset.Ridership` rides, ' \
+                     f'`bikeshare-303620.TripsDataset.Stations` stations ' \
+                f'where ' \
+                    f'stations.location_id = {locationID}  and ' \
+                    f'rides.location_id = {locationID}  and ' \
+                    f'rides.end_station_id = stations.station_id ' \
+                f'group by startDate, end_station_id, station_name, latitude, longitude'
+
+    stations_df = pd.read_gbq(sql_rides, project_id=gcp_project, credentials=credentials, dialect='standard')
+    stations_data = stations_df.to_json(orient='records')
+
+    json_loads=json.loads(stations_data)
+    json_formatted_str = json.dumps(json_loads, indent=2)
+
+    return json_formatted_str
+
+
+# get all end stations for all cities
 @app.route("/api/citymap")
 def api_citymap():
 
