@@ -7,6 +7,11 @@
   
   }
 
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   html,
   body,
   #map-id {
@@ -65,4 +70,10 @@
     font: small-caption;
     color: black;
    }
+
+   @media (min-width: 1405px) {
+    .container-fluid{
+      width: 1400px;
+    }
+  }
   
