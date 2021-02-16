@@ -1,5 +1,88 @@
 console.log("for pricing.html");
 
-d3.json('/api/pricing').then((data) => {
+//location api call
+function get_url() {
+    // get value for current city
+    var current_url = location.href;
+    var locationID = current_url.split('=')[1];
+    console.log(location.href);
+    console.log(locationID);
+
+    if (typeof locationID !== 'undefined') {
+        var url_pricing = '/api/pricing' + "/" + locationID;
+    }
+    else {
+        var url_pricing = '/api/pricing';
+    }
+
+    return url_pricing;
+}
+
+var url_pricing = get_url();
+
+// data from GCP
+d3.json(url_pricing).then((data) => {
     console.log(data);
-});
+    // build table
+    // variable declaration
+    var pricetable  = d3.select("#price-index");
+    // Clear exiting data
+    pricetable.html("");
+    // declare heading
+    pricetable = pricetable.append("div")
+                .attr("class", "card-deck")
+                .append("div")
+                .attr("class", "col-md-12")
+                .append("div")
+                .attr("class", "row")
+
+    //loop through for data
+    data.forEach((dataRow) => {
+         // call location id
+        var value = "";
+        // declare city name
+        var currentcity = dataRow.location_id;
+        var previouscity = "";
+        console.log(currentcity)
+        console.log(previouscity)
+
+        console.log(dataRow.location_id)
+        switch (dataRow.location_id) {
+            case 1:
+                value = 'Toronto';
+                break;
+            case 2:
+                value = 'Vancouver';
+                break;
+            case 3:
+                value = 'Boston';
+                break;
+            case 4:
+                value = 'New York City'
+                break;
+            default:
+                value = value;
+        }
+
+
+        // append divs
+        var cityname = pricetable.append("div")
+                        .attr('class', "col-md-3")
+                        .append("div")
+                        .attr("class","card-body")
+                        .append("h2")
+                        .text(value);
+                        
+        var row = cityname.append("div")
+                 .attr("class", "card")
+                 .attr("id", "card-1")
+                 .append("h3")
+                 .text(dataRow.plan)
+                 .append("h4")
+                 .text("$"+dataRow.amount);
+    })
+})
+
+//const toggler = document.querySelector(".toggler");
+//const annual = document.getElementById("Annual-Membership");
+//const casual = document.getElementById("Casual-Membership");
