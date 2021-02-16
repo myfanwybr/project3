@@ -10,17 +10,17 @@ function initPage() {
     
     if (cityname === "TORONTO") {
         locationID = 1;
-        blurbText = "Toronto is a metropolitan commuter city that adheres to various populations. It is a city that has a role in various fields such as business, finance, technology, entertainment, and culture.";
+        blurbText = "Toronto is a metropolitan commuter city that adheres to various populations. It is a city that has a role in various fields such as business, finance, technology, entertainment, and culture. <br> The higher or lower the temperature the least amount of ridership was recorded. Most prefer to ride when the temperature is in-between. The busiest time of day for bike usage is between 4-6pm [traffic hr.], especially at 6pm. The most popular destination is at York St/ Queensway W [Union Station].  ";
     } else if (cityname === "VANCOUVER") {
         locationID = 2;
-        blurbText = "Vancouver is a coastal seaport city in mainland British Columbia. It is a city that very scenic and attracts tourism due to the variety o offerings of outdoor sport and adventure.";
+        blurbText = "Vancouver is a coastal seaport city in mainland British Columbia. It is a city that very scenic and attracts tourism due to the variety of offerings of outdoor sport and adventure. <br> 17-21 degrees Celsius is optimal temperature where most prefer to ride the bikes. The busiest time of day for bike usage is between 3-6pm [traffic hr.], especially at 5pm. The most popular destination is at Stanley Park, both the information booth and totem poles stations are popular.";
     } else if (cityname === "BOSTON") {
         locationID = 3;
-        blurbText = "Boston is crucial city that is known to be the financial center of the United states of America and one of the founding cities of the country’s infrastructure.";
+        blurbText = "Boston is crucial city that is known to be the financial center of the United states of America and one of the founding cities of the country’s infrastructure. <br> At approximately 26 degrees Celsius is the optimal temperature for ridership, the colder the temperature the least amount of ridership is seen. There are 2 different time intervals that are popular. One is at around 8 am and the other is around 5pm. Both are the typical traffic time intervals for commuter. The bike usage is primarily active on the weekdays and the popular destination throughout is MIT Stata Center at Vassar St/ Main St and Central Square at Mass Ave/ Essex St.";
     } else if (cityname === "NYC") {
         locationID = 4;
         console.log(cityname);
-        blurbText = "New York City is one of the most diverse populated cities in the US that represents cultural and artistic diversity.";
+        blurbText = "New York City is one of the most diverse populated cities in the US that represents cultural and artistic diversity. <br> 36 degrees Celsius is the temperature at which we see the most ridership in NYC. Like Boston there are 2 different time intervals that are popular. One is at around 8 am and the other is around 5-6pm. Both are the typical traffic time intervals for commuter. The most popular destination in NYC is Perishing Square North, but the frequency of this destination decreases on the weekends. On the weekends the popular destination is Broadway & E 14 St.";
     };
 
     // var blurb = d3.select("#city-blurb");
