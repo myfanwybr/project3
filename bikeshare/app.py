@@ -14,17 +14,20 @@ bigquery_uri = f'bigquery://{gcp_project}/{bigquery_dataset}'
 
 app=Flask(__name__)
 
-# # the json credentials stored as env variable
-# json_str = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
+# the json credentials stored as env variable
+json_str = os.environ.get('GOOGLE_CREDENTIALS')
 
-# # generate json - if there are errors here remove newlines in .env
-# json_data = json.loads(json_str)
-# # the private_key needs to replace \n parsed as string literal with escaped newlines
-# json_data['private_key'] = json_data['private_key'].replace('\\n', '\n')
+# json_dict = {"type": os.enrion.get("GCP_TYPE"), 
+#             "project_id"}
 
-# # use service_account to generate credentials object
-# credentials = service_account.Credentials.from_service_account_info(json_data)
-credentials = service_account.Credentials.from_service_account_file('bikeshare.json')
+# generate json - if there are errors here remove newlines in .env
+json_data = json.loads(json_str)
+# the private_key needs to replace \n parsed as string literal with escaped newlines
+json_data['private_key'] = json_data['private_key'].replace('\\n', '\n')
+
+# use service_account to generate credentials object
+credentials = service_account.Credentials.from_service_account_info(json_data)
+# credentials = service_account.Credentials.from_service_account_file('bikeshare.json')
 
 ##front end routes
 @app.route("/")
