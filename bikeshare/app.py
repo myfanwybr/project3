@@ -17,18 +17,18 @@ app=Flask(__name__)
 # the json credentials stored as env variable
 #json_str = os.environ.get('GOOGLE_CREDENTIALS')
 
-json_data = {
-  "type": "service_account",
-  "project_id": os.environ.get("PROJECT_ID"),
-  "private_key_id": os.environ.get("PRIVATE_KEY_ID"),
-  "private_key": os.environ.get("PRIVATE_KEY"),
-  "client_email": os.environ.get("CLIENT_EMAIL"),
-  "client_id": os.environ.get("CLIENT_ID"),
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": os.environ.get("CLIENT_CERT")
-}
+#json_data = {
+  #"type": "service_account",
+  #"project_id": os.environ.get("PROJECT_ID"),
+  #"private_key_id": os.environ.get("PRIVATE_KEY_ID"),
+  #"private_key": os.environ.get("PRIVATE_KEY"),
+  #"client_email": os.environ.get("CLIENT_EMAIL"),
+  #"client_id": os.environ.get("CLIENT_ID"),
+  #"auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  #"token_uri": "https://oauth2.googleapis.com/token",
+  #"auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  #"client_x509_cert_url": os.environ.get("CLIENT_CERT")
+#}
 
 
 # generate json - if there are errors here remove newlines in .env
@@ -39,8 +39,8 @@ json_data = {
 
 
 # use service_account to generate credentials object
-credentials = service_account.Credentials.from_service_account_file(json_data)
-#credentials = service_account.Credentials.from_service_account_file('bikeshare.json')
+#credentials = service_account.Credentials.from_service_account_file(json_data)
+credentials = service_account.Credentials.from_service_account_file('bikeshare.json')
 
 ##front end routes
 @app.route("/")
