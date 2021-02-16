@@ -85,6 +85,20 @@ def api_pricing():
 
     return json_formatted_str
 
+@app.route("/api/pricing/<locationID>")
+def api_pricing_loc(locationID):
+
+    sql_prices= f'select location_id, member_type, plan, amount from `bikeshare-303620.TripsDataset.Pricing` '\
+                f'where location_id = {locationID}'
+    pricing_df = pd.read_gbq(sql_prices, project_id=gcp_project, credentials=credentials, dialect='standard')
+    # print(pricing_df)
+
+    json_obj = pricing_df.to_json(orient = 'records')
+    json_loads=json.loads(json_obj)
+    json_formatted_str = json.dumps(json_loads, indent=2)
+
+    return json_formatted_str
+
 
 @app.route("/api/visualize/destinations/<cityID>/<startDate>/<endDate>")
 def api_visualize_stops(cityID, startDate, endDate):
