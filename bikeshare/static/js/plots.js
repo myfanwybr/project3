@@ -20,7 +20,7 @@ function initPage() {
     } else if (cityname === "NYC") {
         locationID = 4;
         console.log(cityname);
-        blurbText = "New York City is one of the most diverse populated cities in the US that represents cultural and artistic diversity. 36 degrees Celsius is the temperature at which we see the most ridership in NYC. Like Boston there are 2 different time intervals that are popular. One is at around 8 am and the other is around 5-6pm. Both are the typical traffic time intervals for commuter. The most popular destination in NYC is Perishing Square North, but the frequency of this destination decreases on the weekends. On the weekends the popular destination is Broadway & E 14 St.";
+        blurbText = "New York City is one of the most diverse populated cities in the US that represents cultural and artistic diversity. 36 degrees Celsius is the temperature at which we see the most ridership in NYC. Like Boston there are 2 different time intervals that are popular. One is at around 8 am and the other is around 5-6pm. Both are the typical traffic time intervals for commuter. The most popular destination in NYC is Pershing Square North, but the frequency of this destination decreases on the weekends. On the weekends the popular destination is Broadway & E 14 St.";
     };
 
     // var blurb = d3.select("#city-blurb");
