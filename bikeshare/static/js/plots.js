@@ -10,17 +10,17 @@ function initPage() {
     
     if (cityname === "TORONTO") {
         locationID = 1;
-        blurbText = "Generally, the most popular station in Toronto is at station number 7076 located at York St/Queensway W. It is interesting to note that, for annual members, this location is the popular destination for bike users starting from the Sherbourne / Wellesley station while for casual users, the union station and this York St/Queensway W station is the most popular starting point and end point.";
+        blurbText = "Toronto is a metropolitan commuter city that adheres to various populations. It is a city that has a role in various fields such as business, finance, technology, entertainment, and culture.";
     } else if (cityname === "VANCOUVER") {
         locationID = 2;
-        blurbText = "say something about vancouver";
+        blurbText = "Vancouver is a coastal seaport city in mainland British Columbia. It is a city that very scenic and attracts tourism due to the variety o offerings of outdoor sport and adventure.";
     } else if (cityname === "BOSTON") {
         locationID = 3;
-        blurbText = "GENERALLY,  the most bike share usage in Boston occurs during the work week. Ridership drops significantly on the weekends. Destinations Central Station and MIT remain constant throughout the week.";
+        blurbText = "Boston is crucial city that is known to be the financial center of the United states of America and one of the founding cities of the country’s infrastructure.";
     } else if (cityname === "NYC") {
         locationID = 4;
         console.log(cityname);
-        blurbText = "In New York City, the most popular destination is Pershing Square North, but drops significantly on the weekends. Ridership is higher during the work week. The busiest times of the day are in the morning between 8am-9am and in the evening from 5pm to 7pm.";
+        blurbText = "New York City is one of the most diverse populated cities in the US that represents cultural and artistic diversity.";
     };
 
     // var blurb = d3.select("#city-blurb");
