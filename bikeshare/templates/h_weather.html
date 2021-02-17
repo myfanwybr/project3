@@ -28,13 +28,13 @@
                     Plot Analyses
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <form method="POST" action="/plots" >
-                        <input type="submit" value="TORONTO" name="submit-button" class="btn btn-link btn-block">
-                        <input type="submit" value="VANCOUVER" name="submit-button" class="btn btn-link btn-block">
-                        <input type="submit" value="BOSTON" name="submit-button" class="btn btn-link btn-block">
-                        <input type="submit" value="NYC" name="submit-button" class="btn btn-link btn-block">
-                    </form>
-                </div>
+                  <form method="POST" action="/plots" >
+                      <input type="submit" value="TORONTO" name="submit-button" class="btn btn-link btn-block">
+                      <input type="submit" value="VANCOUVER" name="submit-button" class="btn btn-link btn-block">
+                      <input type="submit" value="BOSTON" name="submit-button" class="btn btn-link btn-block">
+                      <input type="submit" value="NYC" name="submit-button" class="btn btn-link btn-block">
+                  </form>
+              </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/weather">Historical Weather</a>
@@ -42,14 +42,16 @@
             <li class="nav-item">
                 <a class="nav-link" href="/pricing">Pricing</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/citymap">Interactive Map</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Interactive Map
+                </a>
             </li>
         </ul>
     </div>
-  </nav> 
-  <!-- end of navbar-->
- 
+</nav> 
+ <!-- end of navbar-->
+   
     <div class="container"style="text-align: center;">
 
           <div class="container-fluid pt-3 my-3 bg-secondary text-white">
@@ -93,6 +95,8 @@
                   <th class="table-head">Location</th>
                   <th class="table-head">Max Temperature C</th>
                   <th class="table-head">Total Precipitation</th>
+
+
               </thead>
               <tbody></tbody>
             </table>
