@@ -25,8 +25,12 @@ function init() {
       ID = data[i].station_id;
       dropdown.append("option").text(name).property("value", ID);
   }
-});
-}
+  var initID = dropdown.property("value");
+  console.log(initID);
+  CreateMarkers(initID);
+})
+};
+
 
 // // function to display data with the selected dropdown menu item
 function optionChanged(ID) {
@@ -54,7 +58,7 @@ function CreateMarkers(ID){
         long=data[i].longitude
   
         var bikeMarker = L.marker([lat, long])
-        .bindPopup("<h6>" + station_name + "<h6><hr><h6>Trips in a year: " + people_count + "</h6>");
+        .bindPopup("<h6> End station: " + station_name + "<h6><hr><h6>Trips in a year: " + people_count + "</h6>");
   
         // Add the marker to the bikeMarkers array
         bikeMarkers.push(bikeMarker);
@@ -104,16 +108,16 @@ var center_center = [54.5260, -99.9018];
 
 if (locationID == 1) {
  var center1 = center_toronto;
- var zoomx = 12;
+ var zoomx = 13;
 } else if (locationID == 2) {
  var center1 = center_vancouver;
- var zoomx = 12;
+ var zoomx = 13;
 } else if (locationID == 3) {
  var center1 = center_boston;
- var zoomx = 12;
+ var zoomx = 13;
 } else if (locationID == 4) {
  var center1 = center_newyork;
- var zoomx = 12;
+ var zoomx = 13;
 }
 else {
  var center1 = center_center;
