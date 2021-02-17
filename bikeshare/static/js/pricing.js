@@ -80,7 +80,3 @@ d3.json(url_pricing).then((data) => {
                  .text("$"+dataRow.amount);
     })
 })
-
-//const toggler = document.querySelector(".toggler");
-//const annual = document.getElementById("Annual-Membership");
-//const casual = document.getElementById("Casual-Membership");
