@@ -7,11 +7,32 @@ if (typeof locationID !== 'undefined') {
     var url_map = '/api/citymap' + "/" + locationID
     console.log(url_stations);
     console.log(url_map);
-
+    init();
 }
 else {
     var url_stations = '/api/stations'
     var url_map = '/api/citymap'
+
+    d3.json(url_stations).then((data) => {
+    
+      // Initialize an array to hold bike markers
+      var bikeMarkers = [];
+  
+      // For each station, create a marker and bind a popup with the station's name
+      for(var i =0; i<data.length; i++){
+  
+          station_name=data[i].station_name
+          lat=data[i].latitude
+          long=data[i].longitude
+  
+          var bikeMarker = L.marker([lat, long])
+          .bindPopup("<h6>" + station_name + "</h6>");
+  
+          // Add the marker to the bikeMarkers array
+          bikeMarkers.push(bikeMarker);
+      }
+      createMap(L.layerGroup(bikeMarkers));
+  }); 
 }
 
 console.log(locationID)
@@ -32,7 +53,7 @@ function init() {
 };
 
 
-// // function to display data with the selected dropdown menu item
+// function to display data with the selected dropdown menu item
 function optionChanged(ID) {
   console.log(ID);
   CreateMarkers(ID);
@@ -121,13 +142,16 @@ if (locationID == 1) {
 }
 else {
  var center1 = center_center;
- var zoomx = 4;
+ var zoomx = 4.5;
 }
 
 // Before initializing map check for is the map is already initiated or not
 var container = L.DomUtil.get('map-id');
 if(container != null){
 container._leaflet_id = null;
+}
+else{
+  container._leaflet_id != null;
 }
 
 // Create our map, giving it the streetmap and bikestation layers to display on load
@@ -144,5 +168,3 @@ L.control.layers(baseMaps, overlayMaps, {
   collapsed: false
 }).addTo(myMap);
 }
-
-init();
