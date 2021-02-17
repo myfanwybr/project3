@@ -11,11 +11,11 @@ gcp_project = "bikeshare-303620"
 bigquery_dataset = "TripsDataset"
 bigquery_uri = f'bigquery://{gcp_project}/{bigquery_dataset}'
 
-
 app=Flask(__name__)
 
 # the json credentials stored as env variable
 #json_str = os.environ.get('GOOGLE_CREDENTIALS')
+# comment out from here
 
 json_data = {
   "type": "service_account",
@@ -29,18 +29,18 @@ json_data = {
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
   "client_x509_cert_url": os.environ.get("CLIENT_CERT")
 }
-
+#  end comment part
 
 # generate json - if there are errors here remove newlines in .env
 #json_data = json.loads(json_str)
 # the private_key needs to replace \n parsed as string literal with escaped newlines
 #json_data['private_key'] = json_data['private_key'].replace('\\n', '\n')
-
-
+with open('bikeshare.json', 'w')  as f: 
+    json.dump(json_data, f)
 
 # use service_account to generate credentials object
-#credentials = service_account.Credentials.from_service_account_file(json_data)
-credentials = service_account.Credentials.from_service_account_info(json_data)
+credentials = service_account.Credentials.from_service_account_file('bikeshare.json')
+# credentials = service_account.Credentials.from_service_account_info(json_data)
 
 ##front end routes
 @app.route("/")
