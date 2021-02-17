@@ -381,6 +381,17 @@ def api_stations():
 
     return json_formatted_str
 
+@app.route("/api/locations")
+def api_locations():
+    sql_stations = f'select * from `bikeshare-303620.TripsDataset.Locations` ' 
+    stations_df = pd.read_gbq(sql_stations, project_id=gcp_project, credentials=credentials, dialect='standard')
+    stations_data = stations_df.to_json(orient='records')
+
+    json_loads=json.loads(stations_data)
+    json_formatted_str = json.dumps(json_loads, indent=2)
+
+    return json_formatted_str
+
 #run app
 if __name__=="__main__":
     app.run(debug=True)
