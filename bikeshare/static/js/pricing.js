@@ -68,7 +68,7 @@ d3.json(url_pricing).then((data) => {
                         .attr('class', colmd)
                         .append("div")
                         .attr("class","card-body")
-                        .append("h6")
+                        .append("h3")
                         .text(value);
                         
         var row = cityname.append("div")
