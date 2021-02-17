@@ -26,17 +26,12 @@ function init() {
       dropdown.append("option").text(name).property("value", ID);
   }
 });
-var dropdown1 = d3.select("#selDataset");
-var init_ID1 = dropdown1.property("value");
-console.log(init_ID1);
-CreateMarkers[init_ID1];
 }
 
 // // function to display data with the selected dropdown menu item
 function optionChanged(ID) {
   console.log(ID);
   CreateMarkers(ID);
-  clearMarkers();
 }
 
 // Function to create markers on a map
@@ -123,6 +118,12 @@ if (locationID == 1) {
 else {
  var center1 = center_center;
  var zoomx = 4;
+}
+
+// Before initializing map check for is the map is already initiated or not
+var container = L.DomUtil.get('map-id');
+if(container != null){
+container._leaflet_id = null;
 }
 
 // Create our map, giving it the streetmap and bikestation layers to display on load
