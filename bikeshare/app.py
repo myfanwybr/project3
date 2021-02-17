@@ -11,36 +11,36 @@ gcp_project = "bikeshare-303620"
 bigquery_dataset = "TripsDataset"
 bigquery_uri = f'bigquery://{gcp_project}/{bigquery_dataset}'
 
-
 app=Flask(__name__)
 
 # the json credentials stored as env variable
 #json_str = os.environ.get('GOOGLE_CREDENTIALS')
+# comment out from here
 
-#json_data = {
-  #"type": "service_account",
-  #"project_id": os.environ.get("PROJECT_ID"),
-  #"private_key_id": os.environ.get("PRIVATE_KEY_ID"),
-  #"private_key": os.environ.get("PRIVATE_KEY"),
-  #"client_email": os.environ.get("CLIENT_EMAIL"),
-  #"client_id": os.environ.get("CLIENT_ID"),
-  #"auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  #"token_uri": "https://oauth2.googleapis.com/token",
-  #"auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  #"client_x509_cert_url": os.environ.get("CLIENT_CERT")
-#}
-
-
+json_data = {
+  "type": "service_account",
+  "project_id": os.environ.get("PROJECT_ID"),
+  "private_key_id": os.environ.get("PRIVATE_KEY_ID"),
+  "private_key": os.environ.get("PRIVATE_KEY").replace('\\n', '\n'),
+  "client_email": os.environ.get("CLIENT_EMAIL"),
+  "client_id": os.environ.get("CLIENT_ID"),
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": os.environ.get("CLIENT_CERT")
+}
+#  end comment part
+print(json_data)
 # generate json - if there are errors here remove newlines in .env
 #json_data = json.loads(json_str)
 # the private_key needs to replace \n parsed as string literal with escaped newlines
 #json_data['private_key'] = json_data['private_key'].replace('\\n', '\n')
-
-
+with open('bikeshare.json', 'w')  as f: 
+    json.dump(json_data, f)
 
 # use service_account to generate credentials object
-#credentials = service_account.Credentials.from_service_account_file(json_data)
 credentials = service_account.Credentials.from_service_account_file('bikeshare.json')
+# credentials = service_account.Credentials.from_service_account_info(json_data)
 
 ##front end routes
 @app.route("/")
@@ -373,6 +373,17 @@ def api_stations():
 
     sql_stations = f'select * from `bikeshare-303620.TripsDataset.Stations` ' 
     print(sql_stations)
+    stations_df = pd.read_gbq(sql_stations, project_id=gcp_project, credentials=credentials, dialect='standard')
+    stations_data = stations_df.to_json(orient='records')
+
+    json_loads=json.loads(stations_data)
+    json_formatted_str = json.dumps(json_loads, indent=2)
+
+    return json_formatted_str
+
+@app.route("/api/locations")
+def api_locations():
+    sql_stations = f'select * from `bikeshare-303620.TripsDataset.Locations` ' 
     stations_df = pd.read_gbq(sql_stations, project_id=gcp_project, credentials=credentials, dialect='standard')
     stations_data = stations_df.to_json(orient='records')
 

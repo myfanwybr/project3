@@ -34,43 +34,41 @@ d3.json(url_pricing).then((data) => {
                 .append("div")
                 .attr("class", "col-md-12")
                 .append("div")
-                .attr("class", "row")
+                .attr("class", "row");
 
     //loop through for data
     data.forEach((dataRow) => {
-         // call location id
+                
         var value = "";
-        // declare city name
-        var currentcity = dataRow.location_id;
-        var previouscity = "";
-        console.log(currentcity)
-        console.log(previouscity)
-
+        var colmd = "";
         console.log(dataRow.location_id)
         switch (dataRow.location_id) {
             case 1:
                 value = 'Toronto';
+                colmd = "col-md-3";
                 break;
             case 2:
                 value = 'Vancouver';
+                colmd = "col-md-3";
                 break;
             case 3:
                 value = 'Boston';
+                colmd = "col-md-4";
                 break;
             case 4:
                 value = 'New York City'
+                colmd = "col-md-4";
                 break;
             default:
                 value = value;
         }
 
-
         // append divs
         var cityname = pricetable.append("div")
-                        .attr('class', "col-md-3")
+                        .attr('class', colmd)
                         .append("div")
                         .attr("class","card-body")
-                        .append("h2")
+                        .append("h3")
                         .text(value);
                         
         var row = cityname.append("div")

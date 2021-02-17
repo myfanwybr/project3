@@ -2,7 +2,25 @@ console.log("this is for the home page");
 var startDate = "20190101";
 var endDate = "20191231";
 var locationID = 1;
+var option=d3.select("option")
+var select=d3.select("select")
 
+
+//load button on page load
+window.addEventListener("load", buildButton);
+
+//Build drop down of ID's
+function buildButton(){
+    option.html("")
+    d3.json("/api/locations").then(data=>{
+        console.log(data)
+
+        Object.entries(data).forEach(function([key, value]){
+                var row=select.append("option")
+                row.text(value.city)
+    })}) };
+
+  
 createTopFive(locationID, startDate, endDate );
 
 function createTopFive(locationID, startDate, endDate) {
@@ -11,6 +29,8 @@ function createTopFive(locationID, startDate, endDate) {
     console.log(url_stops);
     // console.log(url_stops);    
     
+  
+
     d3.json(url_stops).then((stops) => {
         // console.log(stops);
     
