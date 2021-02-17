@@ -21,7 +21,7 @@ json_data = {
   "type": "service_account",
   "project_id": os.environ.get("PROJECT_ID"),
   "private_key_id": os.environ.get("PRIVATE_KEY_ID"),
-  "private_key": os.environ.get("PRIVATE_KEY"),
+  "private_key": os.environ.get("PRIVATE_KEY").replace('\\n', '\n'),
   "client_email": os.environ.get("CLIENT_EMAIL"),
   "client_id": os.environ.get("CLIENT_ID"),
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
@@ -30,7 +30,7 @@ json_data = {
   "client_x509_cert_url": os.environ.get("CLIENT_CERT")
 }
 #  end comment part
-
+print(json_data)
 # generate json - if there are errors here remove newlines in .env
 #json_data = json.loads(json_str)
 # the private_key needs to replace \n parsed as string literal with escaped newlines
