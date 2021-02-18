@@ -122,7 +122,7 @@ var overlayMaps = {
 
 var center_toronto = [43.645609, -79.380386];
 var center_boston = [42.361145, -71.057083];
-var center_vancouver = [49.24966 -123.11934];
+var center_vancouver = [49.24966, -123.11934];
 var center_newyork = [40.730610, -73.935242];
 var center_center = [54.5260, -99.9018];
 
