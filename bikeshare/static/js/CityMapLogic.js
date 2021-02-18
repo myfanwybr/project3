@@ -2,16 +2,30 @@
 var current_url = location.href;
 var locationID = current_url.split('=')[1];
 
+console.log(locationID);
+
 if (typeof locationID !== 'undefined') {
-    var url_stations = '/api/stations' + "/" + locationID
-    var url_map = '/api/citymap' + "/" + locationID
-    console.log(url_stations);
-    console.log(url_map);
-    init();
+  var url_stations = '/api/stations' + "/" + locationID
+  var url_map = '/api/citymap' + "/" + locationID
+  console.log(url_stations);
+  console.log(url_map);
+
+  // visible dropdown
+  var containerdiv = document.getElementById("dropdown-container");
+  console.log(containerdiv.style.visibility);
+  containerdiv.style.visibility = 'visible';
+  
+
+  init();
 }
 else {
     var url_stations = '/api/stations'
     var url_map = '/api/citymap'
+
+    // hide dropdown
+    var containerdiv = document.getElementById("dropdown-container");
+    console.log(containerdiv.style.visibility);
+    containerdiv.style.visibility = 'hidden';
 
     d3.json(url_stations).then((data) => {
     
@@ -35,23 +49,21 @@ else {
   }); 
 }
 
-console.log(locationID)
-
 //function to populate dropdown with the start station names
 function init() {
   var dropdown = d3.select("#selDataset");
+  console.log(dropdown);
   d3.json(url_stations).then((data) => {
     for(var i =0; i<data.length; i++){
-      name = data[i].station_name;
+      stationname = data[i].station_name;
       ID = data[i].station_id;
-      dropdown.append("option").text(name).property("value", ID);
+      dropdown.append("option").text(stationname).property("value", ID);
   }
-  var initID = dropdown.property("value");
-  console.log(initID);
-  CreateMarkers(initID);
-})
+    var initID = dropdown.property("value");
+    console.log(initID);
+    CreateMarkers(initID);
+  })
 };
-
 
 // function to display data with the selected dropdown menu item
 function optionChanged(ID) {
@@ -77,6 +89,7 @@ function CreateMarkers(ID){
         people_count = data[i].trips_count
         lat=data[i].latitude
         long=data[i].longitude
+        console.log(people_count);
   
         var bikeMarker = L.marker([lat, long])
         .bindPopup("<h6> Destination: " + station_name + "<h6><hr><h6>Count: " + people_count + "</h6>");

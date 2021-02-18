@@ -72,6 +72,7 @@ def stations():
 
 
 ##service routes
+#  ============ PRICING =================
 @app.route("/api/pricing")
 def api_pricing():
 
@@ -99,7 +100,7 @@ def api_pricing_loc(locationID):
 
     return json_formatted_str
 
-
+#  ============ VISUALIZE =================
 @app.route("/api/visualize/destinations/<cityID>/<startDate>/<endDate>")
 def api_visualize_stops(cityID, startDate, endDate):
     
@@ -285,10 +286,11 @@ def api_weather_dates(startDate, endDate):
 
     return json_formatted_str
 
+#  ============ CITY MAP =================
 @app.route("/api/citymap/<locationID>/<startStationID>")
 def api_citymap_stn(locationID, startStationID):
 
-    sql_rides = f'select extract(month from start_date) as startDate, ' \
+    sql_rides = f'select ' \
                     f'end_station_id, station_name, latitude, longitude,' \
                     f'count(end_station_id) as trips_count ' \
                 f'from `bikeshare-303620.TripsDataset.Ridership` rides, ' \
@@ -298,7 +300,8 @@ def api_citymap_stn(locationID, startStationID):
                     f'rides.location_id = {locationID}  and ' \
                     f'start_station_id = {startStationID} and ' \
                     f'rides.end_station_id = stations.station_id ' \
-                f'group by startDate, end_station_id, station_name, latitude, longitude'
+                f'group by end_station_id, station_name, latitude, longitude ' \
+                f'order by trips_count desc limit 100'
 
     stations_df = pd.read_gbq(sql_rides, project_id=gcp_project, credentials=credentials, dialect='standard')
     stations_data = stations_df.to_json(orient='records')
@@ -311,7 +314,7 @@ def api_citymap_stn(locationID, startStationID):
 @app.route("/api/citymap/<locationID>")
 def api_citymap_loc(locationID):
 
-    sql_rides = f'select extract(month from start_date) as startDate, ' \
+    sql_rides = f'select ' \
                     f'end_station_id, station_name, latitude, longitude,' \
                     f'count(end_station_id) as trips_count ' \
                 f'from `bikeshare-303620.TripsDataset.Ridership` rides, ' \
@@ -320,7 +323,7 @@ def api_citymap_loc(locationID):
                     f'stations.location_id = {locationID}  and ' \
                     f'rides.location_id = {locationID}  and ' \
                     f'rides.end_station_id = stations.station_id ' \
-                f'group by startDate, end_station_id, station_name, latitude, longitude ' \
+                f'group by end_station_id, station_name, latitude, longitude ' \
                 f'order by trips_count desc limit 100'
 
     stations_df = pd.read_gbq(sql_rides, project_id=gcp_project, credentials=credentials, dialect='standard')
@@ -331,12 +334,11 @@ def api_citymap_loc(locationID):
 
     return json_formatted_str
 
-
 # get all end stations for all cities
 @app.route("/api/citymap")
 def api_citymap():
 
-    sql_rides = f'select extract(month from start_date) as startDate, ' \
+    sql_rides = f'select ' \
                     f'end_station_id, station_name, ' \
                     f'count(end_station_id) as trips_count ' \
                 f'from `bikeshare-303620.TripsDataset.Ridership` rides, ' \
@@ -344,7 +346,8 @@ def api_citymap():
                 f'where ' \
                     f'rides.location_id = stations.location_id and ' \
                     f'rides.end_station_id = stations.station_id ' \
-                f'group by startDate, end_station_id, station_name'
+                f'group by end_station_id, station_name ' \
+                f'order by trips_count desc limit 100'
 
     stations_df = pd.read_gbq(sql_rides, project_id=gcp_project, credentials=credentials, dialect='standard')
     stations_data = stations_df.to_json(orient='records')
@@ -354,7 +357,7 @@ def api_citymap():
 
     return json_formatted_str
 
-
+#  ============ STATIONS =================
 @app.route("/api/stations/<locationID>")
 def api_stations_loc(locationID):
 
@@ -382,6 +385,7 @@ def api_stations():
 
     return json_formatted_str
 
+#  ============ LOCATIONS =================
 @app.route("/api/locations")
 def api_locations():
     sql_stations = f'select * from `bikeshare-303620.TripsDataset.Locations` ' 
