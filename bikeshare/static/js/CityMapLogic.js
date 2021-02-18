@@ -79,7 +79,7 @@ function CreateMarkers(ID){
         long=data[i].longitude
   
         var bikeMarker = L.marker([lat, long])
-        .bindPopup("<h6> End station: " + station_name + "<h6><hr><h6>Trips in a year: " + people_count + "</h6>");
+        .bindPopup("<h6> Destination: " + station_name + "<h6><hr><h6>Count: " + people_count + "</h6>");
   
         // Add the marker to the bikeMarkers array
         bikeMarkers.push(bikeMarker);
