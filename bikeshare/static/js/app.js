@@ -24,7 +24,12 @@ function buildButton(){
         Object.entries(data).forEach(function([key, value]){
                 var row=select.append("option")
                 row.text(value.city).property("value", value.location_id)
-            })})
+            })
+        var dropdownMenuValue=d3.select("#selDataset").node().value;
+        console.log(dropdownMenuValue)
+        createTopFive(dropdownMenuValue, startDate, endDate );
+        buildAnalysis();
+        })
         };
 
 //Handle change of city
