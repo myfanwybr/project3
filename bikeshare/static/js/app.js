@@ -5,21 +5,36 @@ var locationID = 1;
 var option=d3.select("option")
 var select=d3.select("select")
 
+var tableData=data
+
+console.log(tableData)
+
 
 //load button on page load
 window.addEventListener("load", buildButton);
 
-//Build drop down of ID's
+//add event listener for change
+d3.select("#selDataset").on('change', handleChange)
+
+//Build drop down of city
 function buildButton(){
     option.html("")
     d3.json("/api/locations").then(data=>{
         console.log(data)
-
         Object.entries(data).forEach(function([key, value]){
                 var row=select.append("option")
                 row.text(value.city)
     })}) };
 
+//Handle change of city
+    function handleChange(){
+        createTopFive
+    }
+//build fun facts analysis
+function builtAnalysis(){
+    var dropdownMenuValue=d3.selectAll("#selDataset").node().value;
+
+}
   
 createTopFive(locationID, startDate, endDate );
 
