@@ -320,7 +320,8 @@ def api_citymap_loc(locationID):
                     f'stations.location_id = {locationID}  and ' \
                     f'rides.location_id = {locationID}  and ' \
                     f'rides.end_station_id = stations.station_id ' \
-                f'group by startDate, end_station_id, station_name, latitude, longitude'
+                f'group by startDate, end_station_id, station_name, latitude, longitude ' \
+                f'order by trips_count desc limit 100'
 
     stations_df = pd.read_gbq(sql_rides, project_id=gcp_project, credentials=credentials, dialect='standard')
     stations_data = stations_df.to_json(orient='records')
