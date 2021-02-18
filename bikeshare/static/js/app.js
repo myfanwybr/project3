@@ -1,42 +1,59 @@
-console.log("this is for the home page");
+//make Toronto default
+//filter locationID
+
 var startDate = "20190101";
 var endDate = "20191231";
 var locationID = 1;
 var option=d3.select("option")
 var select=d3.select("select")
-
-var tableData=data
-
-console.log(tableData)
-
+d3.csv("../static/js/data.csv").then(test=>
+    {console.log(test)})
 
 //load button on page load
 window.addEventListener("load", buildButton);
 
-//add event listener for change
+//add event listener for #change
 d3.select("#selDataset").on('change', handleChange)
 
-//Build drop down of city
+//Build dropdown of cities
 function buildButton(){
     option.html("")
     d3.json("/api/locations").then(data=>{
         console.log(data)
         Object.entries(data).forEach(function([key, value]){
                 var row=select.append("option")
-                row.text(value.city)
-    })}) };
+                row.text(value.city).property("value", value.location_id)
+            })}) };
 
 //Handle change of city
     function handleChange(){
-        createTopFive
+        var dropdownMenuValue=d3.selectAll("#selDataset").node().value;
+        console.log(dropdownMenuValue)
+        createTopFive(dropdownMenuValue, startDate, endDate );
+        buildAnalysis();
     }
-//build fun facts analysis
-function builtAnalysis(){
-    var dropdownMenuValue=d3.selectAll("#selDataset").node().value;
 
+//build fun facts analysis
+
+function buildAnalysis(){
+    var li=d3.select("#analysis")
+    // append
+    var dropdownMenuValue=d3.selectAll("#selDataset").node().value;
+    d3.csv("../static/js/data.csv").then(test=>{
+        console.log(test)
+        var filteredData=test.filter(row=>row.cityID==dropdownMenuValue)[0]
+        console.log(filteredData.intro)
+
+        intro=filteredData.intro
+        var p=d3.select("#fun-facts")
+        p.text(intro)
+
+       analysis=filteredData.analysis
+       li.text(analysis)
+        
+     })
 }
   
-createTopFive(locationID, startDate, endDate );
 
 function createTopFive(locationID, startDate, endDate) {
     // top 5 destination
