@@ -18,12 +18,14 @@ d3.select("#selDataset").on('change', handleChange)
 //Build dropdown of cities
 function buildButton(){
     option.html("")
+
     d3.json("/api/locations").then(data=>{
         console.log(data)
         Object.entries(data).forEach(function([key, value]){
                 var row=select.append("option")
                 row.text(value.city).property("value", value.location_id)
-            })}) };
+            })})
+        };
 
 //Handle change of city
     function handleChange(){
