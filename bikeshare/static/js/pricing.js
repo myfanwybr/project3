@@ -67,16 +67,16 @@ d3.json(url_pricing).then((data) => {
         var cityname = pricetable.append("div")
                         .attr('class', colmd)
                         .append("div")
-                        .attr("class","card-body")
+                        .attr("class","card-header")
                         .append("h3")
                         .text(value);
                         
         var row = cityname.append("div")
-                 .attr("class", "card")
+                 .attr("class", "card-body")
                  .attr("id", "card-1")
-                 .append("h3")
+                 .append("h5")
                  .text(dataRow.plan)
-                 .append("h4")
+                 .append("h3")
                  .text("$"+dataRow.amount);
     })
 })
