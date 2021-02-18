@@ -34,7 +34,8 @@ d3.json(url_pricing).then((data) => {
                 .append("div")
                 .attr("class", "col-md-12")
                 .append("div")
-                .attr("class", "row");
+                .attr("class", "row")
+                .append("br");
 
     //loop through for data
     data.forEach((dataRow) => {
